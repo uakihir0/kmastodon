@@ -6,20 +6,16 @@ import mastodon4j.entity.Notification
 import mastodon4j.entity.Subscription
 import mastodon4j.entity.share.Response
 
-/**
- * @author hecateball
- */
 interface NotificationsResource {
+
     /**
      * Fetching a user's notifications.
-     *
-     * @return a list of Notifications for the authenticated user
      */
-    fun getNotifications(
+    fun notifications(
+        id: Long?
         range: Range?,
         types: List<String?>?,
         excludeTypes: List<String?>?,
-        id: Long?
     ): Response<Array<Notification?>?>?
 
     /**

@@ -13,7 +13,7 @@ class Node {
     var software: Software? = null
 
     @SerializedName("protocols")
-    var protocols: List<String>? = null
+    var protocols: AccountList<String>? = null
 
     @SerializedName("openRegistrations")
     var openRegistrations: Boolean? = null

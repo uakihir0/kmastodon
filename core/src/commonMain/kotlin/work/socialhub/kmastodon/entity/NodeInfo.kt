@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
  */
 class NodeInfo {
     @SerializedName("links")
-    var links: List<Links>? = null
+    var links: AccountList<Links>? = null
 
     class Links {
         @SerializedName("href")

@@ -1,81 +1,76 @@
 package work.socialhub.kmastodon.api
 
-import mastodon4j.entity.Account
-import mastodon4j.entity.share.Response
+import work.socialhub.kmastodon.api.request.lists.ListsAddAccountsToListRequest
+import work.socialhub.kmastodon.api.request.lists.ListsCreateListRequest
+import work.socialhub.kmastodon.api.request.lists.ListsDeleteAccountsToListRequest
+import work.socialhub.kmastodon.api.request.lists.ListsDeleteListRequest
+import work.socialhub.kmastodon.api.request.lists.ListsListAccountsRequest
+import work.socialhub.kmastodon.api.request.lists.ListsListRequest
+import work.socialhub.kmastodon.api.request.lists.ListsListsRequest
+import work.socialhub.kmastodon.api.request.lists.ListsUpdateListRequest
+import work.socialhub.kmastodon.api.response.Response
+import work.socialhub.kmastodon.api.response.ResponseUnit
+import work.socialhub.kmastodon.api.response.lists.ListsCreateListResponse
+import work.socialhub.kmastodon.api.response.lists.ListsListAccountsResponse
+import work.socialhub.kmastodon.api.response.lists.ListsListResponse
+import work.socialhub.kmastodon.api.response.lists.ListsListsResponse
+import work.socialhub.kmastodon.api.response.lists.ListsUpdateListResponse
 
-/**
- * @author uakihir0
- */
 interface ListsResource {
-    /**
-     * Fetching a user's lists.
-     *
-     * @return an array of Lists created by the authenticated user
-     */
-    val lists: Response<Array<List?>?>?
 
     /**
      * Fetching the user's lists that a given account is part of.
-     *
-     * @param id the account's id
-     * @return an array of Lists created by the target user
      */
-    fun getLists(id: String?): Response<Array<List?>?>?
+    fun lists(
+        request: ListsListsRequest
+    ): Response<Array<ListsListsResponse>>
 
     /**
      * Fetching accounts that are in a given list.
-     *
-     * @param id    the target list's id
-     * @param limit maximum number of results. (default: 40)
-     * @return an array of Accounts that are in a specified list.
      */
-    fun getListAccounts(id: String?, limit: Long?): Response<Array<Account?>?>?
+    fun listAccounts(
+        request: ListsListAccountsRequest
+    ): Response<Array<ListsListAccountsResponse>>
 
     /**
      * Fetching list.
-     *
-     * @param id the target list's id
-     * @return a specified list.
      */
-    fun getList(id: String?): Response<List?>?
+    fun list(
+        request: ListsListRequest
+    ): Response<ListsListResponse>
 
     /**
      * Create list.
-     *
-     * @param title list name
-     * @return created list
      */
-    fun createList(title: String?): Response<List?>?
+    fun createList(
+        request: ListsCreateListRequest
+    ): Response<ListsCreateListResponse>
 
     /**
      * Update list.
-     *
-     * @param id    the target list's id
-     * @param title list name
-     * @return updated list
      */
-    fun updateList(id: String?, title: String?): Response<List?>?
+    fun updateList(
+        request: ListsUpdateListRequest
+    ): Response<ListsUpdateListResponse>
 
     /**
      * Delete list.
-     *
-     * @param id the target list's id
      */
-    fun deleteList(id: String?)
+    fun deleteList(
+        request: ListsDeleteListRequest
+    ): ResponseUnit
 
     /**
      * Add account to list.
-     *
-     * @param id         the target list's id
-     * @param accountIds account ids to add
      */
-    fun addAccountsToList(id: String?, accountIds: LongArray?)
+    fun addAccountsToList(
+        request: ListsAddAccountsToListRequest
+    ): ResponseUnit
 
     /**
      * Delete account to list.
-     *
-     * @param id         the target list's id
-     * @param accountIds account ids to add
      */
-    fun deleteAccountsToList(id: String?, accountIds: LongArray?)
+    fun deleteAccountsToList(
+        request: ListsDeleteAccountsToListRequest
+    ): ResponseUnit
 }

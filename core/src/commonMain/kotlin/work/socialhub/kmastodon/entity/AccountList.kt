@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * @author uakihir0
  */
-class List : java.io.Serializable {
+class AccountList : java.io.Serializable {
     @SerializedName("id")
     var id: String? = null
 
