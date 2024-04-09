@@ -1,27 +1,28 @@
 package work.socialhub.kmastodon.entity
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlin.js.JsExport
 
-/**
- * @author hecateball
- */
-class AccessToken : java.io.Serializable {
-    @SerializedName("access_token")
+@JsExport
+@Serializable
+class AccessToken {
+
+    @SerialName("access_token")
     var accessToken: String? = null
 
-    @SerializedName("token_type")
+    @SerialName("token_type")
     var tokenType: String? = null
 
-    @SerializedName("scope")
+    @SerialName("scope")
     var scope: String? = null
 
-    @SerializedName("created_at")
-    var createdAt: Long = 0
+    @SerialName("created_at")
+    var createdAt: Int = 0
 
-    // PixelFed
-    @SerializedName("refresh_token")
+    @SerialName("refresh_token")
     var refreshToken: String? = null
 
-    @SerializedName("expires_in")
-    var expiresIn: Long? = null
+    @SerialName("expires_in")
+    var expiresIn: Int? = null
 }

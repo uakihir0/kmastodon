@@ -1,26 +1,25 @@
 package work.socialhub.kmastodon.entity
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlin.js.JsExport
 
-/**
- * @author uakihir0
- */
+@JsExport
+@Serializable
 class Emoji {
-    // region
-    @SerializedName("shortcode")
+
+    @SerialName("shortcode")
     var shortcode: String? = null
 
-    @SerializedName("static_url")
+    @SerialName("static_url")
     var staticUrl: String? = null
 
-    @SerializedName("url")
+    @SerialName("url")
     var url: String? = null
 
-    @SerializedName("visible_in_picker")
+    @SerialName("visible_in_picker")
     var visibleInPicker: Boolean? = null
 
-    // endregion
-    // Nullable
-    @SerializedName("category")
+    @SerialName("category")
     var category: String? = null
 }

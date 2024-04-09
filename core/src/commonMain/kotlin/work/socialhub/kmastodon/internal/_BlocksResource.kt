@@ -12,7 +12,7 @@ import net.socialhub.http.HttpRequestBuilder
  * @author hecateball
  */
 internal class _BlocksResource(private val uri: String, accessToken: String) : BlocksResource {
-    private val bearerToken: String = _InternalUtility.getBearerToken(accessToken)
+    private val bearerToken: String = InternalUtility.getBearerToken(accessToken)
 
     val blocks: Response<Array<Account>>
         get() = this.getBlocks(null)

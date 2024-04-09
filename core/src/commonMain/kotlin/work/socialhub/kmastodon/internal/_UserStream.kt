@@ -20,7 +20,7 @@ internal class _UserStream(builder: HttpRequestBuilder) : UserStream {
     private var streamEvent: _StreamEvent? = null
     private var thread: java.lang.Thread? = null
     private var isOpen = false
-    private val gson: Gson = _InternalUtility.getGsonInstance()
+    private val gson: Gson = InternalUtility.getGsonInstance()
 
     fun register(listener: UserStreamListener, lifeCycle: LifeCycleListener?): UserStream {
         this.streamEvent = _StreamEvent { event ->

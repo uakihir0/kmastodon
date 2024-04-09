@@ -1,9 +1,11 @@
-package work.socialhub.kmastodon.entity.pleroma
+package work.socialhub.kmastodon.entity.services.pleroma
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import kotlin.js.JsExport
 
 @JsExport
+@Serializable
 class PleromaAccount {
     @SerialName("accepts_chat_messages")
     var isAcceptsChatMessages: Boolean = false
@@ -14,8 +16,9 @@ class PleromaAccount {
     @SerialName("ap_id")
     var apId: String? = null
 
-    @SerialName("background_image")
-    var backgroundImage: Any? = null
+    // TODO: 型の確認
+    // @SerialName("background_image")
+    // var backgroundImage: String? = null
 
     @SerialName("chat_token")
     var chatToken: String? = null

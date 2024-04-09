@@ -1,26 +1,28 @@
 package work.socialhub.kmastodon.entity
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlin.js.JsExport
 
-/**
- * @author hecateball
- */
-class Relationship : java.io.Serializable {
-    @SerializedName("id")
+@JsExport
+@Serializable
+class Relationship {
+
+    @SerialName("id")
     var id: String? = null
 
-    @SerializedName("following")
+    @SerialName("following")
     var isFollowing: Boolean = false
 
-    @SerializedName("followedBy")
+    @SerialName("followedBy")
     var isFollowedBy: Boolean = false
 
-    @SerializedName("blocking")
+    @SerialName("blocking")
     var isBlocking: Boolean = false
 
-    @SerializedName("muting")
+    @SerialName("muting")
     var isMuting: Boolean = false
 
-    @SerializedName("requested")
+    @SerialName("requested")
     var isRequested: Boolean = false
 }

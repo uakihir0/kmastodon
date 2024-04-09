@@ -1,11 +1,9 @@
 package work.socialhub.kmastodon.entity.share
 
-import net.socialhub.http.HttpResponse
-import net.socialhub.logger.Logger
+import work.socialhub.khttpclient.HttpResponse
+import kotlin.js.JsExport
 
-/**
- * @author uakihir0
- */
+@JsExport
 class Link {
     var nextUrl: String? = null
     var prevUrl: String? = null
@@ -16,37 +14,47 @@ class Link {
     companion object {
         private const val LINK = "link"
 
-        fun of(response: HttpResponse?): Link? {
-            if (response == null) {
-                return null
-            }
-
+        fun of(
+            @Suppress("NON_EXPORTABLE_TYPE")
+            response: HttpResponse
+        ): Link? {
             try {
-                val header: String = response.getResponseHeader(LINK)
-                if (header == null || header.isEmpty()) {
+                val header = response.headers[LINK]
+                if (header.isNullOrEmpty()) {
                     return null
                 }
 
                 // Next と Prev で分割
-                val parts = header.split(",\\s?".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                val parts = header[0]
+                    .split(",\\s?".toRegex())
+                    .dropLastWhile { it.isEmpty() }
+                    .toTypedArray()
 
                 val link = Link()
                 for (part in parts) {
-                    // リンクと rel で分割
 
-                    val elements = part.split(";\\s?".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    // リンクと rel で分割
+                    val elements = part
+                        .split(";\\s?".toRegex())
+                        .dropLastWhile { it.isEmpty() }
+                        .toTypedArray()
+
                     if (elements.size == 2) {
-                        // Next
 
                         if (elements[1].contains("next")) {
+
+                            // Next
                             val url = extractUrl(elements[0])
-                            if (!url.isEmpty()) {
+                            if (url.isNotEmpty()) {
                                 link.nextUrl = url
                                 link.nextMaxId = extractValue(url, "max_id")
                             }
+
                         } else if (elements[1].contains("prev")) {
+
+                            // Prev
                             val url = extractUrl(elements[0])
-                            if (!url.isEmpty()) {
+                            if (url.isNotEmpty()) {
                                 link.prevUrl = url
                                 link.prevMinId = extractValue(url, "min_id")
                             }
@@ -54,8 +62,8 @@ class Link {
                     }
                 }
                 return link
-            } catch (e: java.lang.Exception) {
-                logger.debug(e.message)
+
+            } catch (e: Exception) {
                 return null
             }
         }
@@ -64,26 +72,27 @@ class Link {
             return element.replace("^\\s?<(.+)>\\s?$".toRegex(), "$1")
         }
 
-        private fun extractValue(url: String, key: String): String {
+        private fun extractValue(
+            url: String,
+            key: String,
+        ): String? {
             val params =
-                url.split("\\?".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1].split("&".toRegex())
+                url.split("\\?".toRegex())
+                    .dropLastWhile { it.isEmpty() }
+                    .toTypedArray()[1]
+                    .split("&")
                     .dropLastWhile { it.isEmpty() }
                     .toTypedArray()
 
-            return java.util.Arrays.stream<String>(params)
-                .map<Array<String>>(java.util.function.Function<String, Array<String>> { e: String ->
-                    e.split("=".toRegex()).dropLastWhile { it.isEmpty() }
+            return params
+                .map { p ->
+                    p.split("=")
+                        .dropLastWhile { it.isEmpty() }
                         .toTypedArray()
-                })
-                .filter(java.util.function.Predicate<Array<String>> { e: Array<String> ->
-                    e[0].equals(
-                        key,
-                        ignoreCase = true
-                    )
-                })
-                .map<String>(java.util.function.Function<Array<String>, String> { e: Array<String?> -> e[1] })
-                .findFirst()
-                .orElse(null)
+                }
+                .filter { it[0].equals(key, ignoreCase = true) }
+                .map { it[1] }
+                .firstOrNull()
         }
     }
 }

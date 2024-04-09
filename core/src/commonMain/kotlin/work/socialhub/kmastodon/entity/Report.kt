@@ -1,14 +1,16 @@
 package work.socialhub.kmastodon.entity
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlin.js.JsExport
 
-/**
- * @author hecateball
- */
-class Report : java.io.Serializable {
-    @SerializedName("id")
+@JsExport
+@Serializable
+class Report {
+
+    @SerialName("id")
     var id: String? = null
 
-    @SerializedName("actionTaken")
+    @SerialName("actionTaken")
     var actionTaken: String? = null
 }

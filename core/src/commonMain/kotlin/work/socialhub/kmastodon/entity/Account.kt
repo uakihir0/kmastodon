@@ -1,69 +1,71 @@
 package work.socialhub.kmastodon.entity
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import work.socialhub.kmastodon.entity.services.pleroma.PleromaAccount
+import kotlin.js.JsExport
 
-/**
- * @author hecateball
- */
-class Account : java.io.Serializable {
-    @SerializedName("id")
+@JsExport
+@Serializable
+class Account {
+    @SerialName("id")
     var id: String? = null
 
-    @SerializedName("username")
+    @SerialName("username")
     var userName: String? = null
 
-    @SerializedName("acct")
+    @SerialName("acct")
     var account: String? = null
 
-    @SerializedName("display_name")
+    @SerialName("display_name")
     var displayName: String? = null
 
-    @SerializedName("locked")
+    @SerialName("locked")
     var isLocked: Boolean = false
 
-    @SerializedName("bot")
+    @SerialName("bot")
     var bot: Boolean? = null
 
-    @SerializedName("created_at")
+    @SerialName("created_at")
     var createdAt: String? = null
 
-    @SerializedName("followers_count")
-    var followersCount: Long = 0
+    @SerialName("followers_count")
+    var followersCount: Int = 0
 
-    @SerializedName("following_count")
-    var followingCount: Long = 0
+    @SerialName("following_count")
+    var followingCount: Int = 0
 
-    @SerializedName("statuses_count")
-    var statusesCount: Long = 0
+    @SerialName("statuses_count")
+    var statusesCount: Int = 0
 
-    @SerializedName("note")
+    @SerialName("note")
     var note: String? = null
 
-    @SerializedName("url")
+    @SerialName("url")
     var url: String? = null
 
-    @SerializedName("avatar")
+    @SerialName("avatar")
     var avatar: String? = null
 
-    @SerializedName("avatar_static")
+    @SerialName("avatar_static")
     var avatarStatic: String? = null
 
-    @SerializedName("header")
+    @SerialName("header")
     var header: String? = null
 
-    @SerializedName("header_static")
+    @SerialName("header_static")
     var headerStatic: String? = null
 
-    @SerializedName("emojis")
-    var emojis: Array<Emoji>
+    @SerialName("emojis")
+    var emojis: Array<Emoji>? = null
 
-    @SerializedName("source")
+    @SerialName("source")
     var source: AccountSource? = null
 
-    @SerializedName("fields")
-    var fields: Array<Field>
+    @SerialName("fields")
+    var fields: Array<Field>? = null
 
     // Pleroma
-    @SerializedName("pleroma")
+    @SerialName("pleroma")
     var pleroma: PleromaAccount? = null
 }

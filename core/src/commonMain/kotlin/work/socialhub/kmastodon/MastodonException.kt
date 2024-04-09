@@ -1,21 +1,13 @@
 package work.socialhub.kmastodon
 
+class MastodonException : Exception {
+    var statusCode: Int? = null
+    var body: String? = null
 
-import mastodon4j.entity.Error
+    constructor(e: Exception) : super(e)
 
-class MastodonException : java.lang.RuntimeException {
-    private var error: java.lang.Error? = null
-    var statusCode: Int = 0
-        private set
-
-    constructor(e: java.lang.Exception?) : super(e)
-
-    constructor(error: java.lang.Error?, statusCode: Int) {
+    constructor(statusCode: Int, body: String) {
         this.statusCode = statusCode
-        this.error = error
-    }
-
-    fun getError(): java.lang.Error? {
-        return error
+        this.body = body
     }
 }

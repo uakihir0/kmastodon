@@ -11,7 +11,7 @@ import net.socialhub.http.HttpRequestBuilder
  * @author uakihir0
  */
 class _ListsResource internal constructor(private val uri: String, accessToken: String) : ListsResource {
-    private val bearerToken: String = _InternalUtility.getBearerToken(accessToken)
+    private val bearerToken: String = InternalUtility.getBearerToken(accessToken)
 
     val lists: Response<Array<List>>
         /**

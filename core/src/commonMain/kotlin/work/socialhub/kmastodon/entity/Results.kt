@@ -1,14 +1,19 @@
 package work.socialhub.kmastodon.entity
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlin.js.JsExport
 
-class Results : java.io.Serializable {
-    @SerializedName("accounts")
-    var accounts: Array<Account>
+@JsExport
+@Serializable
+class Results {
 
-    @SerializedName("statuses")
-    var statuses: Array<Status>
+    @SerialName("accounts")
+    var accounts: Array<Account>? = null
 
-    @SerializedName("hashtags")
-    var hashtags: Array<Tag>
+    @SerialName("statuses")
+    var statuses: Array<Status>? = null
+
+    @SerialName("hashtags")
+    var hashtags: Array<Tag>? = null
 }

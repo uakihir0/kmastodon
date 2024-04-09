@@ -1,14 +1,12 @@
 package work.socialhub.kmastodon.entity
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
+import kotlin.js.JsExport
 
-/**
- * @author u_akihir0
- */
+@JsExport
+@Serializable
 class Field {
-    @SerializedName("name")
-    var name: String? = null
 
-    @SerializedName("value")
+    var name: String? = null
     var value: String? = null
 }

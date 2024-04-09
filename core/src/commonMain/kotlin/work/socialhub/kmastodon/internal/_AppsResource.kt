@@ -11,7 +11,10 @@ import net.socialhub.http.HttpRequestBuilder
 /**
  * @author hecateball
  */
-internal class _AppsResource(private val uri: String) : AppsResource {
+internal class _AppsResource(
+    private val uri: String
+) : AppsResource {
+
     /**
      * {@inheritDoc}
      */

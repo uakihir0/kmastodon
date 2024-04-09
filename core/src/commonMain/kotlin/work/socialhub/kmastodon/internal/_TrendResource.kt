@@ -11,7 +11,7 @@ import net.socialhub.http.HttpRequestBuilder
  * @author uakihir0
  */
 class _TrendResource internal constructor(private val uri: String, accessToken: String) : TrendResource {
-    private val bearerToken: String = _InternalUtility.getBearerToken(accessToken)
+    private val bearerToken: String = InternalUtility.getBearerToken(accessToken)
 
     fun getTrends(limit: Long?): Response<Array<Trend>> {
         return proceed(Array<Trend>::class.java) {

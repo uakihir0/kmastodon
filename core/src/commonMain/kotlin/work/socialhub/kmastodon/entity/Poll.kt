@@ -1,46 +1,40 @@
 package work.socialhub.kmastodon.entity
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlin.js.JsExport
 
-/**
- * @author uakihir0
- */
+@JsExport
+@Serializable
 class Poll {
-    @SerializedName("id")
+
+    @SerialName("id")
     var id: String? = null
 
-    @SerializedName("expires_at")
+    @SerialName("expires_at")
     var expiresAt: String? = null
 
-    @SerializedName("expired")
+    @SerialName("expired")
     var isExpired: Boolean = false
 
-    @SerializedName("multiple")
+    @SerialName("multiple")
     var isMultiple: Boolean = false
 
-    @SerializedName("voted")
+    @SerialName("voted")
     var isVoted: Boolean = false
 
-    @SerializedName("own_votes")
-    var ownVotes: Array<Long>
+    @SerialName("own_votes")
+    var ownVotes: Array<Int>? = null
 
-    @SerializedName("votes_count")
-    var votesCount: Long? = null
+    @SerialName("votes_count")
+    var votesCount: Int? = null
 
-    @SerializedName("voters_count")
-    var votersCount: Long? = null
+    @SerialName("voters_count")
+    var votersCount: Int? = null
 
-    @SerializedName("options")
-    var options: Array<Option>
+    @SerialName("options")
+    var options: Array<PollOption>? = null
 
-    @SerializedName("emojis")
-    var emojis: Array<Emoji>
-
-    class Option {
-        @SerializedName("title")
-        var title: String? = null
-
-        @SerializedName("votes_count")
-        var votesCount: Long? = null
-    }
+    @SerialName("emojis")
+    var emojis: Array<Emoji>? = null
 }

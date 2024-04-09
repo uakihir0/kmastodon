@@ -1,47 +1,43 @@
 package work.socialhub.kmastodon.entity.share
 
-import net.socialhub.http.HttpResponse
-import net.socialhub.logger.Logger
+import kotlinx.datetime.Instant
+import kotlinx.datetime.toInstant
+import work.socialhub.khttpclient.HttpResponse
+import kotlin.js.JsExport
 
-/**
- * @author uakihir0
- */
+@JsExport
 class RateLimit {
     var limit: Int = 0
     var remaining: Int = 0
-    var reset: java.util.Date? = null
+
+    @Suppress("NON_EXPORTABLE_TYPE")
+    var reset: Instant? = null
 
     companion object {
-        private val logger: Logger = Logger.getLogger(RateLimit::class.java)
-
         private const val X_RATELIMIT_LIMIT = "X-RateLimit-Limit"
-
         private const val X_RATELIMIT_REMAINING = "X-RateLimit-Remaining"
-
         private const val X_RATELIMIT_RESET = "X-RateLimit-Reset"
 
-        fun of(response: HttpResponse?): RateLimit? {
-            if (response == null) {
-                return null
-            }
+        @Suppress("NON_EXPORTABLE_TYPE")
+        fun of(response: HttpResponse): RateLimit? {
 
             try {
-                val limit: String = response.getResponseHeader(X_RATELIMIT_LIMIT)
-                val remaining: String = response.getResponseHeader(X_RATELIMIT_REMAINING)
-                val reset: String = response.getResponseHeader(X_RATELIMIT_RESET)
+                val limit = response.headers[X_RATELIMIT_LIMIT]
+                val remaining = response.headers[X_RATELIMIT_REMAINING]
+                val reset = response.headers[X_RATELIMIT_RESET]
 
-                val rateLimit = RateLimit()
-                rateLimit.limit = limit
-                rateLimit.remaining = remaining
-
-                val dates = reset.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                val format: java.text.DateFormat = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-                format.setTimeZone(java.util.TimeZone.getTimeZone("UTC"))
-                rateLimit.reset = format.parse(dates[0])
-
-                return rateLimit
-            } catch (e: java.lang.Exception) {
-                logger.debug(e.message)
+                return RateLimit().also {
+                    if (limit?.isNotEmpty() == true) {
+                        it.limit = limit[0].toInt()
+                    }
+                    if (remaining?.isNotEmpty() == true) {
+                        it.remaining = remaining[0].toInt()
+                    }
+                    if (reset?.isNotEmpty() == true) {
+                        it.reset = reset[0].toInstant()
+                    }
+                }
+            } catch (e: Exception) {
                 return null
             }
         }

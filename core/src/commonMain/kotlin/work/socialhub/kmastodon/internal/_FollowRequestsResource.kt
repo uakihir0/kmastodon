@@ -11,7 +11,7 @@ import net.socialhub.http.HttpRequestBuilder
  * @author hecateball
  */
 internal class _FollowRequestsResource(private val uri: String, accessToken: String) : FollowRequestsResource {
-    private val bearerToken: String = _InternalUtility.getBearerToken(accessToken)
+    private val bearerToken: String = InternalUtility.getBearerToken(accessToken)
 
     val followRequests: Response<Array<Account>>
         get() =//TODO: need to support: max_id, since_id, limit

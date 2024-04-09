@@ -11,7 +11,7 @@ import net.socialhub.http.HttpRequestBuilder
  * @author hecateball
  */
 internal class _ReportsResource(private val uri: String, accessToken: String) : ReportsResource {
-    private val bearerToken: String = _InternalUtility.getBearerToken(accessToken)
+    private val bearerToken: String = InternalUtility.getBearerToken(accessToken)
 
     val reports: Response<Array<Report>>
         get() = proceed(Array<Report>::class.java) {

@@ -11,7 +11,7 @@ import net.socialhub.http.HttpRequestBuilder
  * @author hecateball
  */
 internal class _MediaResource(private val uri: String, accessToken: String) : MediaResource {
-    private val bearerToken: String = _InternalUtility.getBearerToken(accessToken)
+    private val bearerToken: String = InternalUtility.getBearerToken(accessToken)
 
     fun postMedia(stream: java.io.InputStream?, name: String?, description: String?): Response<Attachment> {
         return proceed(Attachment::class.java) {

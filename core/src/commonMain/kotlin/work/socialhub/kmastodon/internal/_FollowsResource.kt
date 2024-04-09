@@ -11,7 +11,7 @@ import net.socialhub.http.HttpRequestBuilder
  * @author hecateball
  */
 internal class _FollowsResource(private val uri: String, accessToken: String) : FollowsResource {
-    private val bearerToken: String = _InternalUtility.getBearerToken(accessToken)
+    private val bearerToken: String = InternalUtility.getBearerToken(accessToken)
 
     fun remoteFollow(uri: String?): Response<Account> {
         return proceed(Account::class.java) {

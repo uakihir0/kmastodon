@@ -1,29 +1,31 @@
 package work.socialhub.kmastodon.entity
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlin.js.JsExport
 
-/**
- * @author uakihir0
- */
+@JsExport
+@Serializable
 class WebPush {
-    @SerializedName("title")
+
+    @SerialName("title")
     var title: String? = null
 
-    @SerializedName("notification_type")
+    @SerialName("notification_type")
     var notificationType: String? = null
 
-    @SerializedName("notification_id")
-    var notificationId: Long? = null
+    @SerialName("notification_id")
+    var notificationId: Int? = null
 
-    @SerializedName("preferred_locale")
+    @SerialName("preferred_locale")
     var preferredLocale: String? = null
 
-    @SerializedName("access_token")
+    @SerialName("access_token")
     var access_token: String? = null
 
-    @SerializedName("icon")
+    @SerialName("icon")
     var icon: String? = null
 
-    @SerializedName("body")
+    @SerialName("body")
     var body: String? = null
 }

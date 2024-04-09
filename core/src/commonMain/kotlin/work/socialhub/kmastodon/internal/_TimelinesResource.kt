@@ -20,7 +20,7 @@ internal class _TimelinesResource(
     private val uri: String,
     accessToken: String
 ) : TimelinesResource {
-    private val bearerToken: String = _InternalUtility.getBearerToken(accessToken)
+    private val bearerToken: String = InternalUtility.getBearerToken(accessToken)
     private val service: java.util.function.Supplier<Service> = service
 
     fun getHomeTimeline(
@@ -82,7 +82,7 @@ internal class _TimelinesResource(
                 HttpRequestBuilder()
                     .target(this.uri)
                     .path("/api/v1/timelines/tag/{hashtag}")
-                    .pathValue("hashtag", _InternalUtility.encode(hashtag))
+                    .pathValue("hashtag", InternalUtility.encode(hashtag))
                     .request(HttpMediaType.APPLICATION_JSON)
                     .header("Authorization", this.bearerToken)
             addParam(builder, "local", local)

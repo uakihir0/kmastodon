@@ -19,7 +19,7 @@ internal class _NotificationsResource(
     private val uri: String,
     accessToken: String
 ) : NotificationsResource {
-    private val bearerToken: String = _InternalUtility.getBearerToken(accessToken)
+    private val bearerToken: String = InternalUtility.getBearerToken(accessToken)
     private val service: java.util.function.Supplier<Service> = service
 
     fun getNotifications(

@@ -12,7 +12,7 @@ import net.socialhub.http.HttpRequestBuilder
  * @author hecateball
  */
 internal class _SearchResource(private val uri: String, accessToken: String) : SearchResource {
-    private val bearerToken: String = _InternalUtility.getBearerToken(accessToken)
+    private val bearerToken: String = InternalUtility.getBearerToken(accessToken)
 
     fun search(
         query: String?,

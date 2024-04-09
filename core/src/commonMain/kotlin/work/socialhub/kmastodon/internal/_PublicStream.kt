@@ -19,7 +19,7 @@ internal class _PublicStream(builder: HttpRequestBuilder) : PublicStream {
     private var streamEvent: _StreamEvent? = null
     private var thread: java.lang.Thread? = null
     private var isOpen = false
-    private val gson: Gson = _InternalUtility.getGsonInstance()
+    private val gson: Gson = InternalUtility.getGsonInstance()
 
     fun register(listener: PublicStreamListener, lifeCycle: LifeCycleListener?): PublicStream {
         this.streamEvent = _StreamEvent { event ->

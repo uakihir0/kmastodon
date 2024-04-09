@@ -1,20 +1,22 @@
 package work.socialhub.kmastodon.entity
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlin.js.JsExport
 
-/**
- * @author hecateball
- */
-class ClientCredential : java.io.Serializable {
-    @SerializedName("id")
+@JsExport
+@Serializable
+class ClientCredential {
+
+    @SerialName("id")
     var id: String? = null
 
-    @SerializedName("redirect_uri")
+    @SerialName("redirect_uri")
     var redirectUri: String? = null
 
-    @SerializedName("client_id")
+    @SerialName("client_id")
     var clientId: String? = null
 
-    @SerializedName("client_secret")
+    @SerialName("client_secret")
     var clientSecret: String? = null
 }

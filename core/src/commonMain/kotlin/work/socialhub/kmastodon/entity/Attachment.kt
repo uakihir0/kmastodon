@@ -1,37 +1,39 @@
 package work.socialhub.kmastodon.entity
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import work.socialhub.kmastodon.entity.meta.Meta
+import kotlin.js.JsExport
 
-/**
- * @author hecateball
- */
-class Attachment : java.io.Serializable {
-    @SerializedName("id")
+@JsExport
+@Serializable
+class Attachment  {
+
+    @SerialName("id")
     var id: String? = null
 
-    @SerializedName("type")
+    @SerialName("type")
     var type: String? = null
 
-    @SerializedName("url")
+    @SerialName("url")
     var url: String? = null
 
-    @SerializedName("remote_url")
+    @SerialName("remote_url")
     var remoteUrl: String? = null
 
-    @SerializedName("preview_url")
+    @SerialName("preview_url")
     var previewUrl: String? = null
 
-    @SerializedName("text_url")
+    @SerialName("text_url")
     var textUrl: String? = null
 
     // for PixelFed
-    // for PixelFed
-    @SerializedName("optimized_url")
+    @SerialName("optimized_url")
     var optimizedUrl: String? = null
 
-    @SerializedName("meta")
+    @SerialName("meta")
     var meta: Meta? = null
 
-    @SerializedName("orientation")
+    @SerialName("orientation")
     var orientation: String? = null
 }

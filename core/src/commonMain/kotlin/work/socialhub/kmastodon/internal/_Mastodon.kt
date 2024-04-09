@@ -52,10 +52,11 @@ import mastodon4j.streaming.HashtagStream
 import mastodon4j.streaming.PublicStream
 import mastodon4j.streaming.UserStream
 
-/**
- * @author hecateball
- */
-class _Mastodon(service: Service?, uri: String, accessToken: String) : Mastodon {
+class _Mastodon(
+    service: Service?,
+    uri: String,
+    accessToken: String
+) : Mastodon {
     private val accounts: AccountsResource
     private val apps: AppsResource
     private val blocks: BlocksResource
@@ -104,7 +105,7 @@ class _Mastodon(service: Service?, uri: String, accessToken: String) : Mastodon 
         this.poll = _PollResource(uri, accessToken)
 
         // Need Authorization and Service
-        this.accounts = _AccountsResource({ this.service() }, uri, accessToken)
+        this.accounts = AccountsResourceImpl({ this.service() }, uri, accessToken)
         this.notifications = _NotificationsResource({ this.service() }, uri, accessToken)
         this.favourites = _FavouritesResource({ this.service() }, uri, accessToken)
         this.statuses = _StatusesResource({ this.service() }, uri, accessToken)

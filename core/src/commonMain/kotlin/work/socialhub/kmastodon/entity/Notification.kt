@@ -1,23 +1,25 @@
 package work.socialhub.kmastodon.entity
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlin.js.JsExport
 
-/**
- * @author hecateball
- */
-class Notification : java.io.Serializable {
-    @SerializedName("id")
+@JsExport
+@Serializable
+class Notification {
+
+    @SerialName("id")
     var id: String? = null
 
-    @SerializedName("type")
+    @SerialName("type")
     var type: String? = null
 
-    @SerializedName("created_at")
+    @SerialName("created_at")
     var createdAt: String? = null
 
-    @SerializedName("account")
+    @SerialName("account")
     var account: Account? = null
 
-    @SerializedName("status")
+    @SerialName("status")
     var status: Status? = null
 }

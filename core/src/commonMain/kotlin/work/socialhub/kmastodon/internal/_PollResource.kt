@@ -11,7 +11,7 @@ import net.socialhub.http.HttpRequestBuilder
  * @author uakihir0
  */
 class _PollResource internal constructor(private val uri: String, accessToken: String) : PollResource {
-    private val bearerToken: String = _InternalUtility.getBearerToken(accessToken)
+    private val bearerToken: String = InternalUtility.getBearerToken(accessToken)
 
     fun votePoll(id: String, choices: LongArray): Response<Poll> {
         return proceed(Poll::class.java) {

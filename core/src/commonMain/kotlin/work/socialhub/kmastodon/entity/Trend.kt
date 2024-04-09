@@ -1,17 +1,13 @@
 package work.socialhub.kmastodon.entity
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
+import kotlin.js.JsExport
 
-/**
- * @author uakihir0
- */
+@JsExport
+@Serializable
 class Trend {
-    @SerializedName("name")
+
     var name: String? = null
-
-    @SerializedName("url")
     var url: String? = null
-
-    @SerializedName("history")
-    var history: Array<History>
+    var history: Array<History>? = null
 }

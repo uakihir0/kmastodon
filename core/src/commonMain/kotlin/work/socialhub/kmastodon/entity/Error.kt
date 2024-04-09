@@ -1,14 +1,16 @@
 package work.socialhub.kmastodon.entity
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlin.js.JsExport
 
-/**
- * @author hecateball
- */
-class Error : java.io.Serializable {
-    @SerializedName("error")
+@JsExport
+@Serializable
+class Error {
+
+    @SerialName("error")
     var error: String? = null
 
-    @SerializedName("error_description")
+    @SerialName("error_description")
     var description: String? = null
 }

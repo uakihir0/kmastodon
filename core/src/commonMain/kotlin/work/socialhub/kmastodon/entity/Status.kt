@@ -1,78 +1,82 @@
 package work.socialhub.kmastodon.entity
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import work.socialhub.kmastodon.entity.services.pleroma.PleromaStatus
+import kotlin.js.JsExport
 
-/**
- * @author hecateball
- */
-class Status : java.io.Serializable {
-    @SerializedName("id")
+
+@JsExport
+@Serializable
+class Status {
+
+    @SerialName("id")
     var id: String? = null
 
-    @SerializedName("uri")
+    @SerialName("uri")
     var uri: String? = null
 
-    @SerializedName("url")
+    @SerialName("url")
     var url: String? = null
 
-    @SerializedName("account")
+    @SerialName("account")
     var account: Account? = null
 
-    @SerializedName("in_reply_to_id")
+    @SerialName("in_reply_to_id")
     var inReplyToId: String? = null
 
-    @SerializedName("in_reply_to_account_id")
+    @SerialName("in_reply_to_account_id")
     var inReplyToAccountId: String? = null
 
-    @SerializedName("reblog")
+    @SerialName("reblog")
     var reblog: Status? = null
 
-    @SerializedName("content")
+    @SerialName("content")
     var content: String? = null
 
-    @SerializedName("created_at")
+    @SerialName("created_at")
     var createdAt: String? = null
 
-    @SerializedName("reblogs_count")
-    var reblogsCount: Long = 0
+    @SerialName("reblogs_count")
+    var reblogsCount: Int = 0
 
-    @SerializedName("favourites_count")
-    var favouritesCount: Long = 0
+    @SerialName("favourites_count")
+    var favouritesCount: Int = 0
 
-    @SerializedName("reblogged")
+    @SerialName("reblogged")
     var isReblogged: Boolean = false
 
-    @SerializedName("favourited")
+    @SerialName("favourited")
     var isFavourited: Boolean = false
 
-    @SerializedName("sensitive")
+    @SerialName("sensitive")
     var isSensitive: Boolean = false
 
-    @SerializedName("spoiler_text")
+    @SerialName("spoiler_text")
     var spoilerText: String? = null
 
-    @SerializedName("visibility")
+    @SerialName("visibility")
     var visibility: String? = null
 
-    @SerializedName("media_attachments")
-    var mediaAttachments: Array<Attachment>
+    @SerialName("media_attachments")
+    var mediaAttachments: Array<Attachment>? = null
 
-    @SerializedName("mentions")
-    var mentions: Array<Mention>
+    @SerialName("mentions")
+    var mentions: Array<Mention>? = null
 
-    @SerializedName("tags")
-    var tags: Array<Tag>
+    @SerialName("tags")
+    var tags: Array<Tag>? = null
 
-    @SerializedName("emojis")
-    var emojis: Array<Emoji>
+    @SerialName("emojis")
+    var emojis: Array<Emoji>? = null
 
-    @SerializedName("application")
+    @SerialName("application")
     var application: Application? = null
 
-    @SerializedName("poll")
+    @SerialName("poll")
     var poll: Poll? = null
 
-    // Pleroma
-    @SerializedName("pleroma")
+    /** Pleroma */
+    @SerialName("pleroma")
     var pleroma: PleromaStatus? = null
 }

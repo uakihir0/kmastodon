@@ -1,23 +1,15 @@
 package work.socialhub.kmastodon.entity
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
+import kotlin.js.JsExport
 
-/**
- * @author u_akihir0
- */
+@JsExport
+@Serializable
 class AccountSource {
-    @SerializedName("privacy")
+
     var privacy: String? = null
-
-    @SerializedName("sensitive")
     var sensitive: Boolean? = null
-
-    @SerializedName("language")
     var language: String? = null
-
-    @SerializedName("note")
     var note: String? = null
-
-    @SerializedName("fields")
-    var fields: Array<Field>
+    var fields: Array<Field>? = null
 }
