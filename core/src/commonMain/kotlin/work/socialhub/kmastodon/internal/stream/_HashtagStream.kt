@@ -1,4 +1,4 @@
-package work.socialhub.kmastodon.internal
+package work.socialhub.kmastodon.internal.stream
 
 import com.google.gson.Gson
 import mastodon4j.MastodonException
@@ -9,6 +9,7 @@ import mastodon4j.streaming.LifeCycleListener
 import net.socialhub.http.HttpRequestBuilder
 import net.socialhub.http.HttpResponse
 import net.socialhub.logger.Logger
+import work.socialhub.kmastodon.internal.InternalUtility
 
 /**
  * @author hecateball

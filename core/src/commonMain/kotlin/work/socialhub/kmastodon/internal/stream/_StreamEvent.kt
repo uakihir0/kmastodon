@@ -1,4 +1,4 @@
-package work.socialhub.kmastodon.internal
+package work.socialhub.kmastodon.internal.stream
 
 import net.socialhub.logger.Logger
 

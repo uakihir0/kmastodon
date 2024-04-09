@@ -10,7 +10,7 @@ import work.socialhub.kmastodon.api.response.oauth.OAuthIssueAccessTokenWithAuth
 import work.socialhub.kmastodon.api.response.oauth.OAuthIssueAccessTokenWithCredentialsResponse
 import work.socialhub.kmastodon.api.response.oauth.OAuthRefreshAccessTokenResponse
 
-interface OauthResource {
+interface OAuthResource {
 
     /**
      * Attempt to log in with the given credentials,

@@ -1,4 +1,4 @@
-package work.socialhub.kmastodon.internal
+package work.socialhub.kmastodon.internal.stream
 
 import mastodon4j.api.StreamingResource
 import mastodon4j.entity.Tag

@@ -9,20 +9,10 @@ import work.socialhub.kmastodon.api.response.ResponseUnit
 import work.socialhub.kmastodon.domain.Service
 import work.socialhub.kmastodon.entity.share.Link
 import work.socialhub.kmastodon.entity.share.RateLimit
-import work.socialhub.kmastodon.internal.InternalUtility.fromJson
 
 abstract class AbstractResourceImpl(
-    val uri: String,
-    val accessToken: String,
-    val service: () -> Service,
+    val uri: String
 ) {
-    companion object {
-        const val PIXELFED_LIMIT_MAX = 50
-    }
-
-    fun bearerToken(): String {
-        return "Bearer $accessToken"
-    }
 
     inline fun <reified T> proceed(
         body: () -> HttpResponse
@@ -30,7 +20,7 @@ abstract class AbstractResourceImpl(
         try {
             val response = body()
             if (response.status == 200) {
-                return Response(fromJson<T>(response.stringBody))
+                return Response(InternalUtility.fromJson<T>(response.stringBody))
                     .also {
                         it.limit = RateLimit.of(response)
                         it.link = Link.of(response)
@@ -46,7 +36,7 @@ abstract class AbstractResourceImpl(
         }
     }
 
-    fun proceedUnit(
+    inline fun proceedUnit(
         body: () -> HttpResponse
     ): ResponseUnit {
         try {
@@ -73,6 +63,16 @@ abstract class AbstractResourceImpl(
     ): HttpRequest {
         if (value != null)
             param(key, value)
+        return this
+    }
+
+    fun <T> HttpRequest.pwns(
+        key: String,
+        values: Array<T>?,
+    ): HttpRequest {
+        values?.forEach {
+            param("${key}[]", it as Any)
+        }
         return this
     }
 
@@ -105,8 +105,8 @@ abstract class AbstractResourceImpl(
             range.limit?.let {
                 var limit = it
                 if ((service === Service.PIXELFED) &&
-                    (limit > PIXELFED_LIMIT_MAX)
-                ) limit = PIXELFED_LIMIT_MAX
+                    (limit > AbstractAuthResourceImpl.PIXELFED_LIMIT_MAX)
+                ) limit = AbstractAuthResourceImpl.PIXELFED_LIMIT_MAX
                 param("limit", limit)
             }
 

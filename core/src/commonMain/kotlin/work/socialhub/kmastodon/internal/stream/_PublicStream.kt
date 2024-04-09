@@ -1,20 +1,20 @@
-package work.socialhub.kmastodon.internal
+package work.socialhub.kmastodon.internal.stream
 
 import com.google.gson.Gson
 import mastodon4j.MastodonException
-import mastodon4j.entity.Notification
 import mastodon4j.entity.Status
 import mastodon4j.streaming.LifeCycleListener
-import mastodon4j.streaming.UserStream
-import mastodon4j.streaming.UserStreamListener
+import mastodon4j.streaming.PublicStream
+import mastodon4j.streaming.PublicStreamListener
 import net.socialhub.http.HttpRequestBuilder
 import net.socialhub.http.HttpResponse
 import net.socialhub.logger.Logger
+import work.socialhub.kmastodon.internal.InternalUtility
 
 /**
  * @author hecateball
  */
-internal class _UserStream(builder: HttpRequestBuilder) : UserStream {
+internal class _PublicStream(builder: HttpRequestBuilder) : PublicStream {
     private val builder: HttpRequestBuilder = builder
     private var lifeCycle: LifeCycleListener? = null
     private var streamEvent: _StreamEvent? = null
@@ -22,11 +22,11 @@ internal class _UserStream(builder: HttpRequestBuilder) : UserStream {
     private var isOpen = false
     private val gson: Gson = InternalUtility.getGsonInstance()
 
-    fun register(listener: UserStreamListener, lifeCycle: LifeCycleListener?): UserStream {
+    fun register(listener: PublicStreamListener, lifeCycle: LifeCycleListener?): PublicStream {
         this.streamEvent = _StreamEvent { event ->
             when (event.getName()) {
                 "update" -> listener.onUpdate(gson.fromJson(event.getData(), Status::class.java))
-                "notification" -> listener.onNotification(gson.fromJson(event.getData(), Notification::class.java))
+                "notification" -> {}
                 "delete" -> listener.onDelete(gson.fromJson(event.getData(), Long::class.java))
                 else -> LOGGER.debug("Unexpected event name: " + event.getName())
             }
@@ -80,6 +80,6 @@ internal class _UserStream(builder: HttpRequestBuilder) : UserStream {
     }
 
     companion object {
-        private val LOGGER: Logger = Logger.getLogger(_UserStream::class.java)
+        private val LOGGER: Logger = Logger.getLogger(_PublicStream::class.java)
     }
 }

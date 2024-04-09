@@ -12,5 +12,5 @@ interface FollowsResource {
      */
     fun remoteFollow(
         request: FollowsRemoteFollowRequest
-    ): Response<FollowsRemoteFollowResponse>?
+    ): Response<FollowsRemoteFollowResponse>
 }

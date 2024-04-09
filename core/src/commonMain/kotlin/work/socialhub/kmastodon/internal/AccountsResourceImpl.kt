@@ -1,9 +1,5 @@
 package work.socialhub.kmastodon.internal
 
-import mastodon4j.entity.Account
-import mastodon4j.entity.Relationship
-import net.socialhub.http.HttpMediaType
-import net.socialhub.http.HttpRequestBuilder
 import work.socialhub.khttpclient.HttpRequest
 import work.socialhub.kmastodon.api.AccountsResource
 import work.socialhub.kmastodon.api.request.accounts.AccountsAccountRequest
@@ -39,14 +35,11 @@ import work.socialhub.kmastodon.util.Headers.AUTHORIZATION
 import work.socialhub.kmastodon.util.MediaType
 import work.socialhub.kmpcommon.runBlocking
 
-/**
- * @author hecateball
- */
 class AccountsResourceImpl(
     uri: String,
     accessToken: String,
     service: () -> Service,
-) : AbstractResourceImpl(uri, accessToken, service),
+) : AbstractAuthResourceImpl(uri, accessToken, service),
     AccountsResource {
 
     /**
@@ -286,39 +279,19 @@ class AccountsResourceImpl(
     /**
      * {@inheritDoc}
      */
-    override fun search(request: AccountsSearchRequest): Response<Array<AccountsSearchResponse>> {
-        TODO("Not yet implemented")
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    fun relationships(id: String?, vararg ids: String?): Response<Array<Relationship>> {
-
-    }
-
-    fun search(query: String?): Response<Array<Account>> {
-        return this.search(query, DEFAULT_LIMIT)
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    fun search(query: String?, limit: Long): Response<Array<Account>> {
-        return proceed(Array<Account>::class.java) {
-            HttpRequestBuilder()
-                .target(this.uri)
-                .path("/api/v1/accounts/search")
-                .param("q", query)
-                .param("limit", limit)
-                .request(HttpMediaType.APPLICATION_JSON)
-                .header("Authorization", this.bearerToken)
-                .get()
+    override fun search(
+        request: AccountsSearchRequest
+    ): Response<Array<AccountsSearchResponse>> {
+        return runBlocking {
+            proceed {
+                HttpRequest()
+                    .url("${uri}/api/v1/accounts/search")
+                    .header(AUTHORIZATION, bearerToken())
+                    .accept(MediaType.JSON)
+                    .qwn("q", request.query)
+                    .qwn("limit", request.limit)
+                    .get()
+            }
         }
-    }
-
-    companion object {
-        private const val DEFAULT_LIMIT: Long = 40
     }
 }

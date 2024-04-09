@@ -1,6 +1,5 @@
 package work.socialhub.kmastodon.internal
 
-import mastodon4j.Mastodon
 import mastodon4j.Page
 import mastodon4j.Range
 import mastodon4j.api.AccountsResource
@@ -51,6 +50,8 @@ import mastodon4j.entity.share.Response
 import mastodon4j.streaming.HashtagStream
 import mastodon4j.streaming.PublicStream
 import mastodon4j.streaming.UserStream
+import work.socialhub.kmastodon.Mastodon
+import work.socialhub.kmastodon.internal.stream._StreamingResource
 
 class _Mastodon(
     service: Service?,
@@ -85,29 +86,29 @@ class _Mastodon(
         this.service = service
 
         // No Authorization Endpoints
-        this.apps = _AppsResource(uri)
-        this.instances = _InstancesResource(uri)
+        this.apps = AppsResourceImpl(uri)
+        this.instances = InstancesResourceImpl(uri)
         this.oauth = _OauthResource(uri)
         this.node = _NodeResource(uri)
-        this.emoji = _EmojiResource(uri)
+        this.emoji = EmojisResourceImpl(uri)
 
         // Need Authorization
-        this.blocks = _BlocksResource(uri, accessToken)
-        this.followRequests = _FollowRequestsResource(uri, accessToken)
-        this.follows = _FollowsResource(uri, accessToken)
-        this.media = _MediaResource(uri, accessToken)
+        this.blocks = BlocksResourceImpl(uri, accessToken)
+        this.followRequests = FollowRequestsResourceImpl(uri, accessToken)
+        this.follows = FollowsResourceImpl(uri, accessToken)
+        this.media = MediasResourceImpl(uri, accessToken)
         this.mutes = _MutesResource(uri, accessToken)
         this.reports = _ReportsResource(uri, accessToken)
         this.search = _SearchResource(uri, accessToken)
         this.streaming = _StreamingResource(uri, accessToken)
-        this.list = _ListsResource(uri, accessToken)
+        this.list = ListsResourceImpl(uri, accessToken)
         this.trend = _TrendResource(uri, accessToken)
         this.poll = _PollResource(uri, accessToken)
 
         // Need Authorization and Service
         this.accounts = AccountsResourceImpl({ this.service() }, uri, accessToken)
         this.notifications = _NotificationsResource({ this.service() }, uri, accessToken)
-        this.favourites = _FavouritesResource({ this.service() }, uri, accessToken)
+        this.favourites = FavouritesResourceImpl({ this.service() }, uri, accessToken)
         this.statuses = _StatusesResource({ this.service() }, uri, accessToken)
         this.timelines = _TimelinesResource({ this.service() }, uri, accessToken)
     }
