@@ -1,17 +1,16 @@
 package work.socialhub.kmastodon.entity.pleroma
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlin.js.JsExport
 
-/**
- * @author uakihir0
- */
+@JsExport
 class PleromaReaction {
-    @SerializedName("count")
+    @SerialName("count")
     var count: Int = 0
 
-    @SerializedName("me")
+    @SerialName("me")
     var isMe: Boolean = false
 
-    @SerializedName("name")
+    @SerialName("name")
     var name: String? = null
 }

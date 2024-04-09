@@ -1,59 +1,58 @@
 package work.socialhub.kmastodon.entity.pleroma
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlin.js.JsExport
 
-/**
- * @author uakihir0
- */
+@JsExport
 class PleromaAccount {
-    @SerializedName("accepts_chat_messages")
+    @SerialName("accepts_chat_messages")
     var isAcceptsChatMessages: Boolean = false
 
-    @SerializedName("allow_following_move")
+    @SerialName("allow_following_move")
     var isAllowFollowingMove: Boolean = false
 
-    @SerializedName("ap_id")
+    @SerialName("ap_id")
     var apId: String? = null
 
-    @SerializedName("background_image")
+    @SerialName("background_image")
     var backgroundImage: Any? = null
 
-    @SerializedName("chat_token")
+    @SerialName("chat_token")
     var chatToken: String? = null
 
-    @SerializedName("email")
+    @SerialName("email")
     var email: String? = null
 
-    @SerializedName("hide_favorites")
+    @SerialName("hide_favorites")
     var isHideFavorites: Boolean = false
 
-    @SerializedName("hide_followers")
+    @SerialName("hide_followers")
     var isHideFollowers: Boolean = false
 
-    @SerializedName("hide_followers_count")
+    @SerialName("hide_followers_count")
     var isHideFollowersCount: Boolean = false
 
-    @SerializedName("hide_follows")
+    @SerialName("hide_follows")
     var isHideFollows: Boolean = false
 
-    @SerializedName("hide_follows_count")
+    @SerialName("hide_follows_count")
     var isHideFollowsCount: Boolean = false
 
-    @SerializedName("is_admin")
+    @SerialName("is_admin")
     var isAdmin: Boolean = false
 
-    @SerializedName("is_confirmed")
+    @SerialName("is_confirmed")
     var isConfirmed: Boolean = false
 
-    @SerializedName("is_moderator")
+    @SerialName("is_moderator")
     var isModerator: Boolean = false
 
-    @SerializedName("skip_thread_containment")
+    @SerialName("skip_thread_containment")
     var isSkipThreadContainment: Boolean = false
 
-    @SerializedName("unread_conversation_count")
+    @SerialName("unread_conversation_count")
     var unreadConversationCount: Int = 0
 
-    @SerializedName("unread_notifications_count")
+    @SerialName("unread_notifications_count")
     var unreadNotificationsCount: Int = 0
 }

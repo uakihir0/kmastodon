@@ -1,66 +1,51 @@
 package work.socialhub.kmastodon.api
 
-import mastodon4j.Range
-import mastodon4j.entity.Conversation
-import mastodon4j.entity.Status
-import mastodon4j.entity.share.Response
+import work.socialhub.kmastodon.api.request.timelines.TimelinesConversationsRequest
+import work.socialhub.kmastodon.api.request.timelines.TimelinesHashTagTimelineRequest
+import work.socialhub.kmastodon.api.request.timelines.TimelinesHomeTimelineRequest
+import work.socialhub.kmastodon.api.request.timelines.TimelinesListTimelineRequest
+import work.socialhub.kmastodon.api.request.timelines.TimelinesPublicTimelineRequest
+import work.socialhub.kmastodon.api.response.Response
+import work.socialhub.kmastodon.api.response.timelines.TimelinesConversationsResponse
+import work.socialhub.kmastodon.api.response.timelines.TimelinesHashTagTimelineResponse
+import work.socialhub.kmastodon.api.response.timelines.TimelinesHomeTimelineResponse
+import work.socialhub.kmastodon.api.response.timelines.TimelinesListTimelineResponse
+import work.socialhub.kmastodon.api.response.timelines.TimelinesPublicTimelineResponse
 
-/**
- * @author hecateball
- */
 interface TimelinesResource {
+
     /**
      * Retrieving a home timeline.
-     *
-     * @return an array of Statuses, most recent ones first
      */
-    fun getHomeTimeline(
-        range: Range?
-    ): Response<Array<Status?>?>?
+    fun homeTimeline(
+        request: TimelinesHomeTimelineRequest
+    ): Response<Array<TimelinesHomeTimelineResponse>>
 
     /**
      * Retrieving a public timeline.
-     *
-     * @param local (optional) only return statuses originating from this instance
-     * @return an array of Statuses, most recent ones first
      */
-    fun getPublicTimeline(
-        local: Boolean?,
-        onlyMedia: Boolean?,
-        range: Range?
-    ): Response<Array<Status?>?>?
+    fun publicTimeline(
+        request: TimelinesPublicTimelineRequest
+    ): Response<Array<TimelinesPublicTimelineResponse>>
 
     /**
      * Retrieving a tag timeline.
-     *
-     * @param hashtag
-     * @param local   (optional) only return statuses originating from this instance
-     * @return an array of Statuses, most recent ones first
      */
-    fun getHashtagTimeline(
-        hashtag: String?,
-        local: Boolean?,
-        onlyMedia: Boolean?,
-        range: Range?
-    ): Response<Array<Status?>?>?
+    fun hashtagTimeline(
+        request: TimelinesHashTagTimelineRequest
+    ): Response<Array<TimelinesHashTagTimelineResponse>>
 
     /**
      * Retrieving a list timeline.
-     *
-     * @param listId
-     * @return an array of Statuses, most recent ones first
      */
-    fun getListTimeline(
-        listId: String?,
-        range: Range?
-    ): Response<Array<Status?>?>?
+    fun listTimeline(
+        request: TimelinesListTimelineRequest
+    ): Response<Array<TimelinesListTimelineResponse>>s
 
     /**
      * Retrieving a conversations.
-     *
-     * @return an array of Conversations.
      */
-    fun getConversations(
-        range: Range?
-    ): Response<Array<Conversation?>?>?
+    fun conversations(
+        request: TimelinesConversationsRequest
+    ): Response<Array<TimelinesConversationsResponse>>
 }

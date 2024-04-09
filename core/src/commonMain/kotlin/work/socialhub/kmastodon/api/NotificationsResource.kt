@@ -1,10 +1,16 @@
 package work.socialhub.kmastodon.api
 
-import mastodon4j.Range
-import mastodon4j.entity.Alert
-import mastodon4j.entity.Notification
-import mastodon4j.entity.Subscription
-import mastodon4j.entity.share.Response
+import work.socialhub.kmastodon.api.request.notifications.NotificationsEditSubscriptionRequest
+import work.socialhub.kmastodon.api.request.notifications.NotificationsNotificationRequest
+import work.socialhub.kmastodon.api.request.notifications.NotificationsNotificationsRequest
+import work.socialhub.kmastodon.api.request.notifications.NotificationsPostSubscriptionRequest
+import work.socialhub.kmastodon.api.response.Response
+import work.socialhub.kmastodon.api.response.ResponseUnit
+import work.socialhub.kmastodon.api.response.notifications.NotificationsEditSubscriptionResponse
+import work.socialhub.kmastodon.api.response.notifications.NotificationsNotificationResponse
+import work.socialhub.kmastodon.api.response.notifications.NotificationsNotificationsResponse
+import work.socialhub.kmastodon.api.response.notifications.NotificationsPostSubscriptionResponse
+import work.socialhub.kmastodon.api.response.notifications.NotificationsSubscriptionResponse
 
 interface NotificationsResource {
 
@@ -12,52 +18,41 @@ interface NotificationsResource {
      * Fetching a user's notifications.
      */
     fun notifications(
-        id: Long?
-        range: Range?,
-        types: List<String?>?,
-        excludeTypes: List<String?>?,
-    ): Response<Array<Notification?>?>?
+        request: NotificationsNotificationsRequest
+    ): Response<Array<NotificationsNotificationsResponse>>
 
     /**
      * Getting a single notification.
-     *
-     * @param id
-     * @return the Notification
      */
-    fun getNotification(id: String?): Response<Notification?>?
+    fun notification(
+        request: NotificationsNotificationRequest
+    ): Response<NotificationsNotificationResponse>
 
     /**
-     * Clearing notifications. Deletes all notifications from the Mastodon server for the authenticated user.
+     * Clearing notifications. Deletes all notifications
+     * from the Mastodon server for the authenticated user.
      */
-    fun clearNotifications(): Response<java.lang.Void?>?
-
+    fun clearNotifications(
+    ): ResponseUnit
 
     /**
      * Get current subscription.
-     *
-     * @return subscription info.
      */
-    val subscription: Response<Subscription?>?
+    fun subscription(
+    ): Response<NotificationsSubscriptionResponse>
 
     /**
      * Subscribe to push notifications.
      * Register service worker endpoint.
-     *
-     * @return subscription info that registered.
      */
     fun pushSubscription(
-        endpoint: String?,
-        p256dh: String?,
-        auth: String?,
-        alert: Alert?
-    ): Response<Subscription?>?
+        request: NotificationsPostSubscriptionRequest
+    ): Response<NotificationsPostSubscriptionResponse>
 
     /**
      * Change types of notifications
-     *
-     * @return subscription info.
      */
     fun editSubscription(
-        alert: Alert?
-    ): Response<Subscription?>?
+        request: NotificationsEditSubscriptionRequest
+    ): Response<NotificationsEditSubscriptionResponse>
 }

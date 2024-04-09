@@ -1,26 +1,27 @@
 package work.socialhub.kmastodon.entity
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlin.js.JsExport
 
-/**
- * @author uakihir0
- */
-class Alert : java.io.Serializable {
-    @SerializedName("follow")
+@JsExport
+@Serializable
+class Alert {
+    @SerialName("follow")
     var follow: Boolean? = null
 
-    @SerializedName("favourite")
+    @SerialName("favourite")
     var favourite: Boolean? = null
 
-    @SerializedName("reblog")
+    @SerialName("reblog")
     var reblog: Boolean? = null
 
-    @SerializedName("mention")
+    @SerialName("mention")
     var mention: Boolean? = null
 
-    @SerializedName("poll")
+    @SerialName("poll")
     var poll: Boolean? = null
 
-    @SerializedName("status")
+    @SerialName("status")
     var status: Boolean? = null
 }

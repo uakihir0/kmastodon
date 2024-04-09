@@ -1,26 +1,22 @@
 package work.socialhub.kmastodon.api
 
-import mastodon4j.entity.Report
-import mastodon4j.entity.share.Response
+import work.socialhub.kmastodon.api.request.reports.ReportsPostReportRequest
+import work.socialhub.kmastodon.api.response.Response
+import work.socialhub.kmastodon.api.response.reports.ReportsPostReportResponse
+import work.socialhub.kmastodon.api.response.reports.ReportsReportsResponse
 
-/**
- * @author hecateball
- */
 interface ReportsResource {
+
     /**
      * Fetching a user's reports.
-     *
-     * @return a list of Reports made by the authenticated user
      */
-    val reports: Response<Array<Report?>?>?
+    fun reports(
+    ): Response<Array<ReportsReportsResponse>>
 
     /**
      * Reporting a user.
-     *
-     * @param accountId
-     * @param statusIds
-     * @param comment
-     * @return the finished Report
      */
-    fun postReport(accountId: String?, statusIds: Array<String?>?, comment: String?): Response<Report?>?
+    fun postReport(
+        request: ReportsPostReportRequest
+    ): Response<ReportsPostReportResponse>
 }

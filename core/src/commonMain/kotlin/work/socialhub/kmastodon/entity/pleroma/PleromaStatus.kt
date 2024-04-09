@@ -1,41 +1,40 @@
 package work.socialhub.kmastodon.entity.pleroma
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlin.js.JsExport
 
-/**
- * @author uakihir0
- */
+@JsExport
 class PleromaStatus {
-    @SerializedName("content")
+    @SerialName("content")
     var content: PleromaContent? = null
 
-    @SerializedName("conversation_id")
+    @SerialName("conversation_id")
     var conversationId: Int = 0
 
-    @SerializedName("direct_conversation_id")
+    @SerialName("direct_conversation_id")
     var directConversationId: String? = null
 
-    @SerializedName("emoji_reactions")
-    var emojiReactions: List<PleromaReaction>? = null
+    @SerialName("emoji_reactions")
+    var emojiReactions: Array<PleromaReaction>? = null
 
-    @SerializedName("expires_at")
+    @SerialName("expires_at")
     var expiresAt: String? = null
 
-    @SerializedName("in_reply_to_account_acct")
+    @SerialName("in_reply_to_account_acct")
     var inReplyToAccountAcct: String? = null
 
-    @SerializedName("local")
+    @SerialName("local")
     var isLocal: Boolean = false
 
-    @SerializedName("parent_visible")
+    @SerialName("parent_visible")
     var isParentVisible: Boolean = false
 
-    @SerializedName("pinned_at")
+    @SerialName("pinned_at")
     var pinnedAt: String? = null
 
-    @SerializedName("spoiler_text")
+    @SerialName("spoiler_text")
     var spoilerText: PleromaContent? = null
 
-    @SerializedName("thread_muted")
+    @SerialName("thread_muted")
     var isThreadMuted: Boolean = false
 }

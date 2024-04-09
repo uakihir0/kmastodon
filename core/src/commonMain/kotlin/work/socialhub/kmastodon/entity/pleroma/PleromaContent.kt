@@ -1,11 +1,10 @@
 package work.socialhub.kmastodon.entity.pleroma
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlin.js.JsExport
 
-/**
- * @author uakihir0
- */
+@JsExport
 class PleromaContent {
-    @SerializedName("text/plain")
+    @SerialName("text/plain")
     var textPlain: String? = null
 }
