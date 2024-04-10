@@ -1,23 +1,19 @@
 package work.socialhub.kmastodon
 
-import mastodon4j.domain.Service
-import mastodon4j.internal._Mastodon
+import work.socialhub.kmastodon.domain.Service
+import work.socialhub.kmastodon.internal.MastodonImpl
 
-/**
- * @author hecateball
- */
+
 object MastodonFactory {
-    /**
-     * get request instance without service.
-     */
-    fun getInstance(uri: String?, accessToken: String?): Mastodon {
-        return _Mastodon(null, uri, accessToken)
-    }
 
     /**
-     * get request instance with service.
+     * get request instance
      */
-    fun getInstance(service: Service?, uri: String?, accessToken: String?): Mastodon {
-        return _Mastodon(service, uri, accessToken)
+    fun instance(
+        uri: String,
+        accessToken: String,
+        service: Service = Service.MASTODON,
+    ): Mastodon {
+        return MastodonImpl(uri, accessToken, service)
     }
 }

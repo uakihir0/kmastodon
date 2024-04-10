@@ -1,6 +1,6 @@
 package work.socialhub.kmastodon.api.request.favourites
 
-import work.socialhub.kmastodon.Range
+import work.socialhub.kmastodon.api.request.Range
 import kotlin.js.JsExport
 
 @JsExport

@@ -1,6 +1,6 @@
 package work.socialhub.kmastodon.api.request.search
 
-import work.socialhub.kmastodon.Page
+import work.socialhub.kmastodon.api.request.Page
 import kotlin.js.JsExport
 
 @JsExport

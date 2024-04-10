@@ -1,100 +1,106 @@
 package work.socialhub.kmastodon.api
 
-import mastodon4j.Range
-import mastodon4j.entity.Account
-import mastodon4j.entity.Card
-import mastodon4j.entity.Context
-import mastodon4j.entity.Status
-import mastodon4j.entity.request.StatusUpdate
-import mastodon4j.entity.share.Response
+import work.socialhub.kmastodon.api.request.statuses.StatusesCardRequest
+import work.socialhub.kmastodon.api.request.statuses.StatusesContextRequest
+import work.socialhub.kmastodon.api.request.statuses.StatusesDeleteStatusRequest
+import work.socialhub.kmastodon.api.request.statuses.StatusesFavouriteRequest
+import work.socialhub.kmastodon.api.request.statuses.StatusesFavouritedByRequest
+import work.socialhub.kmastodon.api.request.statuses.StatusesPostStatusRequest
+import work.socialhub.kmastodon.api.request.statuses.StatusesReblogRequest
+import work.socialhub.kmastodon.api.request.statuses.StatusesRebloggedByRequest
+import work.socialhub.kmastodon.api.request.statuses.StatusesStatusRequest
+import work.socialhub.kmastodon.api.request.statuses.StatusesUnfavouriteRequest
+import work.socialhub.kmastodon.api.request.statuses.StatusesUnreblogRequest
+import work.socialhub.kmastodon.api.response.Response
+import work.socialhub.kmastodon.api.response.ResponseUnit
+import work.socialhub.kmastodon.api.response.statuses.StatusesCardResponse
+import work.socialhub.kmastodon.api.response.statuses.StatusesContextResponse
+import work.socialhub.kmastodon.api.response.statuses.StatusesFavouriteResponse
+import work.socialhub.kmastodon.api.response.statuses.StatusesFavouritedByResponse
+import work.socialhub.kmastodon.api.response.statuses.StatusesPostStatusResponse
+import work.socialhub.kmastodon.api.response.statuses.StatusesReblogResponse
+import work.socialhub.kmastodon.api.response.statuses.StatusesRebloggedByResponse
+import work.socialhub.kmastodon.api.response.statuses.StatusesStatusResponse
+import work.socialhub.kmastodon.api.response.statuses.StatusesUnfavouriteResponse
+import work.socialhub.kmastodon.api.response.statuses.StatusesUnreblogResponse
 
-/**
- * @author hecateball
- */
 interface StatusesResource {
+
     /**
      * Fetching a status.
-     *
-     * @param id
-     * @return a Status
      */
-    fun getStatus(id: String?): Response<Status?>?
+    fun status(
+        request: StatusesStatusRequest
+    ): Response<StatusesStatusResponse>
 
     /**
      * Getting status context.
-     *
-     * @param id
-     * @return a Context
      */
-    fun getContext(id: String?): Response<Context?>?
+    fun context(
+        request: StatusesContextRequest
+    ): Response<StatusesContextResponse>
 
     /**
      * Getting a card associated with a status.
-     *
-     * @param id
-     * @return a Card
      */
-    fun getCard(id: String?): Response<Card?>?
+    fun card(
+        request: StatusesCardRequest
+    ): Response<StatusesCardResponse>
 
     /**
      * Getting who reblogged a status.
-     *
-     * @param id
-     * @return an array of Accounts
      */
-    fun getRebloggedBy(id: String?, range: Range?): Response<Array<Account?>?>?
+    fun rebloggedBy(
+        request: StatusesRebloggedByRequest
+    ): Response<Array<StatusesRebloggedByResponse>>
 
     /**
      * Getting who favourited a status.
-     *
-     * @param id
-     * @return an array of Accounts
      */
-    fun getFavouritedBy(id: String?, range: Range?): Response<Array<Account?>?>?
+    fun favouritedBy(
+        request: StatusesFavouritedByRequest
+    ): Response<Array<StatusesFavouritedByResponse>>
 
 
     /**
      * Posting a new status.
-     *
-     * @param status
-     * @return the new Status.
      */
-    fun postStatus(status: StatusUpdate?): Response<Status?>?
+    fun postStatus(
+        request: StatusesPostStatusRequest
+    ): Response<StatusesPostStatusResponse>
 
     /**
      * Deleting a status.
-     *
-     * @param id
      */
-    fun deleteStatus(id: String?): Response<java.lang.Void?>?
+    fun deleteStatus(
+        request: StatusesDeleteStatusRequest
+    ): ResponseUnit
 
     /**
      * Reblogging a status.
-     *
-     * @param id
      */
-    fun reblog(id: String?): Response<Status?>?
+    fun reblog(
+        request: StatusesReblogRequest
+    ): Response<StatusesReblogResponse>
 
     /**
      * Unreblogging a status.
-     *
-     * @param id
      */
-    fun unreblog(id: String?): Response<Status?>?
+    fun unreblog(
+        request: StatusesUnreblogRequest
+    ): Response<StatusesUnreblogResponse>
 
     /**
      * Favouriting a status.
-     *
-     * @param id
-     * @return
      */
-    fun favourite(id: String?): Response<Status?>?
+    fun favourite(
+        request: StatusesFavouriteRequest
+    ): Response<StatusesFavouriteResponse>
 
     /**
      * Unfavouriting a status.
-     *
-     * @param id
-     * @return
      */
-    fun unfavourite(id: String?): Response<Status?>?
+    fun unfavourite(
+        request: StatusesUnfavouriteRequest
+    ): Response<StatusesUnfavouriteResponse>
 }
