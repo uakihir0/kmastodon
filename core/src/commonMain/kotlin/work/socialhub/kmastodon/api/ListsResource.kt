@@ -15,7 +15,9 @@ import work.socialhub.kmastodon.api.response.lists.ListsListAccountsResponse
 import work.socialhub.kmastodon.api.response.lists.ListsListResponse
 import work.socialhub.kmastodon.api.response.lists.ListsListsResponse
 import work.socialhub.kmastodon.api.response.lists.ListsUpdateListResponse
+import kotlin.js.JsExport
 
+@JsExport
 interface ListsResource {
 
     /**

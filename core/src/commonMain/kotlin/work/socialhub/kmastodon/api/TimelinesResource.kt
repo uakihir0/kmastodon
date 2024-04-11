@@ -11,7 +11,9 @@ import work.socialhub.kmastodon.api.response.timelines.TimelinesHashTagTimelineR
 import work.socialhub.kmastodon.api.response.timelines.TimelinesHomeTimelineResponse
 import work.socialhub.kmastodon.api.response.timelines.TimelinesListTimelineResponse
 import work.socialhub.kmastodon.api.response.timelines.TimelinesPublicTimelineResponse
+import kotlin.js.JsExport
 
+@JsExport
 interface TimelinesResource {
 
     /**

@@ -22,7 +22,9 @@ import work.socialhub.kmastodon.api.StatusesResource
 import work.socialhub.kmastodon.api.TimelinesResource
 import work.socialhub.kmastodon.api.TrendsResource
 import work.socialhub.kmastodon.domain.Service
+import kotlin.js.JsExport
 
+@JsExport
 interface Mastodon {
 
     /** Get kind of service  */

@@ -4,7 +4,9 @@ import work.socialhub.kmastodon.api.request.reports.ReportsPostReportRequest
 import work.socialhub.kmastodon.api.response.Response
 import work.socialhub.kmastodon.api.response.reports.ReportsPostReportResponse
 import work.socialhub.kmastodon.api.response.reports.ReportsReportsResponse
+import kotlin.js.JsExport
 
+@JsExport
 interface ReportsResource {
 
     /**

@@ -11,7 +11,9 @@ import work.socialhub.kmastodon.api.response.notifications.NotificationsNotifica
 import work.socialhub.kmastodon.api.response.notifications.NotificationsNotificationsResponse
 import work.socialhub.kmastodon.api.response.notifications.NotificationsPostSubscriptionResponse
 import work.socialhub.kmastodon.api.response.notifications.NotificationsSubscriptionResponse
+import kotlin.js.JsExport
 
+@JsExport
 interface NotificationsResource {
 
     /**

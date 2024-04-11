@@ -28,7 +28,9 @@ import work.socialhub.kmastodon.api.response.accounts.AccountsUnfollowResponse
 import work.socialhub.kmastodon.api.response.accounts.AccountsUnmuteResponse
 import work.socialhub.kmastodon.api.response.accounts.AccountsUpdateCredentialsResponse
 import work.socialhub.kmastodon.api.response.accounts.AccountsVerifyCredentialsResponse
+import kotlin.js.JsExport
 
+@JsExport
 interface AccountsResource {
 
     /**

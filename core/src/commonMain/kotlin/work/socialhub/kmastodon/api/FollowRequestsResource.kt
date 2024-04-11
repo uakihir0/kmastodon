@@ -5,7 +5,9 @@ import work.socialhub.kmastodon.api.request.followrequests.FollowRequestsRejectF
 import work.socialhub.kmastodon.api.response.Response
 import work.socialhub.kmastodon.api.response.ResponseUnit
 import work.socialhub.kmastodon.api.response.followrequests.FollowRequestsFollowRequestsResponse
+import kotlin.js.JsExport
 
+@JsExport
 interface FollowRequestsResource {
 
     /**

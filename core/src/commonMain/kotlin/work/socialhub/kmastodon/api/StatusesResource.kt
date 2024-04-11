@@ -23,7 +23,9 @@ import work.socialhub.kmastodon.api.response.statuses.StatusesRebloggedByRespons
 import work.socialhub.kmastodon.api.response.statuses.StatusesStatusResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesUnfavouriteResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesUnreblogResponse
+import kotlin.js.JsExport
 
+@JsExport
 interface StatusesResource {
 
     /**

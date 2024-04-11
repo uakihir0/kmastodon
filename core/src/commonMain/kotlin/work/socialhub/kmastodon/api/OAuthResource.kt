@@ -9,7 +9,9 @@ import work.socialhub.kmastodon.api.response.oauth.OAuthAuthorizationUrlResponse
 import work.socialhub.kmastodon.api.response.oauth.OAuthIssueAccessTokenWithAuthorizationCodeResponse
 import work.socialhub.kmastodon.api.response.oauth.OAuthIssueAccessTokenWithCredentialsResponse
 import work.socialhub.kmastodon.api.response.oauth.OAuthRefreshAccessTokenResponse
+import kotlin.js.JsExport
 
+@JsExport
 interface OAuthResource {
 
     /**
