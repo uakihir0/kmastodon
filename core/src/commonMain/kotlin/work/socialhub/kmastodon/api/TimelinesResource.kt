@@ -40,7 +40,7 @@ interface TimelinesResource {
      */
     fun listTimeline(
         request: TimelinesListTimelineRequest
-    ): Response<Array<TimelinesListTimelineResponse>>s
+    ): Response<Array<TimelinesListTimelineResponse>>
 
     /**
      * Retrieving a conversations.
