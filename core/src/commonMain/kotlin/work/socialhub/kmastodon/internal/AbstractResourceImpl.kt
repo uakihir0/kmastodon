@@ -9,6 +9,7 @@ import work.socialhub.kmastodon.api.response.ResponseUnit
 import work.socialhub.kmastodon.domain.Service
 import work.socialhub.kmastodon.entity.share.Link
 import work.socialhub.kmastodon.entity.share.RateLimit
+import work.socialhub.kmastodon.internal.InternalUtility.fromJson
 
 abstract class AbstractResourceImpl(
     val uri: String
@@ -20,7 +21,7 @@ abstract class AbstractResourceImpl(
         try {
             val response = body()
             if (response.status == 200) {
-                return Response(InternalUtility.fromJson<T>(response.stringBody))
+                return Response(fromJson<T>(response.stringBody))
                     .also {
                         it.limit = RateLimit.of(response)
                         it.link = Link.of(response)

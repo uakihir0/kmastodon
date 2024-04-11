@@ -33,7 +33,6 @@ import work.socialhub.kmastodon.api.response.accounts.AccountsVerifyCredentialsR
 import work.socialhub.kmastodon.domain.Service
 import work.socialhub.kmastodon.util.Headers.AUTHORIZATION
 import work.socialhub.kmastodon.util.MediaType
-import work.socialhub.kmpcommon.runBlocking
 
 class AccountsResourceImpl(
     uri: String,
@@ -46,16 +45,12 @@ class AccountsResourceImpl(
      * {@inheritDoc}
      */
     override fun verifyCredentials(
-    ): Response<AccountsVerifyCredentialsResponse> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/accounts/verify_credentials")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .get()
-            }
-        }
+    ): Response<AccountsVerifyCredentialsResponse> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/accounts/verify_credentials")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .get()
     }
 
     /**
@@ -63,21 +58,17 @@ class AccountsResourceImpl(
      */
     override fun updateCredentials(
         request: AccountsUpdateCredentialsRequest
-    ): Response<AccountsUpdateCredentialsResponse> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/accounts/update_credentials")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
+    ): Response<AccountsUpdateCredentialsResponse> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/accounts/update_credentials")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
 
-                    .pwn("display_name", request.displayName)
-                    .pwn("note", request.note)
-                    .pwn("avatar", request.avatar)
-                    .pwn("header", request.header)
-                    .patch()
-            }
-        }
+            .pwn("display_name", request.displayName)
+            .pwn("note", request.note)
+            .pwn("avatar", request.avatar)
+            .pwn("header", request.header)
+            .patch()
     }
 
     /**
@@ -85,16 +76,12 @@ class AccountsResourceImpl(
      */
     override fun account(
         request: AccountsAccountRequest
-    ): Response<AccountsAccountResponse> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/accounts/${request.id}")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .get()
-            }
-        }
+    ): Response<AccountsAccountResponse> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/accounts/${request.id}")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .get()
     }
 
     /**
@@ -102,17 +89,13 @@ class AccountsResourceImpl(
      */
     override fun followers(
         request: AccountsFollowersRequest
-    ): Response<Array<AccountsFollowersResponse>> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/accounts/${request.id}/followers")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .paging(request.range, service())
-                    .get()
-            }
-        }
+    ): Response<Array<AccountsFollowersResponse>> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/accounts/${request.id}/followers")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .paging(request.range, service())
+            .get()
     }
 
     /**
@@ -120,17 +103,13 @@ class AccountsResourceImpl(
      */
     override fun following(
         request: AccountsFollowingRequest
-    ): Response<Array<AccountsFollowingResponse>> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/accounts/${request.id}/following")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .paging(request.range, service())
-                    .get()
-            }
-        }
+    ): Response<Array<AccountsFollowingResponse>> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/accounts/${request.id}/following")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .paging(request.range, service())
+            .get()
     }
 
     /**
@@ -138,22 +117,18 @@ class AccountsResourceImpl(
      */
     override fun statuses(
         request: AccountsStatusesRequest
-    ): Response<Array<AccountsStatusesResponse>> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/accounts/${request.id}/statuses")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .paging(request.range, service())
+    ): Response<Array<AccountsStatusesResponse>> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/accounts/${request.id}/statuses")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .paging(request.range, service())
 
-                    .qwn("only_media", request.onlyMedia)
-                    .qwn("pinned", request.onlyPinned)
-                    .qwn("exclude_replies", request.excludeReplies)
-                    .qwn("exclude_reblogs", request.excludeReblogs)
-                    .get()
-            }
-        }
+            .qwn("only_media", request.onlyMedia)
+            .qwn("pinned", request.onlyPinned)
+            .qwn("exclude_replies", request.excludeReplies)
+            .qwn("exclude_reblogs", request.excludeReblogs)
+            .get()
     }
 
     /**
@@ -161,16 +136,12 @@ class AccountsResourceImpl(
      */
     override fun follow(
         request: AccountsFollowRequest
-    ): Response<AccountsFollowResponse> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/accounts/${request.id}/follow")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .post()
-            }
-        }
+    ): Response<AccountsFollowResponse> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/accounts/${request.id}/follow")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .post()
     }
 
     /**
@@ -178,16 +149,12 @@ class AccountsResourceImpl(
      */
     override fun unfollow(
         request: AccountsUnfollowRequest
-    ): Response<AccountsUnfollowResponse> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/accounts/${request.id}/unfollow")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .post()
-            }
-        }
+    ): Response<AccountsUnfollowResponse> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/accounts/${request.id}/unfollow")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .post()
     }
 
     /**
@@ -195,16 +162,12 @@ class AccountsResourceImpl(
      */
     override fun block(
         request: AccountsBlockRequest
-    ): Response<AccountsBlockResponse> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/accounts/${request.id}/block")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .post()
-            }
-        }
+    ): Response<AccountsBlockResponse> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/accounts/${request.id}/block")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .post()
     }
 
     /**
@@ -213,14 +176,12 @@ class AccountsResourceImpl(
     override fun unblock(
         request: AccountsUnblockRequest
     ): Response<AccountsUnblockResponse> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/accounts/${request.id}/unblock")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .post()
-            }
+        return exec {
+            HttpRequest()
+                .url("${uri}/api/v1/accounts/${request.id}/unblock")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .post()
         }
     }
 
@@ -229,16 +190,12 @@ class AccountsResourceImpl(
      */
     override fun mute(
         request: AccountsMuteRequest
-    ): Response<AccountsMuteResponse> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/accounts/${request.id}/mute")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .post()
-            }
-        }
+    ): Response<AccountsMuteResponse> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/accounts/${request.id}/mute")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .post()
     }
 
     /**
@@ -246,16 +203,12 @@ class AccountsResourceImpl(
      */
     override fun unmute(
         request: AccountsUnmuteRequest
-    ): Response<AccountsUnmuteResponse> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/accounts/${request.id}/unmute")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .post()
-            }
-        }
+    ): Response<AccountsUnmuteResponse> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/accounts/${request.id}/unmute")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .post()
     }
 
     /**
@@ -263,17 +216,13 @@ class AccountsResourceImpl(
      */
     override fun relationships(
         request: AccountsRelationshipsRequest
-    ): Response<Array<AccountsRelationshipsResponse>> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/accounts/relationships")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .qwns("id", request.ids)
-                    .get()
-            }
-        }
+    ): Response<Array<AccountsRelationshipsResponse>> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/accounts/relationships")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .qwns("id", request.ids)
+            .get()
     }
 
     /**
@@ -281,17 +230,13 @@ class AccountsResourceImpl(
      */
     override fun search(
         request: AccountsSearchRequest
-    ): Response<Array<AccountsSearchResponse>> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/accounts/search")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .qwn("q", request.query)
-                    .qwn("limit", request.limit)
-                    .get()
-            }
-        }
+    ): Response<Array<AccountsSearchResponse>> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/accounts/search")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .qwn("q", request.query)
+            .qwn("limit", request.limit)
+            .get()
     }
 }

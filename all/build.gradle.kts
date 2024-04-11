@@ -32,7 +32,7 @@ kotlin {
     }
 
     cocoapods {
-        name = "kmisskey"
+        name = "kmastodon"
         version = "0.0.1"
         summary = "kmastodon is Mastodon library for Kotlin Multiplatform."
         homepage = "https://github.com/uakihir0/kmastodon"

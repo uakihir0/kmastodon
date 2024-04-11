@@ -1,5 +1,5 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'kmisskey'
+    spec.name                     = 'kmastodon'
     spec.version                  = '0.0.1'
     spec.homepage                 = 'https://github.com/uakihir0/kmastodon'
     spec.source                   = { :http=> ''}
@@ -29,7 +29,7 @@ Pod::Spec.new do |spec|
                 
     spec.script_phases = [
         {
-            :name => 'Build kmisskey',
+            :name => 'Build kmastodon',
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT
