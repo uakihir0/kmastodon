@@ -1,4 +1,4 @@
-package work.socialhub.kmastodon.stream.listener
+package work.socialhub.kmastodon.stream.listener.primitive
 
 import work.socialhub.kmastodon.entity.Status
 

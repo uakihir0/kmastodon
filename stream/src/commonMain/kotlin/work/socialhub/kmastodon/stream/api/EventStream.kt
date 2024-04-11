@@ -1,5 +1,7 @@
 package work.socialhub.kmastodon.stream.api
 
 interface EventStream {
-    fun open()
+    suspend fun open()
+    fun close()
+    fun isOpen(): Boolean
 }
