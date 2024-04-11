@@ -16,8 +16,8 @@ class NodesResourceImpl(
     override fun nodeInfo(
     ): Response<NodesNodeInfoResponse> {
         return runBlocking {
-            val response: Response<NodeInfo> =
-                proceed {
+            val response =
+                proceed<NodeInfo> {
                     HttpRequest()
                         .path("${uri}/.well-known/nodeinfo")
                         .accept(MediaType.JSON)
@@ -27,7 +27,7 @@ class NodesResourceImpl(
             val link = response.data.links?.firstOrNull()?.href
                 ?: throw MastodonException("no node info links.")
 
-            proceed {
+            proceed<NodesNodeInfoResponse> {
                 HttpRequest()
                     .path(link)
                     .accept(MediaType.JSON)

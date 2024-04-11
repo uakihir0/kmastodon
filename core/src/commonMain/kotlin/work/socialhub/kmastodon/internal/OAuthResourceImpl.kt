@@ -26,21 +26,17 @@ class OAuthResourceImpl(
      */
     override fun issueAccessTokenWithCredentials(
         request: OAuthIssueAccessTokenWithCredentialsRequest
-    ): Response<OAuthIssueAccessTokenWithCredentialsResponse> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/oauth/token")
-                    .pwn("client_id", request.clientId)
-                    .pwn("client_secret", request.clientSecret)
-                    .pwn("username", request.emailAddress)
-                    .pwn("password", request.password)
-                    .pwn("scope", request.scopes)
-                    .pwn("grant_type", "password")
-                    .accept(MediaType.JSON)
-                    .post()
-            }
-        }
+    ): Response<OAuthIssueAccessTokenWithCredentialsResponse> = exec {
+        HttpRequest()
+            .url("${uri}/oauth/token")
+            .pwn("client_id", request.clientId)
+            .pwn("client_secret", request.clientSecret)
+            .pwn("username", request.emailAddress)
+            .pwn("password", request.password)
+            .pwn("scope", request.scopes)
+            .pwn("grant_type", "password")
+            .accept(MediaType.JSON)
+            .post()
     }
 
     /**
@@ -48,20 +44,16 @@ class OAuthResourceImpl(
      */
     override fun issueAccessTokenWithAuthorizationCode(
         request: OAuthIssueAccessTokenWithAuthorizationCodeRequest
-    ): Response<OAuthIssueAccessTokenWithAuthorizationCodeResponse> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/oauth/token")
-                    .pwn("client_id", request.clientId)
-                    .pwn("client_secret", request.clientSecret)
-                    .pwn("redirect_uri", request.redirectUri)
-                    .pwn("code", request.code)
-                    .pwn("grant_type", "authorization_code")
-                    .accept(MediaType.JSON)
-                    .post()
-            }
-        }
+    ): Response<OAuthIssueAccessTokenWithAuthorizationCodeResponse> = exec {
+        HttpRequest()
+            .url("${uri}/oauth/token")
+            .pwn("client_id", request.clientId)
+            .pwn("client_secret", request.clientSecret)
+            .pwn("redirect_uri", request.redirectUri)
+            .pwn("code", request.code)
+            .pwn("grant_type", "authorization_code")
+            .accept(MediaType.JSON)
+            .post()
     }
 
     /**
@@ -69,19 +61,15 @@ class OAuthResourceImpl(
      */
     override fun refreshAccessToken(
         request: OAuthRefreshAccessTokenRequest
-    ): Response<OAuthRefreshAccessTokenResponse> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/oauth/token")
-                    .pwn("client_id", request.clientId)
-                    .pwn("client_secret", request.clientSecret)
-                    .pwn("refresh_token", request.refreshToken)
-                    .pwn("grant_type", "refresh_token")
-                    .accept(MediaType.JSON)
-                    .post()
-            }
-        }
+    ): Response<OAuthRefreshAccessTokenResponse> = exec {
+        HttpRequest()
+            .url("${uri}/oauth/token")
+            .pwn("client_id", request.clientId)
+            .pwn("client_secret", request.clientSecret)
+            .pwn("refresh_token", request.refreshToken)
+            .pwn("grant_type", "refresh_token")
+            .accept(MediaType.JSON)
+            .post()
     }
 
     /**

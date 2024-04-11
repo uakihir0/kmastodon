@@ -7,7 +7,6 @@ import work.socialhub.kmastodon.api.response.Response
 import work.socialhub.kmastodon.api.response.polls.PollsVotePollResponse
 import work.socialhub.kmastodon.util.Headers
 import work.socialhub.kmastodon.util.MediaType
-import work.socialhub.kmpcommon.runBlocking
 
 class PollsResourceImpl(
     uri: String,
@@ -17,17 +16,13 @@ class PollsResourceImpl(
 
     override fun votePoll(
         request: PollsVotePollRequest
-    ): Response<PollsVotePollResponse> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/polls/${request.id}/votes")
-                    .header(Headers.AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
+    ): Response<PollsVotePollResponse> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/polls/${request.id}/votes")
+            .header(Headers.AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
 
-                    .pwns("choices", request.choices)
-                    .post()
-            }
-        }
+            .pwns("choices", request.choices)
+            .post()
     }
 }

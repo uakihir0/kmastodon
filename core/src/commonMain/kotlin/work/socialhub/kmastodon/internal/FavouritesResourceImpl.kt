@@ -8,7 +8,6 @@ import work.socialhub.kmastodon.api.response.favourites.FavouritesFavouritesResp
 import work.socialhub.kmastodon.domain.Service
 import work.socialhub.kmastodon.util.Headers.AUTHORIZATION
 import work.socialhub.kmastodon.util.MediaType
-import work.socialhub.kmpcommon.runBlocking
 
 class FavouritesResourceImpl(
     uri: String,
@@ -19,16 +18,12 @@ class FavouritesResourceImpl(
 
     override fun favourites(
         request: FavouritesFavouritesRequest
-    ): Response<Array<FavouritesFavouritesResponse>> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/favourites")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .paging(request.range, service())
-                    .get()
-            }
-        }
+    ): Response<Array<FavouritesFavouritesResponse>> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/favourites")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .paging(request.range, service())
+            .get()
     }
 }

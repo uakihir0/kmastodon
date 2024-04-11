@@ -1,6 +1,5 @@
 package work.socialhub.kmastodon.internal
 
-import kotlinx.coroutines.runBlocking
 import work.socialhub.khttpclient.HttpRequest
 import work.socialhub.kmastodon.api.MutesResource
 import work.socialhub.kmastodon.api.response.Response
@@ -15,15 +14,11 @@ class MutesResourceImpl(
     MutesResource {
 
     override fun mutes(
-    ): Response<Array<MutesMutesResponse>> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/mutes")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .get()
-            }
-        }
+    ): Response<Array<MutesMutesResponse>> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/mutes")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .get()
     }
 }

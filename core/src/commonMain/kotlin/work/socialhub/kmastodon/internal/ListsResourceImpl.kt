@@ -19,7 +19,6 @@ import work.socialhub.kmastodon.api.response.lists.ListsListsResponse
 import work.socialhub.kmastodon.api.response.lists.ListsUpdateListResponse
 import work.socialhub.kmastodon.util.Headers.AUTHORIZATION
 import work.socialhub.kmastodon.util.MediaType
-import work.socialhub.kmpcommon.runBlocking
 
 class ListsResourceImpl(
     uri: String,
@@ -32,16 +31,12 @@ class ListsResourceImpl(
      */
     override fun lists(
         request: ListsListsRequest
-    ): Response<Array<ListsListsResponse>> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/accounts/${request.id}/lists")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .get()
-            }
-        }
+    ): Response<Array<ListsListsResponse>> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/accounts/${request.id}/lists")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .get()
     }
 
     /**
@@ -49,18 +44,13 @@ class ListsResourceImpl(
      */
     override fun listAccounts(
         request: ListsListAccountsRequest
-    ): Response<Array<ListsListAccountsResponse>> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/lists/${request.id}/accounts")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-
-                    .query("limit", request.limit ?: 40)
-                    .get()
-            }
-        }
+    ): Response<Array<ListsListAccountsResponse>> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/lists/${request.id}/accounts")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .query("limit", request.limit ?: 40)
+            .get()
     }
 
     /**
@@ -68,16 +58,12 @@ class ListsResourceImpl(
      */
     override fun list(
         request: ListsListRequest
-    ): Response<ListsListResponse> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/lists/${request.id}")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .get()
-            }
-        }
+    ): Response<ListsListResponse> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/lists/${request.id}")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .get()
     }
 
     /**
@@ -85,17 +71,13 @@ class ListsResourceImpl(
      */
     override fun createList(
         request: ListsCreateListRequest
-    ): Response<ListsCreateListResponse> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/lists")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .pwn("title", request.title)
-                    .post()
-            }
-        }
+    ): Response<ListsCreateListResponse> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/lists")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .pwn("title", request.title)
+            .post()
     }
 
     /**
@@ -103,17 +85,13 @@ class ListsResourceImpl(
      */
     override fun updateList(
         request: ListsUpdateListRequest
-    ): Response<ListsUpdateListResponse> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v1/lists/${request.id}")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .pwn("title", request.title)
-                    .put()
-            }
-        }
+    ): Response<ListsUpdateListResponse> = exec {
+        HttpRequest()
+            .url("${uri}/api/v1/lists/${request.id}")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .pwn("title", request.title)
+            .put()
     }
 
     /**
@@ -121,16 +99,12 @@ class ListsResourceImpl(
      */
     override fun deleteList(
         request: ListsDeleteListRequest
-    ): ResponseUnit {
-        return runBlocking {
-            proceedUnit {
-                HttpRequest()
-                    .url("${uri}/api/v1/lists/${request.id}")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .delete()
-            }
-        }
+    ): ResponseUnit = unit {
+        HttpRequest()
+            .url("${uri}/api/v1/lists/${request.id}")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .delete()
     }
 
     /**
@@ -138,17 +112,13 @@ class ListsResourceImpl(
      */
     override fun addAccountsToList(
         request: ListsAddAccountsToListRequest
-    ): ResponseUnit {
-        return runBlocking {
-            proceedUnit {
-                HttpRequest()
-                    .url("${uri}/api/v1/lists/${request.id}/accounts")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .pwns("accountIds", request.accountIds)
-                    .post()
-            }
-        }
+    ): ResponseUnit = unit {
+        HttpRequest()
+            .url("${uri}/api/v1/lists/${request.id}/accounts")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .pwns("accountIds", request.accountIds)
+            .post()
     }
 
     /**
@@ -156,16 +126,12 @@ class ListsResourceImpl(
      */
     override fun deleteAccountsToList(
         request: ListsDeleteAccountsToListRequest
-    ): ResponseUnit {
-        return runBlocking {
-            proceedUnit {
-                HttpRequest()
-                    .url("${uri}/api/v1/lists/${request.id}/accounts")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .pwns("accountIds", request.accountIds)
-                    .delete()
-            }
-        }
+    ): ResponseUnit = unit {
+        HttpRequest()
+            .url("${uri}/api/v1/lists/${request.id}/accounts")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
+            .pwns("accountIds", request.accountIds)
+            .delete()
     }
 }

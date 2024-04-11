@@ -10,6 +10,7 @@ import work.socialhub.kmastodon.domain.Service
 import work.socialhub.kmastodon.entity.share.Link
 import work.socialhub.kmastodon.entity.share.RateLimit
 import work.socialhub.kmastodon.internal.InternalUtility.fromJson
+import work.socialhub.kmpcommon.runBlocking
 
 abstract class AbstractResourceImpl(
     val uri: String
@@ -122,5 +123,21 @@ abstract class AbstractResourceImpl(
         }
 
         return this
+    }
+
+    protected inline fun <reified T> exec(
+        crossinline function: suspend () -> HttpResponse
+    ): Response<T> {
+        return runBlocking {
+            proceed<T> { function() }
+        }
+    }
+
+    protected inline fun unit(
+        crossinline function: suspend () -> HttpResponse
+    ): ResponseUnit {
+        return runBlocking {
+            proceedUnit { function() }
+        }
     }
 }

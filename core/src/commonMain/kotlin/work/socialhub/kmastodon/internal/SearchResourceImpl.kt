@@ -7,7 +7,6 @@ import work.socialhub.kmastodon.api.response.Response
 import work.socialhub.kmastodon.api.response.search.SearchSearchResponse
 import work.socialhub.kmastodon.util.Headers.AUTHORIZATION
 import work.socialhub.kmastodon.util.MediaType
-import work.socialhub.kmpcommon.runBlocking
 
 class SearchResourceImpl(
     uri: String,
@@ -17,21 +16,17 @@ class SearchResourceImpl(
 
     override fun search(
         request: SearchSearchRequest
-    ): Response<SearchSearchResponse> {
-        return runBlocking {
-            proceed {
-                HttpRequest()
-                    .url("${uri}/api/v2/search")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
+    ): Response<SearchSearchResponse> = exec {
+        HttpRequest()
+            .url("${uri}/api/v2/search")
+            .header(AUTHORIZATION, bearerToken())
+            .accept(MediaType.JSON)
 
-                    .pwn("q", request.query)
-                    .pwn("resolve", request.resolve)
-                    .pwn("following", request.onlyFollowing)
-                    .pwn("limit", request.page?.limit)
-                    .pwn("offset", request.page?.offset)
-                    .get()
-            }
-        }
+            .pwn("q", request.query)
+            .pwn("resolve", request.resolve)
+            .pwn("following", request.onlyFollowing)
+            .pwn("limit", request.page?.limit)
+            .pwn("offset", request.page?.offset)
+            .get()
     }
 }
