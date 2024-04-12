@@ -2,7 +2,9 @@ package work.socialhub.kmastodon
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import work.socialhub.kmastodon.api.response.timelines.TimelinesHomeTimelineResponse
 import work.socialhub.kmastodon.domain.Service
+import work.socialhub.kmastodon.entity.Status
 import work.socialhub.kmastodon.internal.InternalUtility.fromJson
 import java.io.FileReader
 import kotlin.test.BeforeTest
@@ -10,7 +12,7 @@ import kotlin.test.BeforeTest
 abstract class AbstractTest {
 
     companion object {
-        const val TEST_ACCOUNT_INDEX = 1
+        const val TEST_ACCOUNT_INDEX = 0
 
         var HOST: String? = null
         var CLIENT_ID: String? = null
@@ -52,6 +54,7 @@ abstract class AbstractTest {
             e.printStackTrace()
         }
     }
+
 
 
     @Serializable

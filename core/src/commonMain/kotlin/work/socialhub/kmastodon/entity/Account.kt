@@ -5,29 +5,81 @@ import kotlinx.serialization.Serializable
 import work.socialhub.kmastodon.entity.services.pleroma.PleromaAccount
 import kotlin.js.JsExport
 
+/**
+ * https://docs.joinmastodon.org/entities/Account/
+ */
 @JsExport
 @Serializable
 class Account {
+
     @SerialName("id")
-    var id: String? = null
+    lateinit var id: String
 
     @SerialName("username")
-    var userName: String? = null
+    lateinit var userName: String
 
     @SerialName("acct")
-    var account: String? = null
+    lateinit var account: String
+
+    @SerialName("url")
+    lateinit var url: String
 
     @SerialName("display_name")
-    var displayName: String? = null
+    lateinit var displayName: String
+
+    @SerialName("note")
+    lateinit var note: String
+
+    @SerialName("avatar")
+    lateinit var avatar: String
+
+    @SerialName("avatar_static")
+    lateinit var avatarStatic: String
+
+    @SerialName("header")
+    lateinit var header: String
+
+    @SerialName("header_static")
+    lateinit var headerStatic: String
 
     @SerialName("locked")
     var isLocked: Boolean = false
 
+    @SerialName("fields")
+    var fields: Array<Field> = arrayOf()
+
+    @SerialName("emojis")
+    var emojis: Array<Emoji> = arrayOf()
+
     @SerialName("bot")
-    var bot: Boolean? = null
+    var isBot: Boolean = false
+
+    @SerialName("group")
+    var isGroup: Boolean = false
+
+    @SerialName("discoverable")
+    var isDiscoverable: Boolean = false
+
+    @SerialName("noindex")
+    var isNoindex: Boolean = false
+
+    @SerialName("moved")
+    var moved: Account? = null
+
+    @SerialName("suspended")
+    var isSuspended: Boolean = false
+
+    @SerialName("limited")
+    var isLimited: Boolean = false
 
     @SerialName("created_at")
-    var createdAt: String? = null
+    lateinit var createdAt: String
+
+    @SerialName("last_status_at")
+    var lastStatusAt: String? = null
+
+    @SerialName("statuses_count")
+    var statusesCount: Int = 0
 
     @SerialName("followers_count")
     var followersCount: Int = 0
@@ -35,37 +87,15 @@ class Account {
     @SerialName("following_count")
     var followingCount: Int = 0
 
-    @SerialName("statuses_count")
-    var statusesCount: Int = 0
-
-    @SerialName("note")
-    var note: String? = null
-
-    @SerialName("url")
-    var url: String? = null
-
-    @SerialName("avatar")
-    var avatar: String? = null
-
-    @SerialName("avatar_static")
-    var avatarStatic: String? = null
-
-    @SerialName("header")
-    var header: String? = null
-
-    @SerialName("header_static")
-    var headerStatic: String? = null
-
-    @SerialName("emojis")
-    var emojis: Array<Emoji>? = null
-
+    /* credential account only */
     @SerialName("source")
     var source: AccountSource? = null
 
-    @SerialName("fields")
-    var fields: Array<Field>? = null
+    /* credential account only */
+    @SerialName("role")
+    var role: Role? = null
 
-    // Pleroma
+    /* Pleroma */
     @SerialName("pleroma")
     var pleroma: PleromaAccount? = null
 }

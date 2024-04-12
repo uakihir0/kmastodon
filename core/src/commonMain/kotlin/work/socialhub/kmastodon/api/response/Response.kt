@@ -10,4 +10,5 @@ class Response<T>(
 ) {
     var limit: RateLimit? = null
     var link: Link? = null
+    var json: String? = null
 }

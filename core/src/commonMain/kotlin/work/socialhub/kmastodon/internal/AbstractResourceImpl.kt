@@ -26,6 +26,7 @@ abstract class AbstractResourceImpl(
                     .also {
                         it.limit = RateLimit.of(response)
                         it.link = Link.of(response)
+                        it.json = response.stringBody
                     }
             }
 
