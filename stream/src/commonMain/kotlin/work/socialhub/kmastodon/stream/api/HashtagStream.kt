@@ -8,7 +8,4 @@ interface HashtagStream : EventStream {
         listener: HashtagStreamListener,
         lifeCycle: LifeCycleListener
     ): HashtagStream
-
-    suspend fun start()
-    suspend fun stop()
 }

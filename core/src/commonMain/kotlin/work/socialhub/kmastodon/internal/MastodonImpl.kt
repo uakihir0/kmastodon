@@ -24,9 +24,9 @@ import work.socialhub.kmastodon.api.TrendsResource
 import work.socialhub.kmastodon.domain.Service
 
 class MastodonImpl(
-    uri: String,
-    accessToken: String,
-    service: Service?,
+    private val uri: String,
+    private val accessToken: String,
+    private val service: Service?,
 ) : Mastodon {
 
     private val apps: AppsResource = AppsResourceImpl(uri)
@@ -55,6 +55,16 @@ class MastodonImpl(
     // private val streaming: StreamingResource = StreamingResourceImpl(uri, accessToken) { service() }
 
     private var serviceCache: Service? = service
+
+    /**
+     * get uri
+     */
+    override fun uri() = uri
+
+    /**
+     * get access token
+     */
+    override fun accessToken() = accessToken
 
     /**
      * get service

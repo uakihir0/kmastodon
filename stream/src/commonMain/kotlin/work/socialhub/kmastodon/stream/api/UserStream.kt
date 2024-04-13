@@ -8,7 +8,4 @@ interface UserStream : EventStream {
         listener: UserStreamListener,
         lifeCycle: LifeCycleListener,
     ): UserStream
-
-    suspend fun start()
-    suspend fun stop()
 }

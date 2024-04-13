@@ -8,7 +8,4 @@ interface PublicStream : EventStream {
         listener: PublicStreamListener,
         lifeCycle: LifeCycleListener,
     ): PublicStream
-
-    suspend fun start()
-    suspend fun stop()
 }

@@ -53,5 +53,6 @@ interface Mastodon {
     fun favourites(): FavouritesResource
     fun notifications(): NotificationsResource
 
-    // fun streaming(): StreamingResource?
+    fun uri(): String
+    fun accessToken(): String
 }
