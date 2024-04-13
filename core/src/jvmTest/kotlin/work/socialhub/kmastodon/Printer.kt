@@ -1,6 +1,7 @@
 package work.socialhub.kmastodon
 
 import work.socialhub.kmastodon.entity.Account
+import work.socialhub.kmastodon.entity.Notification
 import work.socialhub.kmastodon.entity.Status
 
 object Printer {
@@ -30,10 +31,30 @@ object Printer {
         println("")
     }
 
+    fun AbstractTest.dump(
+        notification: Notification,
+        sp: String
+    ) {
+        println("${sp}=== Notification ===")
+        println("${sp}ID          > ${notification.id}")
+        println("${sp}Type        > ${notification.type}")
+        println("${sp}CreatedAt   > ${notification.createdAt}")
+        println("")
+    }
+
     fun AbstractTest.dumpStatuses(
         data: Array<Status>,
         sp: String = ""
     ) {
         for (status in data) dump(status, sp)
     }
+
+    fun AbstractTest.dumpNotifications(
+        data: Array<Notification>,
+        sp: String = ""
+    ) {
+        for (notification in data) dump(notification, sp)
+    }
+
+
 }
