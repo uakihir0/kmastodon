@@ -82,7 +82,7 @@ class OAuthResourceImpl(
             Response(
                 URLBuilder().apply {
                     protocol = HTTPS
-                    host = uri
+                    host = Url(uri).host
                     encodedPath = "/oauth/authorize"
                     parameters.append("response_type", "code")
                     parameters.append("client_id", request.clientId!!)
