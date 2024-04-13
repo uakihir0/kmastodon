@@ -11,7 +11,7 @@ object MastodonFactory {
      */
     fun instance(
         uri: String,
-        accessToken: String,
+        accessToken: String = "",
         service: Service = Service.MASTODON,
     ): Mastodon {
         return MastodonImpl(uri, accessToken, service)
