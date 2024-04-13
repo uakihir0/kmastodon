@@ -33,22 +33,66 @@ dependencies {
 
 ### 認証
 
-以下のようにユーザーが認証するための URL をリクエストします。
+先にアプリケーションを作成して、アプリ情報をサーバーにリクエストします。
 
 ```kotlin
-WIP
+val mastodon = MastodonFactory.instance({{HOST}})
+
+val response = mastodon.apps().registerApplication(
+    AppsRegisterApplicationRequest().also {
+        it.name = {{APP_NAME}}
+        it.website = {{APP_WEBSITE}}
+        it.redirectUris = {{REDIRECT_URI}}
+        it.scopes = "read write follow push"
+    }
+)
+
+println(response.data.clientId)
+println(response.data.clientSecret)
 ```
 
-ユーザーが認証した後、リダイレクトされた URL からトークンを取得し、以下のようにアクセストークンを取得します。
+次に、以下のようにユーザーが認証するための URL をリクエストします。
 
 ```kotlin
-WIP
+val response = mastodon.oauth().authorizationUrl(
+    OAuthAuthorizationUrlRequest().also {
+        it.clientId = {{CLIENT_ID}}
+        it.redirectUri = {{REDIRECT_URI}}
+        it.scopes = "read write follow push"
+    }
+)
+
+println(response.data)
+```
+
+ユーザーが認証した後、リダイレクトされた URL からコードがクエリで渡ってくるので、それを用いて以下のようにアクセストークンを取得します。
+
+```kotlin
+val response = mastodon.oauth().issueAccessTokenWithAuthorizationCode(
+    OAuthIssueAccessTokenWithAuthorizationCodeRequest().also {
+        it.clientId = {{CLIENT_ID}}
+        it.clientSecret = {{CLIENT_SECRET}}
+        it.redirectUri = {{REDIRECT_URI}}
+        it.code = "CODE"
+    }
+)
+
+println(response.data.accessToken)
 ```
 
 ### Create Note
 
 ```kotlin
-WIP
+val mastodon = MastodonFactory.instance(
+    {{HOST}}, {{ACCESS_TOKEN}}
+)
+
+mastodon.statuses().postStatus(
+    StatusesPostStatusRequest().also {
+        it.status = "Post from kmastodon! for test." + "\n" +
+                "https://github.com/uakihir0/kmastodon"
+    }
+)
 ```
 
 ## ライセンス
