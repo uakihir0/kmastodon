@@ -29,7 +29,6 @@ abstract class AbstractResourceImpl(
                         it.json = response.stringBody
                     }
             }
-
             throw MastodonException(
                 response.status,
                 response.stringBody

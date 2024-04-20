@@ -7,7 +7,7 @@ import work.socialhub.kmastodon.internal.InternalUtility.fromJson
 import java.io.FileReader
 import kotlin.test.BeforeTest
 
-abstract class AbstractTest {
+open class AbstractTest {
 
     companion object {
         const val TEST_ACCOUNT_INDEX = 0

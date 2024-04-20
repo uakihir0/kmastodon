@@ -18,7 +18,7 @@ class MediasResourceImpl(
         request: MediasPostMediaRequest
     ): Response<MediasPostMediaResponse> = exec {
         HttpRequest()
-            .url("${uri}/api/v1/media")
+            .url("${uri}/api/v2/media")
             .header(AUTHORIZATION, bearerToken())
             .accept(MediaType.JSON)
 
