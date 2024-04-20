@@ -55,6 +55,4 @@ object Printer {
     ) {
         for (notification in data) dump(notification, sp)
     }
-
-
 }

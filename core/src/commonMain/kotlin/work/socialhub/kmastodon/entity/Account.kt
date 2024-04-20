@@ -34,13 +34,13 @@ class Account {
     lateinit var avatar: String
 
     @SerialName("avatar_static")
-    lateinit var avatarStatic: String
+    var avatarStatic: String? = null
 
     @SerialName("header")
     lateinit var header: String
 
     @SerialName("header_static")
-    lateinit var headerStatic: String
+    var headerStatic: String? = null
 
     @SerialName("locked")
     var isLocked: Boolean = false
@@ -58,10 +58,10 @@ class Account {
     var isGroup: Boolean = false
 
     @SerialName("discoverable")
-    var isDiscoverable: Boolean = false
+    var isDiscoverable: Boolean? = null
 
     @SerialName("noindex")
-    var isNoindex: Boolean = false
+    var isNoindex: Boolean? = null
 
     @SerialName("moved")
     var moved: Account? = null
