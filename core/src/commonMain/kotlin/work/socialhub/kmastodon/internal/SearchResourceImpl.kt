@@ -22,11 +22,11 @@ class SearchResourceImpl(
             .header(AUTHORIZATION, bearerToken())
             .accept(MediaType.JSON)
 
-            .pwn("q", request.query)
-            .pwn("resolve", request.resolve)
-            .pwn("following", request.onlyFollowing)
-            .pwn("limit", request.page?.limit)
-            .pwn("offset", request.page?.offset)
+            .qwn("q", request.query)
+            .qwn("resolve", request.resolve)
+            .qwn("following", request.onlyFollowing)
+            .qwn("limit", request.page?.limit)
+            .qwn("offset", request.page?.offset)
             .get()
     }
 }

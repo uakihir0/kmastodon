@@ -42,6 +42,13 @@ object Printer {
         println("")
     }
 
+    fun AbstractTest.dumpAccounts(
+        data: Array<Account>,
+        sp: String = ""
+    ) {
+        for (account in data) dump(account, sp)
+    }
+
     fun AbstractTest.dumpStatuses(
         data: Array<Status>,
         sp: String = ""
