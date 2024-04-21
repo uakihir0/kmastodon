@@ -24,6 +24,7 @@ class MediasResourceImpl(
 
             .file("file", request.name!!, request.bytes!!)
             .pwn("description", request.description)
+            .multipart(true)
             .post()
     }
 }
