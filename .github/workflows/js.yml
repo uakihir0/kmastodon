@@ -18,7 +18,7 @@ jobs:
       - name: Pods Npm Package
         uses: gradle/actions/setup-gradle@v3
         with:
-          arguments: all:jsBrowserDevelopmentLibraryDistribution -x test
+          arguments: all:jsBrowserDevelopmentLibraryDistribution -x test --refresh-dependencies
 
       - name: Set Project Version
         run: |
