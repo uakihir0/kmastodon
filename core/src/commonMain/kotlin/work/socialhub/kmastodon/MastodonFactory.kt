@@ -2,8 +2,9 @@ package work.socialhub.kmastodon
 
 import work.socialhub.kmastodon.domain.Service
 import work.socialhub.kmastodon.internal.MastodonImpl
+import kotlin.js.JsExport
 
-
+@JsExport
 object MastodonFactory {
 
     /**

@@ -4,7 +4,7 @@ import work.socialhub.kmastodon.domain.Service
 import kotlin.js.JsExport
 
 @JsExport
-class KmastodonFactory {
+object KmastodonFactory {
 
     fun instance(
         uri: String,
