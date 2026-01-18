@@ -11,6 +11,7 @@ kotlin {
     jvm()
 
     js(IR) {
+        outputModuleName.set("kmastodon-js")
         nodejs()
         browser()
         binaries.library()
@@ -19,13 +20,11 @@ kotlin {
         }
     }
 
-    if (HostManager.hostIsMac) {
-        iosX64()
-        iosArm64()
-        iosSimulatorArm64()
-        macosX64()
-        macosArm64()
-    }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+    macosX64()
+    macosArm64()
 
     sourceSets {
         all {
