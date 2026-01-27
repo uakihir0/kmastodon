@@ -12,13 +12,22 @@ interface ReportsResource {
     /**
      * Fetching a user's reports.
      */
-    fun reports(
+    suspend fun reports(
+    ): Response<Array<ReportsReportsResponse>>
+
+    @JsExport.Ignore
+    fun reportsBlocking(
     ): Response<Array<ReportsReportsResponse>>
 
     /**
      * Reporting a user.
      */
-    fun postReport(
+    suspend fun postReport(
+        request: ReportsPostReportRequest
+    ): Response<ReportsPostReportResponse>
+
+    @JsExport.Ignore
+    fun postReportBlocking(
         request: ReportsPostReportRequest
     ): Response<ReportsPostReportResponse>
 }

@@ -12,7 +12,12 @@ interface TrendsResource {
      * Retrieving trends.
      * (Since v3.0.0)
      */
-    fun trends(
+    suspend fun trends(
+        request: TrendsTrendsRequest
+    ): Response<Array<TrendsTrendsResponse>>
+
+    @JsExport.Ignore
+    fun trendsBlocking(
         request: TrendsTrendsRequest
     ): Response<Array<TrendsTrendsResponse>>
 }

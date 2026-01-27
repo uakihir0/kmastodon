@@ -17,6 +17,7 @@ import work.socialhub.kmastodon.api.response.timelines.TimelinesPublicTimelineRe
 import work.socialhub.kmastodon.domain.Service
 import work.socialhub.kmastodon.util.Headers.AUTHORIZATION
 import work.socialhub.kmastodon.util.MediaType
+import work.socialhub.kmastodon.util.toBlocking
 
 class TimelinesResourceImpl(
     uri: String,
@@ -25,76 +26,126 @@ class TimelinesResourceImpl(
 ) : AbstractAuthResourceImpl(uri, accessToken, service),
     TimelinesResource {
 
-    override fun homeTimeline(
+    override suspend fun homeTimeline(
         request: TimelinesHomeTimelineRequest
-    ): Response<Array<TimelinesHomeTimelineResponse>> = exec {
-        var response = HttpRequest()
-            .url("${uri}/api/v1/timelines/home")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .paging(request.range, service())
-            .get()
+    ): Response<Array<TimelinesHomeTimelineResponse>> {
+        return proceed {
+            var response = HttpRequest()
+                .url("${uri}/api/v1/timelines/home")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .paging(request.range, service())
+                .get()
 
-        // 206 (Home feed is regenerating)
-        for (i in 0..9) {
-            if (response.status == 206) {
-                delay(5000)
-                response = HttpRequest()
-                    .url("${uri}/api/v1/timelines/home")
-                    .header(AUTHORIZATION, bearerToken())
-                    .accept(MediaType.JSON)
-                    .paging(request.range, service())
-                    .get()
+            // 206 (Home feed is regenerating)
+            for (i in 0..9) {
+                if (response.status == 206) {
+                    delay(5000)
+                    response = HttpRequest()
+                        .url("${uri}/api/v1/timelines/home")
+                        .header(AUTHORIZATION, bearerToken())
+                        .accept(MediaType.JSON)
+                        .paging(request.range, service())
+                        .get()
+                }
             }
+            response
         }
-        response
     }
 
-    override fun publicTimeline(
+    override fun homeTimelineBlocking(
+        request: TimelinesHomeTimelineRequest
+    ): Response<Array<TimelinesHomeTimelineResponse>> {
+        return toBlocking {
+            homeTimeline(request)
+        }
+    }
+
+    override suspend fun publicTimeline(
         request: TimelinesPublicTimelineRequest
-    ): Response<Array<TimelinesPublicTimelineResponse>> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/timelines/public")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .pwn("local", request.local)
-            .pwn("only_media", request.onlyMedia)
-            .paging(request.range, service())
-            .get()
+    ): Response<Array<TimelinesPublicTimelineResponse>> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/timelines/public")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .pwn("local", request.local)
+                .pwn("only_media", request.onlyMedia)
+                .paging(request.range, service())
+                .get()
+        }
     }
 
-    override fun hashtagTimeline(
+    override fun publicTimelineBlocking(
+        request: TimelinesPublicTimelineRequest
+    ): Response<Array<TimelinesPublicTimelineResponse>> {
+        return toBlocking {
+            publicTimeline(request)
+        }
+    }
+
+    override suspend fun hashtagTimeline(
         request: TimelinesHashTagTimelineRequest
-    ): Response<Array<TimelinesHashTagTimelineResponse>> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/timelines/tag/${request.hashtag}")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .pwn("local", request.local)
-            .pwn("only_media", request.onlyMedia)
-            .paging(request.range, service())
-            .get()
+    ): Response<Array<TimelinesHashTagTimelineResponse>> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/timelines/tag/${request.hashtag}")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .pwn("local", request.local)
+                .pwn("only_media", request.onlyMedia)
+                .paging(request.range, service())
+                .get()
+        }
     }
 
-    override fun listTimeline(
+    override fun hashtagTimelineBlocking(
+        request: TimelinesHashTagTimelineRequest
+    ): Response<Array<TimelinesHashTagTimelineResponse>> {
+        return toBlocking {
+            hashtagTimeline(request)
+        }
+    }
+
+    override suspend fun listTimeline(
         request: TimelinesListTimelineRequest
-    ): Response<Array<TimelinesListTimelineResponse>> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/timelines/list/${request.listId}")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .paging(request.range, service())
-            .get()
+    ): Response<Array<TimelinesListTimelineResponse>> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/timelines/list/${request.listId}")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .paging(request.range, service())
+                .get()
+        }
     }
 
-    override fun conversations(
+    override fun listTimelineBlocking(
+        request: TimelinesListTimelineRequest
+    ): Response<Array<TimelinesListTimelineResponse>> {
+        return toBlocking {
+            listTimeline(request)
+        }
+    }
+
+    override suspend fun conversations(
         request: TimelinesConversationsRequest
-    ): Response<Array<TimelinesConversationsResponse>> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/conversations")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .paging(request.range, service())
-            .get()
+    ): Response<Array<TimelinesConversationsResponse>> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/conversations")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .paging(request.range, service())
+                .get()
+        }
+    }
+
+    override fun conversationsBlocking(
+        request: TimelinesConversationsRequest
+    ): Response<Array<TimelinesConversationsResponse>> {
+        return toBlocking {
+            conversations(request)
+        }
     }
 }

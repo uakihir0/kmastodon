@@ -7,6 +7,7 @@ import work.socialhub.kmastodon.api.response.Response
 import work.socialhub.kmastodon.api.response.medias.MediasPostMediaResponse
 import work.socialhub.kmastodon.util.Headers.AUTHORIZATION
 import work.socialhub.kmastodon.util.MediaType
+import work.socialhub.kmastodon.util.toBlocking
 
 class MediasResourceImpl(
     uri: String,
@@ -14,17 +15,27 @@ class MediasResourceImpl(
 ) : AbstractAuthResourceImpl(uri, accessToken),
     MediasResource {
 
-    override fun postMedia(
+    override suspend fun postMedia(
         request: MediasPostMediaRequest
-    ): Response<MediasPostMediaResponse> = exec {
-        HttpRequest()
-            .url("${uri}/api/v2/media")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
+    ): Response<MediasPostMediaResponse> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v2/media")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
 
-            .file("file", request.name!!, request.bytes!!)
-            .pwn("description", request.description)
-            .forceMultipart(true)
-            .post()
+                .file("file", request.name!!, request.bytes!!)
+                .pwn("description", request.description)
+                .forceMultipart(true)
+                .post()
+        }
+    }
+
+    override fun postMediaBlocking(
+        request: MediasPostMediaRequest
+    ): Response<MediasPostMediaResponse> {
+        return toBlocking {
+            postMedia(request)
+        }
     }
 }

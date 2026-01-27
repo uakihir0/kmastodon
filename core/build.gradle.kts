@@ -7,12 +7,19 @@ plugins {
 kotlin {
     jvmToolchain(11)
 
-    jvm { withJava() }
+    jvm()
     js(IR) {
         nodejs()
         browser()
         binaries.library()
         generateTypeScriptDefinitions()
+        compilations.all {
+            compileTaskProvider.configure {
+                compilerOptions {
+                    freeCompilerArgs.add("-Xenable-suspend-function-exporting")
+                }
+            }
+        }
     }
     iosX64()
     iosArm64()

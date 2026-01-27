@@ -6,6 +6,7 @@ import work.socialhub.kmastodon.api.response.Response
 import work.socialhub.kmastodon.api.response.mutes.MutesMutesResponse
 import work.socialhub.kmastodon.util.Headers.AUTHORIZATION
 import work.socialhub.kmastodon.util.MediaType
+import work.socialhub.kmastodon.util.toBlocking
 
 class MutesResourceImpl(
     uri: String,
@@ -13,12 +14,21 @@ class MutesResourceImpl(
 ) : AbstractAuthResourceImpl(uri, accessToken),
     MutesResource {
 
-    override fun mutes(
-    ): Response<Array<MutesMutesResponse>> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/mutes")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .get()
+    override suspend fun mutes(
+    ): Response<Array<MutesMutesResponse>> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/mutes")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .get()
+        }
+    }
+
+    override fun mutesBlocking(
+    ): Response<Array<MutesMutesResponse>> {
+        return toBlocking {
+            mutes()
+        }
     }
 }

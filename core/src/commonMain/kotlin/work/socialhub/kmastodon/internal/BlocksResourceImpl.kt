@@ -7,6 +7,7 @@ import work.socialhub.kmastodon.api.response.Response
 import work.socialhub.kmastodon.api.response.blocks.BlocksBlocksResponse
 import work.socialhub.kmastodon.util.Headers.AUTHORIZATION
 import work.socialhub.kmastodon.util.MediaType
+import work.socialhub.kmastodon.util.toBlocking
 
 class BlocksResourceImpl(
     uri: String,
@@ -14,14 +15,24 @@ class BlocksResourceImpl(
 ) : AbstractAuthResourceImpl(uri, accessToken),
     BlocksResource {
 
-    override fun blocks(
+    override suspend fun blocks(
         request: BlocksBlocksRequest
-    ): Response<Array<BlocksBlocksResponse>> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/blocks")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .paging(request.range, service())
-            .get()
+    ): Response<Array<BlocksBlocksResponse>> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/blocks")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .paging(request.range, service())
+                .get()
+        }
+    }
+
+    override fun blocksBlocking(
+        request: BlocksBlocksRequest
+    ): Response<Array<BlocksBlocksResponse>> {
+        return toBlocking {
+            blocks(request)
+        }
     }
 }

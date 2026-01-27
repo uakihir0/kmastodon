@@ -8,6 +8,7 @@ import work.socialhub.kmastodon.api.response.reports.ReportsPostReportResponse
 import work.socialhub.kmastodon.api.response.reports.ReportsReportsResponse
 import work.socialhub.kmastodon.util.Headers.AUTHORIZATION
 import work.socialhub.kmastodon.util.MediaType
+import work.socialhub.kmastodon.util.toBlocking
 
 class ReportsResourceImpl(
     uri: String,
@@ -15,26 +16,45 @@ class ReportsResourceImpl(
 ) : AbstractAuthResourceImpl(uri, accessToken),
     ReportsResource {
 
-    override fun reports(
-    ): Response<Array<ReportsReportsResponse>> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/reports")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .get()
+    override suspend fun reports(
+    ): Response<Array<ReportsReportsResponse>> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/reports")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .get()
+        }
     }
 
-    override fun postReport(
-        request: ReportsPostReportRequest
-    ): Response<ReportsPostReportResponse> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/reports")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
+    override fun reportsBlocking(
+    ): Response<Array<ReportsReportsResponse>> {
+        return toBlocking {
+            reports()
+        }
+    }
 
-            .pwn("comment", request.comment)
-            .pwn("account_id", request.accountId)
-            .pwns("status_ids", request.statusIds)
-            .post()
+    override suspend fun postReport(
+        request: ReportsPostReportRequest
+    ): Response<ReportsPostReportResponse> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/reports")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+
+                .pwn("comment", request.comment)
+                .pwn("account_id", request.accountId)
+                .pwns("status_ids", request.statusIds)
+                .post()
+        }
+    }
+
+    override fun postReportBlocking(
+        request: ReportsPostReportRequest
+    ): Response<ReportsPostReportResponse> {
+        return toBlocking {
+            postReport(request)
+        }
     }
 }

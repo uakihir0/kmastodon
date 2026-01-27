@@ -11,7 +11,12 @@ interface PollsResource {
     /**
      * Vote on a poll.
      */
-    fun votePoll(
+    suspend fun votePoll(
+        request: PollsVotePollRequest
+    ): Response<PollsVotePollResponse>
+
+    @JsExport.Ignore
+    fun votePollBlocking(
         request: PollsVotePollRequest
     ): Response<PollsVotePollResponse>
 }

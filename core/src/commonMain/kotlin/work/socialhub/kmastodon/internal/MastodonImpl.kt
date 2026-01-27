@@ -73,7 +73,7 @@ class MastodonImpl(
 
     override fun service(): Service {
         return serviceCache ?: run {
-            val serviceName = nodes.nodeInfo().data.software?.name
+            val serviceName = nodes.nodeInfoBlocking().data.software?.name
                 ?: throw IllegalStateException("cannot get service name.")
             Service.from(serviceName).also { serviceCache = it }
         }
