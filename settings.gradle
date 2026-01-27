@@ -1,5 +1,0 @@
-rootProject.name = 'kmastodon'
-
-include("core")
-include("stream")
-include("all")
