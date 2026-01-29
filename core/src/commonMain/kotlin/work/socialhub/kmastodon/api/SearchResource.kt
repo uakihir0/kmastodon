@@ -11,7 +11,12 @@ interface SearchResource {
     /**
      * Searching for content.
      */
-    fun search(
+    suspend fun search(
+        request: SearchSearchRequest
+    ): Response<SearchSearchResponse>
+
+    @JsExport.Ignore
+    fun searchBlocking(
         request: SearchSearchRequest
     ): Response<SearchSearchResponse>
 }

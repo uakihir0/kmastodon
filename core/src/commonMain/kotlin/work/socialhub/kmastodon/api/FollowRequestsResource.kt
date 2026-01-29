@@ -13,20 +13,34 @@ interface FollowRequestsResource {
     /**
      * Fetching a list of follow requests.
      */
-    fun followRequests(
+    suspend fun followRequests(
+    ): Response<Array<FollowRequestsFollowRequestsResponse>>
+
+    @JsExport.Ignore
+    fun followRequestsBlocking(
     ): Response<Array<FollowRequestsFollowRequestsResponse>>
 
     /**
      * Authorizing follow requests.
      */
-    fun authorizeFollowRequest(
+    suspend fun authorizeFollowRequest(
+        request: FollowRequestsAuthorizeFollowRequestRequest
+    ): ResponseUnit
+
+    @JsExport.Ignore
+    fun authorizeFollowRequestBlocking(
         request: FollowRequestsAuthorizeFollowRequestRequest
     ): ResponseUnit
 
     /**
      * Rejecting follow requests.
      */
-    fun rejectFollowRequest(
+    suspend fun rejectFollowRequest(
+        request: FollowRequestsRejectFollowRequestRequest
+    ): ResponseUnit
+
+    @JsExport.Ignore
+    fun rejectFollowRequestBlocking(
         request: FollowRequestsRejectFollowRequestRequest
     ): ResponseUnit
 }

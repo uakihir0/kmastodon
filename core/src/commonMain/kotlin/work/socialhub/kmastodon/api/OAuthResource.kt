@@ -18,7 +18,12 @@ interface OAuthResource {
      * Attempt to log in with the given credentials,
      * and then retrieve the access token for the current user.
      */
-    fun issueAccessTokenWithCredentials(
+    suspend fun issueAccessTokenWithCredentials(
+        request: OAuthIssueAccessTokenWithCredentialsRequest
+    ): Response<OAuthIssueAccessTokenWithCredentialsResponse>
+
+    @JsExport.Ignore
+    fun issueAccessTokenWithCredentialsBlocking(
         request: OAuthIssueAccessTokenWithCredentialsRequest
     ): Response<OAuthIssueAccessTokenWithCredentialsResponse>
 
@@ -26,7 +31,12 @@ interface OAuthResource {
      * Attempt to log in with authorization code,
      * and then retrieve the access token for the current user.
      */
-    fun issueAccessTokenWithAuthorizationCode(
+    suspend fun issueAccessTokenWithAuthorizationCode(
+        request: OAuthIssueAccessTokenWithAuthorizationCodeRequest
+    ): Response<OAuthIssueAccessTokenWithAuthorizationCodeResponse>
+
+    @JsExport.Ignore
+    fun issueAccessTokenWithAuthorizationCodeBlocking(
         request: OAuthIssueAccessTokenWithAuthorizationCodeRequest
     ): Response<OAuthIssueAccessTokenWithAuthorizationCodeResponse>
 
@@ -34,14 +44,24 @@ interface OAuthResource {
      * Attempt to renew access token with refresh token,
      * and then retrieve new access token for the current user.
      */
-    fun refreshAccessToken(
+    suspend fun refreshAccessToken(
+        request: OAuthRefreshAccessTokenRequest
+    ): Response<OAuthRefreshAccessTokenResponse>
+
+    @JsExport.Ignore
+    fun refreshAccessTokenBlocking(
         request: OAuthRefreshAccessTokenRequest
     ): Response<OAuthRefreshAccessTokenResponse>
 
     /**
      * Get Authorization URL
      */
-    fun authorizationUrl(
+    suspend fun authorizationUrl(
+        request: OAuthAuthorizationUrlRequest
+    ): Response<OAuthAuthorizationUrlResponse>
+
+    @JsExport.Ignore
+    fun authorizationUrlBlocking(
         request: OAuthAuthorizationUrlRequest
     ): Response<OAuthAuthorizationUrlResponse>
 }

@@ -28,6 +28,7 @@ import work.socialhub.kmastodon.api.response.statuses.StatusesUnreblogResponse
 import work.socialhub.kmastodon.domain.Service
 import work.socialhub.kmastodon.util.Headers.AUTHORIZATION
 import work.socialhub.kmastodon.util.MediaType
+import work.socialhub.kmastodon.util.toBlocking
 
 class StatusesResourceImpl(
     uri: String,
@@ -36,127 +37,237 @@ class StatusesResourceImpl(
 ) : AbstractAuthResourceImpl(uri, accessToken, service),
     StatusesResource {
 
-    override fun status(
+    override suspend fun status(
         request: StatusesStatusRequest
-    ): Response<StatusesStatusResponse> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/statuses/${request.id}")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .get()
+    ): Response<StatusesStatusResponse> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/statuses/${request.id}")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .get()
+        }
     }
 
-    override fun context(
+    override fun statusBlocking(
+        request: StatusesStatusRequest
+    ): Response<StatusesStatusResponse> {
+        return toBlocking {
+            status(request)
+        }
+    }
+
+    override suspend fun context(
         request: StatusesContextRequest
-    ): Response<StatusesContextResponse> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/statuses/${request.id}/context")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .get()
+    ): Response<StatusesContextResponse> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/statuses/${request.id}/context")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .get()
+        }
     }
 
-    override fun card(
+    override fun contextBlocking(
+        request: StatusesContextRequest
+    ): Response<StatusesContextResponse> {
+        return toBlocking {
+            context(request)
+        }
+    }
+
+    override suspend fun card(
         request: StatusesCardRequest
-    ): Response<StatusesCardResponse> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/statuses/${request.id}/card")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .get()
+    ): Response<StatusesCardResponse> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/statuses/${request.id}/card")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .get()
+        }
     }
 
-    override fun rebloggedBy(
+    override fun cardBlocking(
+        request: StatusesCardRequest
+    ): Response<StatusesCardResponse> {
+        return toBlocking {
+            card(request)
+        }
+    }
+
+    override suspend fun rebloggedBy(
         request: StatusesRebloggedByRequest
-    ): Response<Array<StatusesRebloggedByResponse>> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/statuses/${request.id}/reblogged_by")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .paging(request.range, service())
-            .get()
+    ): Response<Array<StatusesRebloggedByResponse>> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/statuses/${request.id}/reblogged_by")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .paging(request.range, service())
+                .get()
+        }
     }
 
-    override fun favouritedBy(
+    override fun rebloggedByBlocking(
+        request: StatusesRebloggedByRequest
+    ): Response<Array<StatusesRebloggedByResponse>> {
+        return toBlocking {
+            rebloggedBy(request)
+        }
+    }
+
+    override suspend fun favouritedBy(
         request: StatusesFavouritedByRequest
-    ): Response<Array<StatusesFavouritedByResponse>> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/statuses/${request.id}/favourited_by")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .paging(request.range, service())
-            .get()
+    ): Response<Array<StatusesFavouritedByResponse>> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/statuses/${request.id}/favourited_by")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .paging(request.range, service())
+                .get()
+        }
     }
 
-    override fun postStatus(
+    override fun favouritedByBlocking(
+        request: StatusesFavouritedByRequest
+    ): Response<Array<StatusesFavouritedByResponse>> {
+        return toBlocking {
+            favouritedBy(request)
+        }
+    }
+
+    override suspend fun postStatus(
         request: StatusesPostStatusRequest
-    ): Response<StatusesPostStatusResponse> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/statuses")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
+    ): Response<StatusesPostStatusResponse> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/statuses")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
 
-            .pwn("status", request.status)
-            .pwn("in_reply_to_id", request.inReplyToId)
-            .pwn("sensitive", request.sensitive)
-            .pwn("spoiler_text", request.spoilerText)
-            .pwn("visibility", request.visibility)
-            .pwns("media_ids", request.mediaIds)
+                .pwn("status", request.status)
+                .pwn("in_reply_to_id", request.inReplyToId)
+                .pwn("sensitive", request.sensitive)
+                .pwn("spoiler_text", request.spoilerText)
+                .pwn("visibility", request.visibility)
+                .pwns("media_ids", request.mediaIds)
 
-            .pwns("poll[options]", request.pollOptions)
-            .pwn("poll[expires_in]", request.pollExpiresIn)
-            .pwn("poll[multiple]", request.pollMultiple)
-            .pwn("poll[hide_totals]", request.pollHideTotals)
-            .post()
+                .pwns("poll[options]", request.pollOptions)
+                .pwn("poll[expires_in]", request.pollExpiresIn)
+                .pwn("poll[multiple]", request.pollMultiple)
+                .pwn("poll[hide_totals]", request.pollHideTotals)
+                .post()
+        }
     }
 
-    override fun deleteStatus(
+    override fun postStatusBlocking(
+        request: StatusesPostStatusRequest
+    ): Response<StatusesPostStatusResponse> {
+        return toBlocking {
+            postStatus(request)
+        }
+    }
+
+    override suspend fun deleteStatus(
         request: StatusesDeleteStatusRequest
-    ): ResponseUnit = unit {
-        HttpRequest()
-            .url("${uri}/api/v1/statuses/${request.id}")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .delete()
+    ): ResponseUnit {
+        return proceedUnit {
+            HttpRequest()
+                .url("${uri}/api/v1/statuses/${request.id}")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .delete()
+        }
     }
 
-    override fun reblog(
+    override fun deleteStatusBlocking(
+        request: StatusesDeleteStatusRequest
+    ): ResponseUnit {
+        return toBlocking {
+            deleteStatus(request)
+        }
+    }
+
+    override suspend fun reblog(
         request: StatusesReblogRequest
-    ): Response<StatusesReblogResponse> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/statuses/${request.id}/reblog")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .post()
+    ): Response<StatusesReblogResponse> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/statuses/${request.id}/reblog")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .post()
+        }
     }
 
-    override fun unreblog(
+    override fun reblogBlocking(
+        request: StatusesReblogRequest
+    ): Response<StatusesReblogResponse> {
+        return toBlocking {
+            reblog(request)
+        }
+    }
+
+    override suspend fun unreblog(
         request: StatusesUnreblogRequest
-    ): Response<StatusesUnreblogResponse> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/statuses/${request.id}/unreblog")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .post()
+    ): Response<StatusesUnreblogResponse> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/statuses/${request.id}/unreblog")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .post()
+        }
     }
 
-    override fun favourite(
+    override fun unreblogBlocking(
+        request: StatusesUnreblogRequest
+    ): Response<StatusesUnreblogResponse> {
+        return toBlocking {
+            unreblog(request)
+        }
+    }
+
+    override suspend fun favourite(
         request: StatusesFavouriteRequest
-    ): Response<StatusesFavouriteResponse> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/statuses/${request.id}/favourite")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .post()
+    ): Response<StatusesFavouriteResponse> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/statuses/${request.id}/favourite")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .post()
+        }
     }
 
-    override fun unfavourite(
+    override fun favouriteBlocking(
+        request: StatusesFavouriteRequest
+    ): Response<StatusesFavouriteResponse> {
+        return toBlocking {
+            favourite(request)
+        }
+    }
+
+    override suspend fun unfavourite(
         request: StatusesUnfavouriteRequest
-    ): Response<StatusesUnfavouriteResponse> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/statuses/${request.id}/unfavourite")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .post()
+    ): Response<StatusesUnfavouriteResponse> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/statuses/${request.id}/unfavourite")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .post()
+        }
+    }
+
+    override fun unfavouriteBlocking(
+        request: StatusesUnfavouriteRequest
+    ): Response<StatusesUnfavouriteResponse> {
+        return toBlocking {
+            unfavourite(request)
+        }
     }
 }

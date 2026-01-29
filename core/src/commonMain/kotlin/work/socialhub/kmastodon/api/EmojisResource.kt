@@ -10,6 +10,10 @@ interface EmojisResource {
     /**
      * Get custom emojis.
      */
-    fun customEmojis(
+    suspend fun customEmojis(
+    ): Response<Array<EmojisCustomEmojisResponse>>
+
+    @JsExport.Ignore
+    fun customEmojisBlocking(
     ): Response<Array<EmojisCustomEmojisResponse>>
 }

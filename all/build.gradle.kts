@@ -8,11 +8,17 @@ plugins {
 
 kotlin {
     js(IR) {
-        moduleName = "kmastodon-js"
         nodejs()
         browser()
         binaries.library()
         generateTypeScriptDefinitions()
+        compilations.all {
+            compileTaskProvider.configure {
+                compilerOptions {
+                    moduleName.set("kmastodon-js")
+                }
+            }
+        }
     }
 
     val xcf = XCFramework("kmastodon")

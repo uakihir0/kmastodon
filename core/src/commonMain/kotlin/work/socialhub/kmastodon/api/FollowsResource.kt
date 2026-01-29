@@ -12,7 +12,12 @@ interface FollowsResource {
     /**
      * Following a remote user.
      */
-    fun remoteFollow(
+    suspend fun remoteFollow(
+        request: FollowsRemoteFollowRequest
+    ): Response<FollowsRemoteFollowResponse>
+
+    @JsExport.Ignore
+    fun remoteFollowBlocking(
         request: FollowsRemoteFollowRequest
     ): Response<FollowsRemoteFollowResponse>
 }

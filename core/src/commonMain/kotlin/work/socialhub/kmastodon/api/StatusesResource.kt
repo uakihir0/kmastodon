@@ -31,35 +31,60 @@ interface StatusesResource {
     /**
      * Fetching a status.
      */
-    fun status(
+    suspend fun status(
+        request: StatusesStatusRequest
+    ): Response<StatusesStatusResponse>
+
+    @JsExport.Ignore
+    fun statusBlocking(
         request: StatusesStatusRequest
     ): Response<StatusesStatusResponse>
 
     /**
      * Getting status context.
      */
-    fun context(
+    suspend fun context(
+        request: StatusesContextRequest
+    ): Response<StatusesContextResponse>
+
+    @JsExport.Ignore
+    fun contextBlocking(
         request: StatusesContextRequest
     ): Response<StatusesContextResponse>
 
     /**
      * Getting a card associated with a status.
      */
-    fun card(
+    suspend fun card(
+        request: StatusesCardRequest
+    ): Response<StatusesCardResponse>
+
+    @JsExport.Ignore
+    fun cardBlocking(
         request: StatusesCardRequest
     ): Response<StatusesCardResponse>
 
     /**
      * Getting who reblogged a status.
      */
-    fun rebloggedBy(
+    suspend fun rebloggedBy(
+        request: StatusesRebloggedByRequest
+    ): Response<Array<StatusesRebloggedByResponse>>
+
+    @JsExport.Ignore
+    fun rebloggedByBlocking(
         request: StatusesRebloggedByRequest
     ): Response<Array<StatusesRebloggedByResponse>>
 
     /**
      * Getting who favourited a status.
      */
-    fun favouritedBy(
+    suspend fun favouritedBy(
+        request: StatusesFavouritedByRequest
+    ): Response<Array<StatusesFavouritedByResponse>>
+
+    @JsExport.Ignore
+    fun favouritedByBlocking(
         request: StatusesFavouritedByRequest
     ): Response<Array<StatusesFavouritedByResponse>>
 
@@ -67,42 +92,72 @@ interface StatusesResource {
     /**
      * Posting a new status.
      */
-    fun postStatus(
+    suspend fun postStatus(
+        request: StatusesPostStatusRequest
+    ): Response<StatusesPostStatusResponse>
+
+    @JsExport.Ignore
+    fun postStatusBlocking(
         request: StatusesPostStatusRequest
     ): Response<StatusesPostStatusResponse>
 
     /**
      * Deleting a status.
      */
-    fun deleteStatus(
+    suspend fun deleteStatus(
+        request: StatusesDeleteStatusRequest
+    ): ResponseUnit
+
+    @JsExport.Ignore
+    fun deleteStatusBlocking(
         request: StatusesDeleteStatusRequest
     ): ResponseUnit
 
     /**
      * Reblogging a status.
      */
-    fun reblog(
+    suspend fun reblog(
+        request: StatusesReblogRequest
+    ): Response<StatusesReblogResponse>
+
+    @JsExport.Ignore
+    fun reblogBlocking(
         request: StatusesReblogRequest
     ): Response<StatusesReblogResponse>
 
     /**
      * Unreblogging a status.
      */
-    fun unreblog(
+    suspend fun unreblog(
+        request: StatusesUnreblogRequest
+    ): Response<StatusesUnreblogResponse>
+
+    @JsExport.Ignore
+    fun unreblogBlocking(
         request: StatusesUnreblogRequest
     ): Response<StatusesUnreblogResponse>
 
     /**
      * Favouriting a status.
      */
-    fun favourite(
+    suspend fun favourite(
+        request: StatusesFavouriteRequest
+    ): Response<StatusesFavouriteResponse>
+
+    @JsExport.Ignore
+    fun favouriteBlocking(
         request: StatusesFavouriteRequest
     ): Response<StatusesFavouriteResponse>
 
     /**
      * Unfavouriting a status.
      */
-    fun unfavourite(
+    suspend fun unfavourite(
+        request: StatusesUnfavouriteRequest
+    ): Response<StatusesUnfavouriteResponse>
+
+    @JsExport.Ignore
+    fun unfavouriteBlocking(
         request: StatusesUnfavouriteRequest
     ): Response<StatusesUnfavouriteResponse>
 }

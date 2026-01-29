@@ -36,97 +36,166 @@ interface AccountsResource {
     /**
      * Getting the current user.
      */
-    fun verifyCredentials(
+    suspend fun verifyCredentials(
+    ): Response<AccountsVerifyCredentialsResponse>
+
+    @JsExport.Ignore
+    fun verifyCredentialsBlocking(
     ): Response<AccountsVerifyCredentialsResponse>
 
     /**
      * Updating the current user.
      */
-    fun updateCredentials(
+    suspend fun updateCredentials(
+        request: AccountsUpdateCredentialsRequest
+    ): Response<AccountsUpdateCredentialsResponse>
+
+    @JsExport.Ignore
+    fun updateCredentialsBlocking(
         request: AccountsUpdateCredentialsRequest
     ): Response<AccountsUpdateCredentialsResponse>
 
     /**
      * Fetching an account.
      */
-    fun account(
+    suspend fun account(
+        request: AccountsAccountRequest
+    ): Response<AccountsAccountResponse>
+
+    @JsExport.Ignore
+    fun accountBlocking(
         request: AccountsAccountRequest
     ): Response<AccountsAccountResponse>
 
     /**
      * Getting an account's followers.
      */
-    fun followers(
+    suspend fun followers(
+        request: AccountsFollowersRequest
+    ): Response<Array<AccountsFollowersResponse>>
+
+    @JsExport.Ignore
+    fun followersBlocking(
         request: AccountsFollowersRequest
     ): Response<Array<AccountsFollowersResponse>>
 
     /**
      * Getting who account is following.
      */
-    fun following(
+    suspend fun following(
+        request: AccountsFollowingRequest
+    ): Response<Array<AccountsFollowingResponse>>
+
+    @JsExport.Ignore
+    fun followingBlocking(
         request: AccountsFollowingRequest
     ): Response<Array<AccountsFollowingResponse>>
 
     /**
      * Getting an account's statuses.
      */
-    fun statuses(
+    suspend fun statuses(
+        request: AccountsStatusesRequest
+    ): Response<Array<AccountsStatusesResponse>>
+
+    @JsExport.Ignore
+    fun statusesBlocking(
         request: AccountsStatusesRequest
     ): Response<Array<AccountsStatusesResponse>>
 
     /**
      * Following an account.
      */
-    fun follow(
+    suspend fun follow(
+        request: AccountsFollowRequest
+    ): Response<AccountsFollowResponse>
+
+    @JsExport.Ignore
+    fun followBlocking(
         request: AccountsFollowRequest
     ): Response<AccountsFollowResponse>
 
     /**
      * Unfollowing an account.
      */
-    fun unfollow(
+    suspend fun unfollow(
+        request: AccountsUnfollowRequest
+    ): Response<AccountsUnfollowResponse>
+
+    @JsExport.Ignore
+    fun unfollowBlocking(
         request: AccountsUnfollowRequest
     ): Response<AccountsUnfollowResponse>
 
     /**
      * Blocking an account.
      */
-    fun block(
+    suspend fun block(
+        request: AccountsBlockRequest
+    ): Response<AccountsBlockResponse>
+
+    @JsExport.Ignore
+    fun blockBlocking(
         request: AccountsBlockRequest
     ): Response<AccountsBlockResponse>
 
     /**
      * Unblocking an account.
      */
-    fun unblock(
+    suspend fun unblock(
+        request: AccountsUnblockRequest
+    ): Response<AccountsUnblockResponse>
+
+    @JsExport.Ignore
+    fun unblockBlocking(
         request: AccountsUnblockRequest
     ): Response<AccountsUnblockResponse>
 
     /**
      * Muting an account.
      */
-    fun mute(
+    suspend fun mute(
+        request: AccountsMuteRequest
+    ): Response<AccountsMuteResponse>
+
+    @JsExport.Ignore
+    fun muteBlocking(
         request: AccountsMuteRequest
     ): Response<AccountsMuteResponse>
 
     /**
      * Unmuting an account.
      */
-    fun unmute(
+    suspend fun unmute(
+        request: AccountsUnmuteRequest
+    ): Response<AccountsUnmuteResponse>
+
+    @JsExport.Ignore
+    fun unmuteBlocking(
         request: AccountsUnmuteRequest
     ): Response<AccountsUnmuteResponse>
 
     /**
      * Getting an account's relationships.
      */
-    fun relationships(
+    suspend fun relationships(
+        request: AccountsRelationshipsRequest
+    ): Response<Array<AccountsRelationshipsResponse>>
+
+    @JsExport.Ignore
+    fun relationshipsBlocking(
         request: AccountsRelationshipsRequest
     ): Response<Array<AccountsRelationshipsResponse>>
 
     /**
      * Searching for accounts.
      */
-    fun search(
+    suspend fun search(
+        request: AccountsSearchRequest
+    ): Response<Array<AccountsSearchResponse>>
+
+    @JsExport.Ignore
+    fun searchBlocking(
         request: AccountsSearchRequest
     ): Response<Array<AccountsSearchResponse>>
 }

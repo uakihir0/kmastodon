@@ -10,6 +10,10 @@ interface NodesResource {
     /**
      * Getting node information.
      */
-    fun nodeInfo(
+    suspend fun nodeInfo(
+    ): Response<NodesNodeInfoResponse>
+
+    @JsExport.Ignore
+    fun nodeInfoBlocking(
     ): Response<NodesNodeInfoResponse>
 }

@@ -12,7 +12,12 @@ interface BlocksResource {
     /**
      * Fetching a user's blocks.
      */
-    fun blocks(
+    suspend fun blocks(
+        request: BlocksBlocksRequest
+    ): Response<Array<BlocksBlocksResponse>>
+
+    @JsExport.Ignore
+    fun blocksBlocking(
         request: BlocksBlocksRequest
     ): Response<Array<BlocksBlocksResponse>>
 }

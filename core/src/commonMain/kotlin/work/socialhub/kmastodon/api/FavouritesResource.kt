@@ -11,7 +11,12 @@ interface FavouritesResource {
     /**
      * Fetching a user's favourites.
      */
-    fun favourites(
+    suspend fun favourites(
+        request: FavouritesFavouritesRequest
+    ): Response<Array<FavouritesFavouritesResponse>>
+
+    @JsExport.Ignore
+    fun favouritesBlocking(
         request: FavouritesFavouritesRequest
     ): Response<Array<FavouritesFavouritesResponse>>
 }

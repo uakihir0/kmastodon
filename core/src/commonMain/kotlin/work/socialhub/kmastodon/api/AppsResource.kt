@@ -11,7 +11,12 @@ interface AppsResource {
     /**
      * Registering an application.
      */
-    fun registerApplication(
+    suspend fun registerApplication(
+        request: AppsRegisterApplicationRequest
+    ): Response<AppsRegisterApplicationResponse>
+
+    @JsExport.Ignore
+    fun registerApplicationBlocking(
         request: AppsRegisterApplicationRequest
     ): Response<AppsRegisterApplicationResponse>
 }

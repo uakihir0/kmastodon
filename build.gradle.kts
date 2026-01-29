@@ -1,3 +1,9 @@
+plugins {
+    alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.kotlin.cocoapods) apply false
+}
+
 allprojects {
     group = "work.socialhub.kmastodon"
     version = "0.0.1-SNAPSHOT"
