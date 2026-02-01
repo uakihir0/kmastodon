@@ -15,7 +15,7 @@ open class BaseStreamImpl(
             .joinToString("&")
 
         val streamUrl = MastodonFactory
-            .instance(uri).instances().instanceV1()
+            .instance(uri).instances().instanceV1Blocking()
             .data.urls.streamingApi +
                 "/api/v1/streaming?" +
                 queryString
