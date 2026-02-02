@@ -13,6 +13,7 @@ kotlin {
         browser()
         binaries.library()
         generateTypeScriptDefinitions()
+
         compilations.all {
             compileTaskProvider.configure {
                 compilerOptions {
@@ -21,6 +22,7 @@ kotlin {
             }
         }
     }
+
     iosX64()
     iosArm64()
     iosSimulatorArm64()
