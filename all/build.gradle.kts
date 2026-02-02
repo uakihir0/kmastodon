@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.cocoapods)
+    alias(libs.plugins.swiftpackage)
+    id("module.publications")
 }
 
 kotlin {
@@ -15,9 +17,7 @@ kotlin {
 
         compilations.all {
             compileTaskProvider.configure {
-                compilerOptions {
-                    moduleName.set("kmastodon-js")
-                }
+                compilerOptions.moduleName.set("kmastodon-js")
             }
         }
     }

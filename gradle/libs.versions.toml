@@ -19,8 +19,13 @@ kotest-assertions = { module = "io.kotest:kotest-assertions-core-jvm", version.r
 nexus-publish = { module = "io.github.gradle-nexus.publish-plugin:io.github.gradle-nexus.publish-plugin.gradle.plugin", version.ref = "nexus-publish" }
 maven-publish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "maven-publish" }
 dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
+slf4j-simple = "org.slf4j:slf4j-simple:2.0.17"
 
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+swiftpackage = "io.github.luca992.multiplatform-swiftpackage:2.3.0"
+git-versioning = "me.qoomon.git-versioning:6.4.4"
