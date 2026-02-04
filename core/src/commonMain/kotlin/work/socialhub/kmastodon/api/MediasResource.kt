@@ -11,7 +11,12 @@ interface MediasResource {
     /**
      * Uploading a media attachment.
      */
-    fun postMedia(
+    suspend fun postMedia(
+        request: MediasPostMediaRequest
+    ): Response<MediasPostMediaResponse>
+
+    @JsExport.Ignore
+    fun postMediaBlocking(
         request: MediasPostMediaRequest
     ): Response<MediasPostMediaResponse>
 }

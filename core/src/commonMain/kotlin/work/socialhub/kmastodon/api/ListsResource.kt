@@ -23,56 +23,96 @@ interface ListsResource {
     /**
      * Fetching the user's lists that a given account is part of.
      */
-    fun lists(
+    suspend fun lists(
+        request: ListsListsRequest
+    ): Response<Array<ListsListsResponse>>
+
+    @JsExport.Ignore
+    fun listsBlocking(
         request: ListsListsRequest
     ): Response<Array<ListsListsResponse>>
 
     /**
      * Fetching accounts that are in a given list.
      */
-    fun listAccounts(
+    suspend fun listAccounts(
+        request: ListsListAccountsRequest
+    ): Response<Array<ListsListAccountsResponse>>
+
+    @JsExport.Ignore
+    fun listAccountsBlocking(
         request: ListsListAccountsRequest
     ): Response<Array<ListsListAccountsResponse>>
 
     /**
      * Fetching list.
      */
-    fun list(
+    suspend fun list(
+        request: ListsListRequest
+    ): Response<ListsListResponse>
+
+    @JsExport.Ignore
+    fun listBlocking(
         request: ListsListRequest
     ): Response<ListsListResponse>
 
     /**
      * Create list.
      */
-    fun createList(
+    suspend fun createList(
+        request: ListsCreateListRequest
+    ): Response<ListsCreateListResponse>
+
+    @JsExport.Ignore
+    fun createListBlocking(
         request: ListsCreateListRequest
     ): Response<ListsCreateListResponse>
 
     /**
      * Update list.
      */
-    fun updateList(
+    suspend fun updateList(
+        request: ListsUpdateListRequest
+    ): Response<ListsUpdateListResponse>
+
+    @JsExport.Ignore
+    fun updateListBlocking(
         request: ListsUpdateListRequest
     ): Response<ListsUpdateListResponse>
 
     /**
      * Delete list.
      */
-    fun deleteList(
+    suspend fun deleteList(
+        request: ListsDeleteListRequest
+    ): ResponseUnit
+
+    @JsExport.Ignore
+    fun deleteListBlocking(
         request: ListsDeleteListRequest
     ): ResponseUnit
 
     /**
      * Add account to list.
      */
-    fun addAccountsToList(
+    suspend fun addAccountsToList(
+        request: ListsAddAccountsToListRequest
+    ): ResponseUnit
+
+    @JsExport.Ignore
+    fun addAccountsToListBlocking(
         request: ListsAddAccountsToListRequest
     ): ResponseUnit
 
     /**
      * Delete account to list.
      */
-    fun deleteAccountsToList(
+    suspend fun deleteAccountsToList(
+        request: ListsDeleteAccountsToListRequest
+    ): ResponseUnit
+
+    @JsExport.Ignore
+    fun deleteAccountsToListBlocking(
         request: ListsDeleteAccountsToListRequest
     ): ResponseUnit
 }

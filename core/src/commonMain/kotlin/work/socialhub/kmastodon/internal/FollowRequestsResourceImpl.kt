@@ -9,6 +9,7 @@ import work.socialhub.kmastodon.api.response.ResponseUnit
 import work.socialhub.kmastodon.api.response.followrequests.FollowRequestsFollowRequestsResponse
 import work.socialhub.kmastodon.util.Headers.AUTHORIZATION
 import work.socialhub.kmastodon.util.MediaType
+import work.socialhub.kmastodon.util.toBlocking
 
 class FollowRequestsResourceImpl(
     uri: String,
@@ -17,32 +18,61 @@ class FollowRequestsResourceImpl(
     FollowRequestsResource {
 
     // TODO: need to support: max_id, since_id, limit
-    override fun followRequests(
-    ): Response<Array<FollowRequestsFollowRequestsResponse>> = exec {
-        HttpRequest()
-            .url("${uri}/api/v1/follow_requests")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .get()
+    override suspend fun followRequests(
+    ): Response<Array<FollowRequestsFollowRequestsResponse>> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/follow_requests")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .get()
+        }
     }
 
-    override fun authorizeFollowRequest(
+    override fun followRequestsBlocking(
+    ): Response<Array<FollowRequestsFollowRequestsResponse>> {
+        return toBlocking {
+            followRequests()
+        }
+    }
+
+    override suspend fun authorizeFollowRequest(
         request: FollowRequestsAuthorizeFollowRequestRequest
-    ): ResponseUnit = unit {
-        HttpRequest()
-            .url("${uri}/api/v1/follow_requests/${request.id}/authorize")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .post()
+    ): ResponseUnit {
+        return proceedUnit {
+            HttpRequest()
+                .url("${uri}/api/v1/follow_requests/${request.id}/authorize")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .post()
+        }
     }
 
-    override fun rejectFollowRequest(
+    override fun authorizeFollowRequestBlocking(
+        request: FollowRequestsAuthorizeFollowRequestRequest
+    ): ResponseUnit {
+        return toBlocking {
+            authorizeFollowRequest(request)
+        }
+    }
+
+    override suspend fun rejectFollowRequest(
         request: FollowRequestsRejectFollowRequestRequest
-    ): ResponseUnit = unit {
-        HttpRequest()
-            .url("${uri}/api/v1/follow_requests/${request.id}/reject")
-            .header(AUTHORIZATION, bearerToken())
-            .accept(MediaType.JSON)
-            .post()
+    ): ResponseUnit {
+        return proceedUnit {
+            HttpRequest()
+                .url("${uri}/api/v1/follow_requests/${request.id}/reject")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .post()
+        }
+    }
+
+    override fun rejectFollowRequestBlocking(
+        request: FollowRequestsRejectFollowRequestRequest
+    ): ResponseUnit {
+        return toBlocking {
+            rejectFollowRequest(request)
+        }
     }
 }

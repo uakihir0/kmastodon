@@ -1,19 +1,28 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.serialization)
-    id("maven-publish")
+    id("module.publications")
 }
 
 kotlin {
     jvmToolchain(11)
 
-    jvm { withJava() }
+    jvm()
     js(IR) {
         nodejs()
         browser()
         binaries.library()
         generateTypeScriptDefinitions()
+
+        compilations.all {
+            compileTaskProvider.configure {
+                compilerOptions {
+                    freeCompilerArgs.add("-Xenable-suspend-function-exporting")
+                }
+            }
+        }
     }
+
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -47,16 +56,4 @@ kotlin {
 
 tasks.named<Test>("jvmTest") {
     useJUnitPlatform()
-}
-
-publishing {
-    repositories {
-        maven {
-            url = uri("https://repo.repsy.io/mvn/uakihir0/public")
-            credentials {
-                username = System.getenv("USERNAME")
-                password = System.getenv("PASSWORD")
-            }
-        }
-    }
 }

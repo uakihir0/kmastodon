@@ -10,6 +10,10 @@ interface MutesResource {
     /**
      * Fetching a user's mutes.
      */
-    fun mutes(
+    suspend fun mutes(
+    ): Response<Array<MutesMutesResponse>>
+
+    @JsExport.Ignore
+    fun mutesBlocking(
     ): Response<Array<MutesMutesResponse>>
 }

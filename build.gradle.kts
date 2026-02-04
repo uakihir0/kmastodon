@@ -1,3 +1,16 @@
+plugins {
+    id("root.publications")
+
+    alias(libs.plugins.kotlin.multiplatform).apply(false)
+    alias(libs.plugins.kotlin.serialization).apply(false)
+    alias(libs.plugins.kotlin.cocoapods).apply(false)
+
+    alias(libs.plugins.dokka).apply(false)
+    alias(libs.plugins.maven.publish).apply(false)
+
+    alias(libs.plugins.git.versioning)
+}
+
 allprojects {
     group = "work.socialhub.kmastodon"
     version = "0.0.1-SNAPSHOT"
@@ -8,11 +21,16 @@ allprojects {
     }
 }
 
-tasks.wrapper {
-    gradleVersion = "8.5"
-    distributionType = Wrapper.DistributionType.ALL
+gitVersioning.apply {
+    refs {
+        considerTagsOnBranches = true
+        tag("v(?<version>.*)") {
+            version = "\${ref.version}"
+        }
+    }
 }
 
-tasks.create("version") {
-    doLast { println(project.version) }
+tasks.wrapper {
+    gradleVersion = "8.14.3"
+    distributionType = Wrapper.DistributionType.ALL
 }

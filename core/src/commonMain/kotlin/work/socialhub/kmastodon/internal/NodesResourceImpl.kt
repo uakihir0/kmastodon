@@ -7,32 +7,37 @@ import work.socialhub.kmastodon.api.response.Response
 import work.socialhub.kmastodon.api.response.nodes.NodesNodeInfoResponse
 import work.socialhub.kmastodon.entity.nodeinfo.NodeInfo
 import work.socialhub.kmastodon.util.MediaType
-import work.socialhub.kmpcommon.runBlocking
+import work.socialhub.kmastodon.util.toBlocking
 
 class NodesResourceImpl(
     uri: String
 ) : AbstractResourceImpl(uri),
     NodesResource {
-    override fun nodeInfo(
+    override suspend fun nodeInfo(
     ): Response<NodesNodeInfoResponse> {
-        return runBlocking {
-            val response =
-                proceed<NodeInfo> {
-                    HttpRequest()
-                        .path("${uri}/.well-known/nodeinfo")
-                        .accept(MediaType.JSON)
-                        .get()
-                }
-
-            val link = response.data.links?.firstOrNull()?.href
-                ?: throw MastodonException("no node info links.")
-
-            proceed<NodesNodeInfoResponse> {
+        val response =
+            proceed<NodeInfo> {
                 HttpRequest()
-                    .path(link)
+                    .path("${uri}/.well-known/nodeinfo")
                     .accept(MediaType.JSON)
                     .get()
             }
+
+        val link = response.data.links?.firstOrNull()?.href
+            ?: throw MastodonException("no node info links.")
+
+        return proceed<NodesNodeInfoResponse> {
+            HttpRequest()
+                .path(link)
+                .accept(MediaType.JSON)
+                .get()
+        }
+    }
+
+    override fun nodeInfoBlocking(
+    ): Response<NodesNodeInfoResponse> {
+        return toBlocking {
+            nodeInfo()
         }
     }
 }

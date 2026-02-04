@@ -19,35 +19,60 @@ interface TimelinesResource {
     /**
      * Retrieving a home timeline.
      */
-    fun homeTimeline(
+    suspend fun homeTimeline(
+        request: TimelinesHomeTimelineRequest
+    ): Response<Array<TimelinesHomeTimelineResponse>>
+
+    @JsExport.Ignore
+    fun homeTimelineBlocking(
         request: TimelinesHomeTimelineRequest
     ): Response<Array<TimelinesHomeTimelineResponse>>
 
     /**
      * Retrieving a public timeline.
      */
-    fun publicTimeline(
+    suspend fun publicTimeline(
+        request: TimelinesPublicTimelineRequest
+    ): Response<Array<TimelinesPublicTimelineResponse>>
+
+    @JsExport.Ignore
+    fun publicTimelineBlocking(
         request: TimelinesPublicTimelineRequest
     ): Response<Array<TimelinesPublicTimelineResponse>>
 
     /**
      * Retrieving a tag timeline.
      */
-    fun hashtagTimeline(
+    suspend fun hashtagTimeline(
+        request: TimelinesHashTagTimelineRequest
+    ): Response<Array<TimelinesHashTagTimelineResponse>>
+
+    @JsExport.Ignore
+    fun hashtagTimelineBlocking(
         request: TimelinesHashTagTimelineRequest
     ): Response<Array<TimelinesHashTagTimelineResponse>>
 
     /**
      * Retrieving a list timeline.
      */
-    fun listTimeline(
+    suspend fun listTimeline(
+        request: TimelinesListTimelineRequest
+    ): Response<Array<TimelinesListTimelineResponse>>
+
+    @JsExport.Ignore
+    fun listTimelineBlocking(
         request: TimelinesListTimelineRequest
     ): Response<Array<TimelinesListTimelineResponse>>
 
     /**
      * Retrieving a conversations.
      */
-    fun conversations(
+    suspend fun conversations(
+        request: TimelinesConversationsRequest
+    ): Response<Array<TimelinesConversationsResponse>>
+
+    @JsExport.Ignore
+    fun conversationsBlocking(
         request: TimelinesConversationsRequest
     ): Response<Array<TimelinesConversationsResponse>>
 }

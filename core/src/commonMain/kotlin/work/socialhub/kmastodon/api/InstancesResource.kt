@@ -11,13 +11,21 @@ interface InstancesResource {
     /**
      * Getting instance information.
      */
-    fun instanceV1(
+    suspend fun instanceV1(
+    ): Response<InstancesInstanceV1Response>
+
+    @JsExport.Ignore
+    fun instanceV1Blocking(
     ): Response<InstancesInstanceV1Response>
 
     /**
      * Getting instance information.
      * Since v4.0.0
      */
-    fun instanceV2(
+    suspend fun instanceV2(
+    ): Response<InstancesInstanceV2Response>
+
+    @JsExport.Ignore
+    fun instanceV2Blocking(
     ): Response<InstancesInstanceV2Response>
 }

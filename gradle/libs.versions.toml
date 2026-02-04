@@ -1,6 +1,9 @@
 [versions]
 kotest = "5.9.1"
-kotlin = "2.1.0"
+kotlin = "2.3.0"
+nexus-publish = "2.0.0"
+maven-publish = "0.30.0"
+dokka = "2.0.0"
 
 [libraries]
 khttpclient = "work.socialhub:khttpclient:0.0.4-SNAPSHOT"
@@ -12,7 +15,17 @@ serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0"
 kotest-junit5 = { module = "io.kotest:kotest-runner-junit5-jvm", version.ref = "kotest" }
 kotest-assertions = { module = "io.kotest:kotest-assertions-core-jvm", version.ref = "kotest" }
 
+# Publishing plugins (for plugins module)
+nexus-publish = { module = "io.github.gradle-nexus.publish-plugin:io.github.gradle-nexus.publish-plugin.gradle.plugin", version.ref = "nexus-publish" }
+maven-publish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "maven-publish" }
+dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
+slf4j-simple = "org.slf4j:slf4j-simple:2.0.17"
+
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+swiftpackage = "io.github.luca992.multiplatform-swiftpackage:2.3.0"
+git-versioning = "me.qoomon.git-versioning:6.4.4"

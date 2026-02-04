@@ -1,7 +1,6 @@
 package work.socialhub.kmastodon.entity.share
 
 import kotlinx.datetime.Instant
-import kotlinx.datetime.toInstant
 import work.socialhub.khttpclient.HttpResponse
 import kotlin.js.JsExport
 
@@ -34,7 +33,7 @@ class RateLimit {
                         it.remaining = remaining[0].toInt()
                     }
                     if (reset?.isNotEmpty() == true) {
-                        it.reset = reset[0].toInstant()
+                        it.reset = Instant.fromEpochSeconds(reset[0].toLong())
                     }
                 }
             } catch (e: Exception) {

@@ -14,7 +14,7 @@ import work.socialhub.kmastodon.api.response.oauth.OAuthIssueAccessTokenWithAuth
 import work.socialhub.kmastodon.api.response.oauth.OAuthIssueAccessTokenWithCredentialsResponse
 import work.socialhub.kmastodon.api.response.oauth.OAuthRefreshAccessTokenResponse
 import work.socialhub.kmastodon.util.MediaType
-import work.socialhub.kmpcommon.runBlocking
+import work.socialhub.kmastodon.util.toBlocking
 
 class OAuthResourceImpl(
     uri: String
@@ -24,72 +24,108 @@ class OAuthResourceImpl(
     /**
      * {@inheritDoc}
      */
-    override fun issueAccessTokenWithCredentials(
+    override suspend fun issueAccessTokenWithCredentials(
         request: OAuthIssueAccessTokenWithCredentialsRequest
-    ): Response<OAuthIssueAccessTokenWithCredentialsResponse> = exec {
-        HttpRequest()
-            .url("${uri}/oauth/token")
-            .pwn("client_id", request.clientId)
-            .pwn("client_secret", request.clientSecret)
-            .pwn("username", request.emailAddress)
-            .pwn("password", request.password)
-            .pwn("scope", request.scopes)
-            .pwn("grant_type", "password")
-            .accept(MediaType.JSON)
-            .post()
+    ): Response<OAuthIssueAccessTokenWithCredentialsResponse> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/oauth/token")
+                .pwn("client_id", request.clientId)
+                .pwn("client_secret", request.clientSecret)
+                .pwn("username", request.emailAddress)
+                .pwn("password", request.password)
+                .pwn("scope", request.scopes)
+                .pwn("grant_type", "password")
+                .accept(MediaType.JSON)
+                .post()
+        }
+    }
+
+    override fun issueAccessTokenWithCredentialsBlocking(
+        request: OAuthIssueAccessTokenWithCredentialsRequest
+    ): Response<OAuthIssueAccessTokenWithCredentialsResponse> {
+        return toBlocking {
+            issueAccessTokenWithCredentials(request)
+        }
     }
 
     /**
      * {@inheritDoc}
      */
-    override fun issueAccessTokenWithAuthorizationCode(
+    override suspend fun issueAccessTokenWithAuthorizationCode(
         request: OAuthIssueAccessTokenWithAuthorizationCodeRequest
-    ): Response<OAuthIssueAccessTokenWithAuthorizationCodeResponse> = exec {
-        HttpRequest()
-            .url("${uri}/oauth/token")
-            .pwn("client_id", request.clientId)
-            .pwn("client_secret", request.clientSecret)
-            .pwn("redirect_uri", request.redirectUri)
-            .pwn("code", request.code)
-            .pwn("grant_type", "authorization_code")
-            .accept(MediaType.JSON)
-            .post()
+    ): Response<OAuthIssueAccessTokenWithAuthorizationCodeResponse> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/oauth/token")
+                .pwn("client_id", request.clientId)
+                .pwn("client_secret", request.clientSecret)
+                .pwn("redirect_uri", request.redirectUri)
+                .pwn("code", request.code)
+                .pwn("grant_type", "authorization_code")
+                .accept(MediaType.JSON)
+                .post()
+        }
+    }
+
+    override fun issueAccessTokenWithAuthorizationCodeBlocking(
+        request: OAuthIssueAccessTokenWithAuthorizationCodeRequest
+    ): Response<OAuthIssueAccessTokenWithAuthorizationCodeResponse> {
+        return toBlocking {
+            issueAccessTokenWithAuthorizationCode(request)
+        }
     }
 
     /**
      * {@inheritDoc}
      */
-    override fun refreshAccessToken(
+    override suspend fun refreshAccessToken(
         request: OAuthRefreshAccessTokenRequest
-    ): Response<OAuthRefreshAccessTokenResponse> = exec {
-        HttpRequest()
-            .url("${uri}/oauth/token")
-            .pwn("client_id", request.clientId)
-            .pwn("client_secret", request.clientSecret)
-            .pwn("refresh_token", request.refreshToken)
-            .pwn("grant_type", "refresh_token")
-            .accept(MediaType.JSON)
-            .post()
+    ): Response<OAuthRefreshAccessTokenResponse> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/oauth/token")
+                .pwn("client_id", request.clientId)
+                .pwn("client_secret", request.clientSecret)
+                .pwn("refresh_token", request.refreshToken)
+                .pwn("grant_type", "refresh_token")
+                .accept(MediaType.JSON)
+                .post()
+        }
+    }
+
+    override fun refreshAccessTokenBlocking(
+        request: OAuthRefreshAccessTokenRequest
+    ): Response<OAuthRefreshAccessTokenResponse> {
+        return toBlocking {
+            refreshAccessToken(request)
+        }
     }
 
     /**
      * {@inheritDoc}
      */
-    override fun authorizationUrl(
+    override suspend fun authorizationUrl(
         request: OAuthAuthorizationUrlRequest
     ): Response<OAuthAuthorizationUrlResponse> {
-        return runBlocking {
-            Response(
-                URLBuilder().apply {
-                    protocol = HTTPS
-                    host = Url(uri).host
-                    encodedPath = "/oauth/authorize"
-                    parameters.append("response_type", "code")
-                    parameters.append("client_id", request.clientId!!)
-                    parameters.append("redirect_uri", request.redirectUri!!)
-                    parameters.append("scope", request.scopes!!)
-                }.buildString()
-            )
+        return Response(
+            URLBuilder().apply {
+                protocol = HTTPS
+                host = Url(uri).host
+                encodedPath = "/oauth/authorize"
+                parameters.append("response_type", "code")
+                parameters.append("client_id", request.clientId!!)
+                parameters.append("redirect_uri", request.redirectUri!!)
+                parameters.append("scope", request.scopes!!)
+            }.buildString()
+        )
+    }
+
+    override fun authorizationUrlBlocking(
+        request: OAuthAuthorizationUrlRequest
+    ): Response<OAuthAuthorizationUrlResponse> {
+        return toBlocking {
+            authorizationUrl(request)
         }
     }
 }
