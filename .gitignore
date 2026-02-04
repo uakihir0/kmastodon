@@ -2,6 +2,7 @@
 .kiro
 .idea
 .gradle
+.gradle-home
 .kotlin
 target/
 build/
