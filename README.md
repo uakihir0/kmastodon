@@ -17,7 +17,7 @@ The behavior on each platform depends on [khttpclient].
 ## Usage
 
 Below is how to use it in Kotlin with Gradle on supported platforms.
-**If you want to use it on Apple platforms, please refer to [kmastodon-cocoapods](https://github.com/uakihir0/kmastodon-cocoapods).**
+**If you want to use it on Apple platforms, please refer to [kmastodon-cocoapods](https://github.com/uakihir0/kmastodon-cocoapods) or [kmastodon-spm](https://github.com/uakihir0/kmastodon-spm).**
 **Also, for usage in JavaScript, please refer to [kmastodon.js](https://github.com/uakihir0/kmastodon.js).**
 Please refer to the test code for how to use each API.
 
