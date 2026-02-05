@@ -15,7 +15,7 @@
 ## 使い方
 
 以下は対応するプラットフォームにおいて Gradle を用いて Kotlin で使用する際の使い方になります。
-**Apple プラットフォームで使用する場合は、 [kmastodon-cocoapods](https://github.com/uakihir0/kmastodon-cocoapods) を参照してください。**
+**Apple プラットフォームで使用する場合は、 [kmastodon-cocoapods](https://github.com/uakihir0/kmastodon-cocoapods) または [kmastodon-spm](https://github.com/uakihir0/kmastodon-spm) を参照してください。**
 **また、JavaScript で使用する場合は、[kmastodon.js](https://github.com/uakihir0/kmastodon.js) を参照してください。**
 各 API の叩き方については、テストコードを参照してください。
 
