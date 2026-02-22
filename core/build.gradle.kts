@@ -54,6 +54,7 @@ kotlin {
             implementation(kotlin("test"))
             implementation(libs.kotest.junit5)
             implementation(libs.kotest.assertions)
+            implementation(libs.coroutines.test)
         }
     }
 }

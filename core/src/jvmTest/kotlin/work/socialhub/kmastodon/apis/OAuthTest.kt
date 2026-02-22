@@ -1,5 +1,6 @@
 package work.socialhub.kmastodon.apis
 
+import kotlinx.coroutines.test.runTest
 import work.socialhub.kmastodon.AbstractTest
 import work.socialhub.kmastodon.api.request.apps.AppsRegisterApplicationRequest
 import work.socialhub.kmastodon.api.request.oauth.OAuthAuthorizationUrlRequest
@@ -9,7 +10,7 @@ import kotlin.test.Test
 class OAuthTest : AbstractTest() {
 
     @Test
-    fun testCreateApp() {
+    fun testCreateApp() = runTest {
         val response = mastodon().apps().registerApplication(
             AppsRegisterApplicationRequest().also {
                 it.name = "kmastodon (test)"
@@ -25,7 +26,7 @@ class OAuthTest : AbstractTest() {
     }
 
     @Test
-    fun testAuthorizationUrl() {
+    fun testAuthorizationUrl() = runTest {
         val response = mastodon().oauth().authorizationUrl(
             OAuthAuthorizationUrlRequest().also {
                 it.clientId = CLIENT_ID
@@ -39,7 +40,7 @@ class OAuthTest : AbstractTest() {
 
 
     @Test
-    fun testIssueAccessTokenWithCredentials() {
+    fun testIssueAccessTokenWithCredentials() = runTest {
         val response = mastodon().oauth().issueAccessTokenWithAuthorizationCode(
             OAuthIssueAccessTokenWithAuthorizationCodeRequest().also {
                 it.clientId = CLIENT_ID

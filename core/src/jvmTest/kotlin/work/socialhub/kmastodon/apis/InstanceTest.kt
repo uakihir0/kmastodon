@@ -1,5 +1,6 @@
 package work.socialhub.kmastodon.apis
 
+import kotlinx.coroutines.test.runTest
 import work.socialhub.kmastodon.AbstractTest
 import kotlin.test.Test
 
@@ -7,13 +8,13 @@ import kotlin.test.Test
 class InstanceTest : AbstractTest(){
 
     @Test
-    fun testInstanceV1() {
+    fun testInstanceV1() = runTest {
         val response = mastodon().instances().instanceV1()
         println(response.data.urls.streamingApi)
     }
 
     @Test
-    fun testInstanceV2() {
+    fun testInstanceV2() = runTest {
         val response = mastodon().instances().instanceV2()
         println(response.data.configuration.urls.streaming)
     }
