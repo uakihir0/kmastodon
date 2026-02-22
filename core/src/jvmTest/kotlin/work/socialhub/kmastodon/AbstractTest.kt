@@ -1,23 +1,22 @@
 package work.socialhub.kmastodon
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 import work.socialhub.kmastodon.domain.Service
-import work.socialhub.kmastodon.internal.InternalUtility.fromJson
-import java.io.FileReader
+import java.io.File
 import kotlin.test.BeforeTest
 
 open class AbstractTest {
 
     companion object {
-        const val TEST_ACCOUNT_INDEX = 0
-
         var HOST: String? = null
         var CLIENT_ID: String? = null
         var CLIENT_SECRET: String? = null
         var USER_TOKEN: String? = null
-        var OWNED_USER_TOKEN: String? = null
         var SERVICE: Service = Service.MASTODON
+    }
+
+    protected val json = Json {
+        ignoreUnknownKeys = true
     }
 
     fun mastodon(): Mastodon {
@@ -26,56 +25,67 @@ open class AbstractTest {
         )
     }
 
-    /**
-     * Read File
-     */
-    private fun readFile(file: String): String {
-        return FileReader(file).readText()
-    }
-
     @BeforeTest
     fun setupTest() {
+
         try {
-            // Get account handle and password.
-            val json = readFile("../secrets.json")
-            val props = fromJson<Secrets>(json)
-            val param = props.params[TEST_ACCOUNT_INDEX]
+            // Get credentials from environment variables.
+            HOST = System.getenv("MASTODON_HOST")
+                ?: System.getProperty("MASTODON_HOST")
+            CLIENT_ID = System.getenv("MASTODON_CLIENT_ID")
+                ?: System.getProperty("MASTODON_CLIENT_ID")
+            CLIENT_SECRET = System.getenv("MASTODON_CLIENT_SECRET")
+                ?: System.getProperty("MASTODON_CLIENT_SECRET")
+            USER_TOKEN = System.getenv("MASTODON_USER_TOKEN")
+                ?: System.getProperty("MASTODON_USER_TOKEN")
 
-            HOST = param.host
-            CLIENT_ID = param.clientId
-            CLIENT_SECRET = param.clientSecret
-            USER_TOKEN = param.userToken
-            OWNED_USER_TOKEN = param.ownedUserToken
-            SERVICE = Service.from(param.service!!)
+            val serviceName = System.getenv("MASTODON_SERVICE")
+                ?: System.getProperty("MASTODON_SERVICE")
+            if (!serviceName.isNullOrEmpty()) {
+                SERVICE = Service.from(serviceName)
+            }
+        } catch (_: Exception) {
+        }
 
-        } catch (e: Exception) {
-            e.printStackTrace()
+        if (HOST == null || USER_TOKEN == null) {
+            try {
+                // Get credentials from secrets.json file.
+                readTestProps()?.get("mastodon")?.let {
+                    HOST = it["MASTODON_HOST"]
+                    CLIENT_ID = it["MASTODON_CLIENT_ID"]
+                    CLIENT_SECRET = it["MASTODON_CLIENT_SECRET"]
+                    USER_TOKEN = it["MASTODON_USER_TOKEN"]
+
+                    val serviceName = it["MASTODON_SERVICE"]
+                    if (!serviceName.isNullOrEmpty()) {
+                        SERVICE = Service.from(serviceName)
+                    }
+                }
+            } catch (_: Exception) {
+            }
+        }
+
+        if (HOST == null || USER_TOKEN == null) {
+            throw IllegalStateException(
+                """!!!
+                No credentials exist for testing.
+                Set the environment variables MASTODON_HOST and MASTODON_USER_TOKEN
+                or copy the following file and describe its contents.
+                `cp secrets.json.default secrets.json`
+                !!!""".trimIndent()
+            )
         }
     }
 
-
-    @Serializable
-    class Secrets {
-        var params: List<SecretParams> = listOf()
-    }
-
-    @Serializable
-    class SecretParams {
-        var host: String? = null
-
-        @SerialName("client_id")
-        var clientId: String? = null
-
-        @SerialName("client_secret")
-        var clientSecret: String? = null
-
-        @SerialName("user_token")
-        var userToken: String? = null
-
-        @SerialName("owned_user_token")
-        var ownedUserToken: String? = null
-
-        @SerialName("service")
-        var service: String? = null
+    /**
+     * Read Test Properties
+     */
+    private fun readTestProps(): Map<String, Map<String, String>>? {
+        return try {
+            val jsonStr = File("../secrets.json").readText()
+            json.decodeFromString<Map<String, Map<String, String>>>(jsonStr)
+        } catch (e: Exception) {
+            null
+        }
     }
 }
