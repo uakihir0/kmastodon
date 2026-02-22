@@ -1,5 +1,6 @@
 package work.socialhub.kmastodon.apis
 
+import kotlinx.coroutines.test.runTest
 import work.socialhub.kmastodon.AbstractTest
 import work.socialhub.kmastodon.Printer.dumpAccounts
 import work.socialhub.kmastodon.Printer.dumpStatuses
@@ -9,7 +10,7 @@ import kotlin.test.Test
 class SearchTest : AbstractTest() {
 
     @Test
-    fun testStatuses() {
+    fun testStatuses() = runTest {
         val response = mastodon().search().search(
             SearchSearchRequest().also {
                 it.query = "SocialHub"
@@ -20,7 +21,7 @@ class SearchTest : AbstractTest() {
 
 
     @Test
-    fun testUsers() {
+    fun testUsers() = runTest {
         val response = mastodon().search().search(
             SearchSearchRequest().also {
                 it.query = "SocialHub"
