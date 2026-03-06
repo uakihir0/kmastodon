@@ -34,7 +34,7 @@ jobs:
       - name: Publish to Repsy
         uses: gradle/actions/setup-gradle@v3
         with:
-          arguments: ${{ matrix.target }}:publish -x ${{ matrix.target }}:jvmTest --refresh-dependencies
+          arguments: ${{ matrix.target }}:publishAllPublicationsToMavenRepository -x ${{ matrix.target }}:jvmTest --refresh-dependencies
         env:
           USERNAME: ${{ secrets.REPSY_USERNAME }}
           PASSWORD: ${{ secrets.REPSY_PASSWORD }}
