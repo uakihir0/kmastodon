@@ -18,14 +18,10 @@ kotlin {
         browser()
         binaries.library()
         generateTypeScriptDefinitions()
+    }
 
-        compilations.all {
-            compileTaskProvider.configure {
-                compilerOptions {
-                    freeCompilerArgs.add("-Xenable-suspend-function-exporting")
-                }
-            }
-        }
+    compilerOptions {
+        freeCompilerArgs.add("-XXLanguage:+JsAllowExportingSuspendFunctions")
     }
 
     iosX64()
