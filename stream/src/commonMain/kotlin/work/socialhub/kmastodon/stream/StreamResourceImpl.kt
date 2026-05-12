@@ -1,9 +1,11 @@
 package work.socialhub.kmastodon.stream
 
+import work.socialhub.kmastodon.stream.api.DirectStream
 import work.socialhub.kmastodon.stream.api.HashtagStream
 import work.socialhub.kmastodon.stream.api.PublicStream
 import work.socialhub.kmastodon.stream.api.UserStream
 import work.socialhub.kmastodon.stream.define.PublicType
+import work.socialhub.kmastodon.stream.internal.DirectStreamImpl
 import work.socialhub.kmastodon.stream.internal.HashtagStreamImpl
 import work.socialhub.kmastodon.stream.internal.PublicStreamImpl
 import work.socialhub.kmastodon.stream.internal.UserStreamImpl
@@ -45,6 +47,16 @@ class StreamResourceImpl(
                 "access_token" to accessToken(),
                 "stream" to HashtagStreamImpl.type(local),
                 "tag" to tag
+            )
+        )
+    }
+
+    override fun directStream(): DirectStream {
+        return DirectStreamImpl(
+            uri,
+            mapOf(
+                "access_token" to accessToken(),
+                "stream" to DirectStreamImpl.type()
             )
         )
     }

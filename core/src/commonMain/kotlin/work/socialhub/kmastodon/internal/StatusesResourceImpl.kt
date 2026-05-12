@@ -7,11 +7,13 @@ import work.socialhub.kmastodon.api.request.statuses.StatusesContextRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesDeleteStatusRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesFavouriteRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesFavouritedByRequest
+import work.socialhub.kmastodon.api.request.statuses.StatusesPinRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesPostStatusRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesReblogRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesRebloggedByRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesStatusRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesUnfavouriteRequest
+import work.socialhub.kmastodon.api.request.statuses.StatusesUnpinRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesUnreblogRequest
 import work.socialhub.kmastodon.api.response.Response
 import work.socialhub.kmastodon.api.response.ResponseUnit
@@ -20,10 +22,12 @@ import work.socialhub.kmastodon.api.response.statuses.StatusesContextResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesFavouriteResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesFavouritedByResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesPostStatusResponse
+import work.socialhub.kmastodon.api.response.statuses.StatusesPinResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesReblogResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesRebloggedByResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesStatusResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesUnfavouriteResponse
+import work.socialhub.kmastodon.api.response.statuses.StatusesUnpinResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesUnreblogResponse
 import work.socialhub.kmastodon.domain.Service
 import work.socialhub.kmastodon.util.Headers.AUTHORIZATION
@@ -268,6 +272,46 @@ class StatusesResourceImpl(
     ): Response<StatusesUnfavouriteResponse> {
         return toBlocking {
             unfavourite(request)
+        }
+    }
+
+    override suspend fun pin(
+        request: StatusesPinRequest
+    ): Response<StatusesPinResponse> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/statuses/${request.id}/pin")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .post()
+        }
+    }
+
+    override fun pinBlocking(
+        request: StatusesPinRequest
+    ): Response<StatusesPinResponse> {
+        return toBlocking {
+            pin(request)
+        }
+    }
+
+    override suspend fun unpin(
+        request: StatusesUnpinRequest
+    ): Response<StatusesUnpinResponse> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/statuses/${request.id}/unpin")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .post()
+        }
+    }
+
+    override fun unpinBlocking(
+        request: StatusesUnpinRequest
+    ): Response<StatusesUnpinResponse> {
+        return toBlocking {
+            unpin(request)
         }
     }
 }

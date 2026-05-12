@@ -10,7 +10,9 @@ import work.socialhub.kmastodon.api.request.statuses.StatusesReblogRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesRebloggedByRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesStatusRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesUnfavouriteRequest
+import work.socialhub.kmastodon.api.request.statuses.StatusesUnpinRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesUnreblogRequest
+import work.socialhub.kmastodon.api.request.statuses.StatusesPinRequest
 import work.socialhub.kmastodon.api.response.Response
 import work.socialhub.kmastodon.api.response.ResponseUnit
 import work.socialhub.kmastodon.api.response.statuses.StatusesCardResponse
@@ -23,6 +25,8 @@ import work.socialhub.kmastodon.api.response.statuses.StatusesRebloggedByRespons
 import work.socialhub.kmastodon.api.response.statuses.StatusesStatusResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesUnfavouriteResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesUnreblogResponse
+import work.socialhub.kmastodon.api.response.statuses.StatusesUnpinResponse
+import work.socialhub.kmastodon.api.response.statuses.StatusesPinResponse
 import kotlin.js.JsExport
 
 @JsExport
@@ -160,4 +164,28 @@ interface StatusesResource {
     fun unfavouriteBlocking(
         request: StatusesUnfavouriteRequest
     ): Response<StatusesUnfavouriteResponse>
+
+    /**
+     * Pinning a status.
+     */
+    suspend fun pin(
+        request: StatusesPinRequest
+    ): Response<StatusesPinResponse>
+
+    @JsExport.Ignore
+    fun pinBlocking(
+        request: StatusesPinRequest
+    ): Response<StatusesPinResponse>
+
+    /**
+     * Unpinning a status.
+     */
+    suspend fun unpin(
+        request: StatusesUnpinRequest
+    ): Response<StatusesUnpinResponse>
+
+    @JsExport.Ignore
+    fun unpinBlocking(
+        request: StatusesUnpinRequest
+    ): Response<StatusesUnpinResponse>
 }

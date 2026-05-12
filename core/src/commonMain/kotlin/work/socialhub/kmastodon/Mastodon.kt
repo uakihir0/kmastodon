@@ -4,6 +4,8 @@ package work.socialhub.kmastodon
 import work.socialhub.kmastodon.api.AccountsResource
 import work.socialhub.kmastodon.api.AppsResource
 import work.socialhub.kmastodon.api.BlocksResource
+import work.socialhub.kmastodon.api.BookmarksResource
+import work.socialhub.kmastodon.api.DomainBlocksResource
 import work.socialhub.kmastodon.api.EmojisResource
 import work.socialhub.kmastodon.api.FavouritesResource
 import work.socialhub.kmastodon.api.FollowRequestsResource
@@ -17,6 +19,7 @@ import work.socialhub.kmastodon.api.NotificationsResource
 import work.socialhub.kmastodon.api.OAuthResource
 import work.socialhub.kmastodon.api.PollsResource
 import work.socialhub.kmastodon.api.ReportsResource
+import work.socialhub.kmastodon.api.ScheduledStatusesResource
 import work.socialhub.kmastodon.api.SearchResource
 import work.socialhub.kmastodon.api.StatusesResource
 import work.socialhub.kmastodon.api.TimelinesResource
@@ -46,6 +49,9 @@ interface Mastodon {
     fun reports(): ReportsResource
     fun follows(): FollowsResource
     fun followRequests(): FollowRequestsResource
+    fun bookmarks(): BookmarksResource
+    fun scheduledStatuses(): ScheduledStatusesResource
+    fun domainBlocks(): DomainBlocksResource
 
     fun accounts(): AccountsResource
     fun statuses(): StatusesResource

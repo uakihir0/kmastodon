@@ -1,6 +1,7 @@
 package work.socialhub.kmastodon.stream
 
 import work.socialhub.kmastodon.entity.Tag
+import work.socialhub.kmastodon.stream.api.DirectStream
 import work.socialhub.kmastodon.stream.api.HashtagStream
 import work.socialhub.kmastodon.stream.api.PublicStream
 import work.socialhub.kmastodon.stream.api.UserStream
@@ -19,4 +20,7 @@ interface StreamResource {
         tag: String,
         local: Boolean
     ): HashtagStream
+
+    fun directStream(
+    ): DirectStream
 }
