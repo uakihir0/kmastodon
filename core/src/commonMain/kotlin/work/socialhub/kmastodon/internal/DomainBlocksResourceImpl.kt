@@ -8,27 +8,26 @@ import work.socialhub.kmastodon.api.request.domainblocks.DomainBlocksUnblockDoma
 import work.socialhub.kmastodon.api.response.Response
 import work.socialhub.kmastodon.api.response.ResponseUnit
 import work.socialhub.kmastodon.api.response.domainblocks.DomainBlocksGetDomainBlocksResponse
+import work.socialhub.kmastodon.domain.Service
+import work.socialhub.kmastodon.util.Headers.AUTHORIZATION
+import work.socialhub.kmastodon.util.MediaType
 import work.socialhub.kmastodon.util.toBlocking
 
 class DomainBlocksResourceImpl(
     uri: String,
     accessToken: String,
-    service: () -> work.socialhub.kmastodon.domain.Service,
+    service: () -> Service,
 ) : AbstractAuthResourceImpl(uri, accessToken, service), DomainBlocksResource {
 
     override suspend fun domainBlocks(
         request: DomainBlocksGetDomainBlocksRequest
     ): Response<Array<DomainBlocksGetDomainBlocksResponse>> {
-        return proceed<Array<DomainBlocksGetDomainBlocksResponse>> {
+        return proceed {
             HttpRequest()
-                .url("$uri/api/v1/domain_blocks")
-                .header("Authorization", bearerToken())
-                .pwn("limit", request.range?.limit)
-                .pwn("since_id", request.range?.sinceId)
-                .pwn("max_id", request.range?.maxId)
-                .pwn("min_id", request.range?.minId)
-                .pwn("page", request.page?.offset)
-                .pwn("limit", request.page?.limit)
+                .url("${uri}/api/v1/domain_blocks")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .paging(request.range, service())
                 .get()
         }
     }
@@ -46,8 +45,9 @@ class DomainBlocksResourceImpl(
     ): ResponseUnit {
         return proceedUnit {
             HttpRequest()
-                .url("$uri/api/v1/domain_blocks")
-                .header("Authorization", bearerToken())
+                .url("${uri}/api/v1/domain_blocks")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
                 .pwn("domain", request.domain)
                 .post()
         }
@@ -66,8 +66,10 @@ class DomainBlocksResourceImpl(
     ): ResponseUnit {
         return proceedUnit {
             HttpRequest()
-                .url("$uri/api/v1/domain_blocks/${request.domain}")
-                .header("Authorization", bearerToken())
+                .url("${uri}/api/v1/domain_blocks")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .pwn("domain", request.domain)
                 .delete()
         }
     }
