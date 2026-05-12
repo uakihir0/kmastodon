@@ -277,7 +277,7 @@ class StatusesResourceImpl(
 
     override suspend fun pin(
         request: StatusesPinRequest
-    ): Response<StatusesStatusResponse> {
+    ): Response<StatusesPinResponse> {
         return proceed {
             HttpRequest()
                 .url("${uri}/api/v1/statuses/${request.id}/pin")
@@ -289,7 +289,7 @@ class StatusesResourceImpl(
 
     override fun pinBlocking(
         request: StatusesPinRequest
-    ): Response<StatusesStatusResponse> {
+    ): Response<StatusesPinResponse> {
         return toBlocking {
             pin(request)
         }
@@ -297,7 +297,7 @@ class StatusesResourceImpl(
 
     override suspend fun unpin(
         request: StatusesUnpinRequest
-    ): Response<StatusesStatusResponse> {
+    ): Response<StatusesUnpinResponse> {
         return proceed {
             HttpRequest()
                 .url("${uri}/api/v1/statuses/${request.id}/unpin")
@@ -309,7 +309,7 @@ class StatusesResourceImpl(
 
     override fun unpinBlocking(
         request: StatusesUnpinRequest
-    ): Response<StatusesStatusResponse> {
+    ): Response<StatusesUnpinResponse> {
         return toBlocking {
             unpin(request)
         }

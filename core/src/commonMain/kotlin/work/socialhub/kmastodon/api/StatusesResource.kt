@@ -170,22 +170,22 @@ interface StatusesResource {
      */
     suspend fun pin(
         request: StatusesPinRequest
-    ): Response<StatusesStatusResponse>
+    ): Response<StatusesPinResponse>
 
     @JsExport.Ignore
     fun pinBlocking(
         request: StatusesPinRequest
-    ): Response<StatusesStatusResponse>
+    ): Response<StatusesPinResponse>
 
     /**
      * Unpinning a status.
      */
     suspend fun unpin(
         request: StatusesUnpinRequest
-    ): Response<StatusesStatusResponse>
+    ): Response<StatusesUnpinResponse>
 
     @JsExport.Ignore
     fun unpinBlocking(
         request: StatusesUnpinRequest
-    ): Response<StatusesStatusResponse>
+    ): Response<StatusesUnpinResponse>
 }
