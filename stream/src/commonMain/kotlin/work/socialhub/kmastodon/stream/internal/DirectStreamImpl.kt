@@ -31,7 +31,7 @@ class DirectStreamImpl(
         val client = createClient()
 
         client.eventCallback = {
-            if (it.event == "update") {
+            if (it.event == "update" && it.payload != null) {
                 fromJson<Status>(it.payload!!)
                     .let(listener::onUpdate)
             }
