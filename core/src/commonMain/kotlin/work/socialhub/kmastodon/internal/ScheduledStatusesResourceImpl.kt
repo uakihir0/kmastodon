@@ -8,27 +8,26 @@ import work.socialhub.kmastodon.api.request.scheduledstatuses.ScheduledStatusesS
 import work.socialhub.kmastodon.api.response.Response
 import work.socialhub.kmastodon.api.response.ResponseUnit
 import work.socialhub.kmastodon.api.response.scheduledstatuses.ScheduledStatusesGetScheduledStatusesResponse
+import work.socialhub.kmastodon.domain.Service
+import work.socialhub.kmastodon.util.Headers.AUTHORIZATION
+import work.socialhub.kmastodon.util.MediaType
 import work.socialhub.kmastodon.util.toBlocking
 
 class ScheduledStatusesResourceImpl(
     uri: String,
     accessToken: String,
-    service: () -> work.socialhub.kmastodon.domain.Service,
+    service: () -> Service,
 ) : AbstractAuthResourceImpl(uri, accessToken, service), ScheduledStatusesResource {
 
     override suspend fun scheduledStatuses(
         request: ScheduledStatusesGetScheduledStatusesRequest
     ): Response<Array<ScheduledStatusesGetScheduledStatusesResponse>> {
-        return proceed<Array<ScheduledStatusesGetScheduledStatusesResponse>> {
+        return proceed {
             HttpRequest()
-                .url("$uri/api/v1/scheduled_statuses")
-                .header("Authorization", bearerToken())
-                .pwn("limit", request.range?.limit)
-                .pwn("since_id", request.range?.sinceId)
-                .pwn("max_id", request.range?.maxId)
-                .pwn("min_id", request.range?.minId)
-                .pwn("page", request.page?.offset)
-                .pwn("limit", request.page?.limit)
+                .url("${uri}/api/v1/scheduled_statuses")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .paging(request.range, service())
                 .get()
         }
     }
@@ -44,10 +43,11 @@ class ScheduledStatusesResourceImpl(
     override suspend fun scheduledStatus(
         request: ScheduledStatusesScheduledStatusRequest
     ): Response<ScheduledStatusesGetScheduledStatusesResponse> {
-        return proceed<ScheduledStatusesGetScheduledStatusesResponse> {
+        return proceed {
             HttpRequest()
-                .url("$uri/api/v1/scheduled_statuses/${request.id}")
-                .header("Authorization", bearerToken())
+                .url("${uri}/api/v1/scheduled_statuses/${request.id}")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
                 .get()
         }
     }
@@ -63,10 +63,11 @@ class ScheduledStatusesResourceImpl(
     override suspend fun patchScheduledStatus(
         request: ScheduledStatusesPatchScheduledStatusRequest
     ): Response<ScheduledStatusesGetScheduledStatusesResponse> {
-        return proceed<ScheduledStatusesGetScheduledStatusesResponse> {
+        return proceed {
             HttpRequest()
-                .url("$uri/api/v1/scheduled_statuses/${request.id}")
-                .header("Authorization", bearerToken())
+                .url("${uri}/api/v1/scheduled_statuses/${request.id}")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
                 .pwn("scheduled_at", request.scheduledAt)
                 .patch()
         }
@@ -85,8 +86,9 @@ class ScheduledStatusesResourceImpl(
     ): ResponseUnit {
         return proceedUnit {
             HttpRequest()
-                .url("$uri/api/v1/scheduled_statuses/${request.id}")
-                .header("Authorization", bearerToken())
+                .url("${uri}/api/v1/scheduled_statuses/${request.id}")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
                 .delete()
         }
     }

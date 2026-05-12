@@ -1,5 +1,5 @@
 package work.socialhub.kmastodon.api.response.scheduledstatuses
 
-import work.socialhub.kmastodon.entity.Status
+import work.socialhub.kmastodon.entity.ScheduledStatus
 
-typealias ScheduledStatusesGetScheduledStatusesResponse = Status
+typealias ScheduledStatusesGetScheduledStatusesResponse = ScheduledStatus
