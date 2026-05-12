@@ -1,10 +1,10 @@
 package work.socialhub.kmastodon.api
 
-import work.socialhub.kmastodon.api.request.bookmarks.BookmarksDeleteBookmarkRequest
 import work.socialhub.kmastodon.api.request.bookmarks.BookmarksGetBookmarksRequest
+import work.socialhub.kmastodon.api.request.bookmarks.BookmarksUnbookmarkRequest
 import work.socialhub.kmastodon.api.response.Response
-import work.socialhub.kmastodon.api.response.ResponseUnit
 import work.socialhub.kmastodon.api.response.bookmarks.BookmarksGetBookmarksResponse
+import work.socialhub.kmastodon.api.response.bookmarks.BookmarksUnbookmarkResponse
 import kotlin.js.JsExport
 
 @JsExport
@@ -23,14 +23,14 @@ interface BookmarksResource {
     ): Response<Array<BookmarksGetBookmarksResponse>>
 
     /**
-     * Deleting a bookmark.
+     * Removing a bookmark.
      */
-    suspend fun deleteBookmark(
-        request: BookmarksDeleteBookmarkRequest
-    ): ResponseUnit
+    suspend fun unbookmark(
+        request: BookmarksUnbookmarkRequest
+    ): Response<BookmarksUnbookmarkResponse>
 
     @JsExport.Ignore
-    fun deleteBookmarkBlocking(
-        request: BookmarksDeleteBookmarkRequest
-    ): ResponseUnit
+    fun unbookmarkBlocking(
+        request: BookmarksUnbookmarkRequest
+    ): Response<BookmarksUnbookmarkResponse>
 }

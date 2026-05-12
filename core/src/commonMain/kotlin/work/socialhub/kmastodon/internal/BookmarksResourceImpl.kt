@@ -2,32 +2,31 @@ package work.socialhub.kmastodon.internal
 
 import work.socialhub.khttpclient.HttpRequest
 import work.socialhub.kmastodon.api.BookmarksResource
-import work.socialhub.kmastodon.api.request.bookmarks.BookmarksDeleteBookmarkRequest
 import work.socialhub.kmastodon.api.request.bookmarks.BookmarksGetBookmarksRequest
+import work.socialhub.kmastodon.api.request.bookmarks.BookmarksUnbookmarkRequest
 import work.socialhub.kmastodon.api.response.Response
-import work.socialhub.kmastodon.api.response.ResponseUnit
 import work.socialhub.kmastodon.api.response.bookmarks.BookmarksGetBookmarksResponse
+import work.socialhub.kmastodon.api.response.bookmarks.BookmarksUnbookmarkResponse
+import work.socialhub.kmastodon.domain.Service
+import work.socialhub.kmastodon.util.Headers.AUTHORIZATION
+import work.socialhub.kmastodon.util.MediaType
 import work.socialhub.kmastodon.util.toBlocking
 
 class BookmarksResourceImpl(
     uri: String,
     accessToken: String,
-    service: () -> work.socialhub.kmastodon.domain.Service,
+    service: () -> Service,
 ) : AbstractAuthResourceImpl(uri, accessToken, service), BookmarksResource {
 
     override suspend fun bookmarks(
         request: BookmarksGetBookmarksRequest
     ): Response<Array<BookmarksGetBookmarksResponse>> {
-        return proceed<Array<BookmarksGetBookmarksResponse>> {
+        return proceed {
             HttpRequest()
-                .url("$uri/api/v1/bookmarks")
-                .header("Authorization", bearerToken())
-                .pwn("limit", request.range?.limit)
-                .pwn("since_id", request.range?.sinceId)
-                .pwn("max_id", request.range?.maxId)
-                .pwn("min_id", request.range?.minId)
-                .pwn("page", request.page?.offset)
-                .pwn("limit", request.page?.limit)
+                .url("${uri}/api/v1/bookmarks")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .paging(request.range, service())
                 .get()
         }
     }
@@ -40,22 +39,23 @@ class BookmarksResourceImpl(
         }
     }
 
-    override suspend fun deleteBookmark(
-        request: BookmarksDeleteBookmarkRequest
-    ): ResponseUnit {
-        return proceedUnit {
+    override suspend fun unbookmark(
+        request: BookmarksUnbookmarkRequest
+    ): Response<BookmarksUnbookmarkResponse> {
+        return proceed {
             HttpRequest()
-                .url("$uri/api/v1/bookmarks/${request.id}")
-                .header("Authorization", bearerToken())
-                .delete()
+                .url("${uri}/api/v1/statuses/${request.id}/unbookmark")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .post()
         }
     }
 
-    override fun deleteBookmarkBlocking(
-        request: BookmarksDeleteBookmarkRequest
-    ): ResponseUnit {
+    override fun unbookmarkBlocking(
+        request: BookmarksUnbookmarkRequest
+    ): Response<BookmarksUnbookmarkResponse> {
         return toBlocking {
-            deleteBookmark(request)
+            unbookmark(request)
         }
     }
 }
