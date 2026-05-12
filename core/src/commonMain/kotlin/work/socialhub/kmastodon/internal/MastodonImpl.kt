@@ -4,6 +4,8 @@ import work.socialhub.kmastodon.Mastodon
 import work.socialhub.kmastodon.api.AccountsResource
 import work.socialhub.kmastodon.api.AppsResource
 import work.socialhub.kmastodon.api.BlocksResource
+import work.socialhub.kmastodon.api.BookmarksResource
+import work.socialhub.kmastodon.api.DomainBlocksResource
 import work.socialhub.kmastodon.api.EmojisResource
 import work.socialhub.kmastodon.api.FavouritesResource
 import work.socialhub.kmastodon.api.FollowRequestsResource
@@ -17,6 +19,7 @@ import work.socialhub.kmastodon.api.NotificationsResource
 import work.socialhub.kmastodon.api.OAuthResource
 import work.socialhub.kmastodon.api.PollsResource
 import work.socialhub.kmastodon.api.ReportsResource
+import work.socialhub.kmastodon.api.ScheduledStatusesResource
 import work.socialhub.kmastodon.api.SearchResource
 import work.socialhub.kmastodon.api.StatusesResource
 import work.socialhub.kmastodon.api.TimelinesResource
@@ -45,6 +48,9 @@ class MastodonImpl(
     private val reports: ReportsResource = ReportsResourceImpl(uri, accessToken)
     private val follows: FollowsResource = FollowsResourceImpl(uri, accessToken)
     private val followRequests: FollowRequestsResource = FollowRequestsResourceImpl(uri, accessToken)
+    private val bookmarks: BookmarksResource = BookmarksResourceImpl(uri, accessToken) { service() }
+    private val scheduledStatuses: ScheduledStatusesResource = ScheduledStatusesResourceImpl(uri, accessToken) { service() }
+    private val domainBlocks: DomainBlocksResource = DomainBlocksResourceImpl(uri, accessToken) { service() }
 
     private val accounts: AccountsResource = AccountsResourceImpl(uri, accessToken) { service() }
     private val statuses: StatusesResource = StatusesResourceImpl(uri, accessToken) { service() }
@@ -96,6 +102,9 @@ class MastodonImpl(
     override fun reports() = reports
     override fun follows() = follows
     override fun followRequests() = followRequests
+    override fun bookmarks() = bookmarks
+    override fun scheduledStatuses() = scheduledStatuses
+    override fun domainBlocks() = domainBlocks
 
     override fun accounts() = accounts
     override fun statuses() = statuses
