@@ -1,5 +1,5 @@
 [versions]
-coroutines = "1.10.2"
+coroutines = "1.11.0"
 kotest = "6.1.11"
 kotlin = "2.3.21"
 nexus-publish = "2.0.0"
@@ -10,7 +10,7 @@ dokka = "2.2.0"
 khttpclient = "work.socialhub:khttpclient:0.0.9-SNAPSHOT"
 kmpcommon = "work.socialhub:kmpcommon:0.0.1-SNAPSHOT"
 ktor-core = "io.ktor:ktor-client-core:3.4.3"
-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.7.1-0.6.x-compat"
+datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.8.0-0.6.x-compat"
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0"
