@@ -4,6 +4,7 @@ import kotlinx.coroutines.test.runTest
 import work.socialhub.kmastodon.AbstractTest
 import work.socialhub.kmastodon.api.request.favourites.FavouritesFavouritesRequest
 import kotlin.test.Test
+import kotlin.test.assertNotNull
 
 class FavouritesTest : AbstractTest() {
 
@@ -11,6 +12,7 @@ class FavouritesTest : AbstractTest() {
     fun testFavourites() = runTest {
         val response = mastodon().favourites()
             .favourites(FavouritesFavouritesRequest())
+        assertNotNull(response.data)
         println("Favourites count: ${response.data.size}")
     }
 }
