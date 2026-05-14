@@ -20,6 +20,7 @@ import work.socialhub.kmastodon.api.request.statuses.StatusesUnpinRequest
 import work.socialhub.kmastodon.api.request.timelines.TimelinesHomeTimelineRequest
 import kotlin.test.Ignore
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class StatusesTest : AbstractTest() {
 
@@ -38,13 +39,16 @@ class StatusesTest : AbstractTest() {
             }
         ).also { println("Created status: ${it.data.id}") }
 
-        val fetched = mastodon().statuses().status(
-            StatusesStatusRequest().also { it.id = created.data.id }
-        ).also { dump(it.data) }
-
-        mastodon().statuses().deleteStatus(
-            StatusesDeleteStatusRequest().also { it.id = created.data.id }
-        ).also { println("Deleted status: ${created.data.id}") }
+        try {
+            val fetched = mastodon().statuses().status(
+                StatusesStatusRequest().also { it.id = created.data.id }
+            ).also { dump(it.data) }
+            assertEquals(created.data.id, fetched.data.id)
+        } finally {
+            mastodon().statuses().deleteStatus(
+                StatusesDeleteStatusRequest().also { it.id = created.data.id }
+            ).also { println("Deleted status: ${created.data.id}") }
+        }
     }
 
     @Test
@@ -140,16 +144,18 @@ class StatusesTest : AbstractTest() {
             }
         )
 
-        mastodon().statuses().pin(
-            StatusesPinRequest().also { it.id = created.data.id }
-        ).also { println("Pinned: ${it.data.id}") }
+        try {
+            mastodon().statuses().pin(
+                StatusesPinRequest().also { it.id = created.data.id }
+            ).also { println("Pinned: ${it.data.id}") }
 
-        mastodon().statuses().unpin(
-            StatusesUnpinRequest().also { it.id = created.data.id }
-        ).also { println("Unpinned: ${it.data.id}") }
-
-        mastodon().statuses().deleteStatus(
-            StatusesDeleteStatusRequest().also { it.id = created.data.id }
-        )
+            mastodon().statuses().unpin(
+                StatusesUnpinRequest().also { it.id = created.data.id }
+            ).also { println("Unpinned: ${it.data.id}") }
+        } finally {
+            mastodon().statuses().deleteStatus(
+                StatusesDeleteStatusRequest().also { it.id = created.data.id }
+            )
+        }
     }
 }

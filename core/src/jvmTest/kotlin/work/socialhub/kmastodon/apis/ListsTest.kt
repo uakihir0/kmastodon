@@ -19,12 +19,14 @@ class ListsTest : AbstractTest() {
             }
         ).also { println("Created list: ${it.data.id} - ${it.data.title}") }
 
-        val fetched = mastodon().lists().list(
-            ListsListRequest().also { it.id = created.data.id }
-        ).also { println("Fetched list: ${it.data.id} - ${it.data.title}") }
-
-        mastodon().lists().deleteList(
-            ListsDeleteListRequest().also { it.id = created.data.id }
-        ).also { println("Deleted list: ${created.data.id}") }
+        try {
+            val fetched = mastodon().lists().list(
+                ListsListRequest().also { it.id = created.data.id }
+            ).also { println("Fetched list: ${it.data.id} - ${it.data.title}") }
+        } finally {
+            mastodon().lists().deleteList(
+                ListsDeleteListRequest().also { it.id = created.data.id }
+            ).also { println("Deleted list: ${created.data.id}") }
+        }
     }
 }
