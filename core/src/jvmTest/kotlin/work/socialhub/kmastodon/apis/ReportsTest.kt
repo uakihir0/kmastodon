@@ -2,6 +2,7 @@ package work.socialhub.kmastodon.apis
 
 import kotlinx.coroutines.test.runTest
 import work.socialhub.kmastodon.AbstractTest
+import work.socialhub.kmastodon.api.request.reports.ReportsPostReportRequest
 import kotlin.test.Ignore
 import kotlin.test.Test
 
@@ -18,7 +19,7 @@ class ReportsTest : AbstractTest() {
     @Ignore
     fun testPostReport() = runTest {
         mastodon().reports().postReport(
-            work.socialhub.kmastodon.api.request.reports.ReportsPostReportRequest().also {
+            ReportsPostReportRequest().also {
                 it.accountId = "REQUIRED_ACCOUNT_ID"
                 it.comment = "Test report from kmastodon"
             }

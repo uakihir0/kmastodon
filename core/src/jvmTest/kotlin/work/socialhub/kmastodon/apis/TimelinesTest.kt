@@ -30,7 +30,7 @@ class TimelinesTest : AbstractTest() {
     }
 
     @Test
-    @Ignore
+    @Ignore("Requires existing direct message conversations on the test account")
     fun testConversations() = runTest {
         val response = mastodon().timelines()
             .conversations(TimelinesConversationsRequest())
