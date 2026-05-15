@@ -6,6 +6,7 @@ import work.socialhub.kmastodon.api.request.bookmarks.BookmarksGetBookmarksReque
 import work.socialhub.kmastodon.api.request.bookmarks.BookmarksUnbookmarkRequest
 import kotlin.test.Ignore
 import kotlin.test.Test
+import kotlin.test.assertNotNull
 
 class BookmarksTest : AbstractTest() {
 
@@ -13,11 +14,12 @@ class BookmarksTest : AbstractTest() {
     fun testBookmarks() = runTest {
         val response = mastodon().bookmarks()
             .bookmarks(BookmarksGetBookmarksRequest())
+        assertNotNull(response.data)
         println("Bookmarks count: ${response.data.size}")
     }
 
     @Test
-    @Ignore
+    @Ignore("Requires a bookmarked status on the test account")
     fun testUnbookmark() = runTest {
         mastodon().bookmarks().unbookmark(
             BookmarksUnbookmarkRequest().also {

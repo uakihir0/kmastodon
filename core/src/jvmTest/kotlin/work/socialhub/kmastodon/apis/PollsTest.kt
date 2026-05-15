@@ -9,7 +9,7 @@ import kotlin.test.Test
 class PollsTest : AbstractTest() {
 
     @Test
-    @Ignore
+    @Ignore("Requires a live poll ID from the timeline")
     fun testVotePoll() = runTest {
         mastodon().polls().votePoll(
             PollsVotePollRequest().also {

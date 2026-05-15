@@ -9,7 +9,7 @@ import kotlin.test.Test
 class FollowsTest : AbstractTest() {
 
     @Test
-    @Ignore
+    @Ignore("Requires a valid remote account URI to follow")
     fun testRemoteFollow() = runTest {
         mastodon().follows().remoteFollow(
             FollowsRemoteFollowRequest().also {

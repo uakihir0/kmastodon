@@ -5,7 +5,9 @@ import work.socialhub.kmastodon.AbstractTest
 import work.socialhub.kmastodon.api.request.apps.AppsRegisterApplicationRequest
 import work.socialhub.kmastodon.api.request.oauth.OAuthAuthorizationUrlRequest
 import work.socialhub.kmastodon.api.request.oauth.OAuthIssueAccessTokenWithAuthorizationCodeRequest
+import kotlin.test.Ignore
 import kotlin.test.Test
+import kotlin.test.assertNotNull
 
 class OAuthTest : AbstractTest() {
 
@@ -19,6 +21,10 @@ class OAuthTest : AbstractTest() {
                 it.scopes = "read write follow push"
             }
         )
+        assertNotNull(response.data.id)
+        assertNotNull(response.data.clientId)
+        assertNotNull(response.data.clientSecret)
+        assertNotNull(response.data.redirectUri)
         println(response.data.id)
         println(response.data.clientId)
         println(response.data.clientSecret)
@@ -40,6 +46,7 @@ class OAuthTest : AbstractTest() {
 
 
     @Test
+    @Ignore("Requires a freshly generated authorization code from the OAuth flow")
     fun testIssueAccessTokenWithCredentials() = runTest {
         val response = mastodon().oauth().issueAccessTokenWithAuthorizationCode(
             OAuthIssueAccessTokenWithAuthorizationCodeRequest().also {
