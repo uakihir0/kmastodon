@@ -6,6 +6,7 @@ import work.socialhub.kmastodon.Printer.dumpAccounts
 import work.socialhub.kmastodon.Printer.dumpStatuses
 import work.socialhub.kmastodon.api.request.search.SearchSearchRequest
 import kotlin.test.Test
+import kotlin.test.assertNotNull
 
 class SearchTest : AbstractTest() {
 
@@ -16,6 +17,7 @@ class SearchTest : AbstractTest() {
                 it.query = "SocialHub"
             }
         )
+        assertNotNull(response.data.statuses)
         dumpStatuses(response.data.statuses!!)
     }
 
@@ -27,6 +29,7 @@ class SearchTest : AbstractTest() {
                 it.query = "SocialHub"
             }
         )
+        assertNotNull(response.data.accounts)
         dumpAccounts(response.data.accounts!!)
     }
 }

@@ -11,6 +11,7 @@ import work.socialhub.kmastodon.api.request.accounts.AccountsFollowingRequest
 import work.socialhub.kmastodon.api.request.accounts.AccountsRelationshipsRequest
 import work.socialhub.kmastodon.api.request.accounts.AccountsStatusesRequest
 import kotlin.test.Test
+import kotlin.test.assertNotNull
 
 class UsersTest : AbstractTest() {
 
@@ -19,6 +20,7 @@ class UsersTest : AbstractTest() {
         mastodon().accounts()
             .verifyCredentials()
             .also {
+                assertNotNull(it.data.id)
                 dump(it.data)
             }
     }
@@ -29,6 +31,7 @@ class UsersTest : AbstractTest() {
         val response = mastodon().accounts().account(
             AccountsAccountRequest().also { it.id = me.data.id }
         )
+        assertNotNull(response.data.id)
         dump(response.data)
     }
 
@@ -38,6 +41,7 @@ class UsersTest : AbstractTest() {
         val response = mastodon().accounts().followers(
             AccountsFollowersRequest().also { it.id = me.data.id }
         )
+        assertNotNull(response.data)
         dumpAccounts(response.data)
     }
 
@@ -47,6 +51,7 @@ class UsersTest : AbstractTest() {
         val response = mastodon().accounts().following(
             AccountsFollowingRequest().also { it.id = me.data.id }
         )
+        assertNotNull(response.data)
         dumpAccounts(response.data)
     }
 
@@ -56,6 +61,7 @@ class UsersTest : AbstractTest() {
         val response = mastodon().accounts().statuses(
             AccountsStatusesRequest().also { it.id = me.data.id }
         )
+        assertNotNull(response.data)
         dumpStatuses(response.data)
     }
 
@@ -65,6 +71,7 @@ class UsersTest : AbstractTest() {
         val response = mastodon().accounts().relationships(
             AccountsRelationshipsRequest().also { it.addId(me.data.id) }
         )
+        assertNotNull(response.data)
         for (rel in response.data) {
             println("Relationship: following=${rel.isFollowing}, followedBy=${rel.isFollowedBy}")
         }

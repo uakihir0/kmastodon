@@ -4,6 +4,7 @@ import kotlinx.coroutines.test.runTest
 import work.socialhub.kmastodon.AbstractTest
 import work.socialhub.kmastodon.api.request.medias.MediasPostMediaRequest
 import kotlin.test.Test
+import kotlin.test.assertNotNull
 
 class PostMediaTest : AbstractTest() {
 
@@ -18,6 +19,7 @@ class PostMediaTest : AbstractTest() {
             }
         )
 
+        assertNotNull(response.data.id)
         println(response.data.id)
     }
 }

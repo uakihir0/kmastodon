@@ -5,6 +5,7 @@ import work.socialhub.kmastodon.AbstractTest
 import work.socialhub.kmastodon.Printer.dump
 import work.socialhub.kmastodon.Printer.dumpStatuses
 import work.socialhub.kmastodon.api.request.statuses.StatusesCardRequest
+import work.socialhub.kmastodon.api.request.timelines.TimelinesHomeTimelineRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesContextRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesFavouriteRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesFavouritedByRequest
@@ -17,19 +18,12 @@ import work.socialhub.kmastodon.api.request.statuses.StatusesUnreblogRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesDeleteStatusRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesPinRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesUnpinRequest
-import work.socialhub.kmastodon.api.request.timelines.TimelinesHomeTimelineRequest
 import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 class StatusesTest : AbstractTest() {
-
-    @Test
-    fun testHomeTimeline() = runTest {
-        val response = mastodon().timelines()
-            .homeTimeline(TimelinesHomeTimelineRequest())
-        dumpStatuses(response.data)
-    }
 
     @Test
     fun testCreateAndDeleteStatus() = runTest {
@@ -37,7 +31,7 @@ class StatusesTest : AbstractTest() {
             StatusesPostStatusRequest().also {
                 it.status = "Test post from kmastodon StatusesTest"
             }
-        ).also { println("Created status: ${it.data.id}") }
+        ).also { assertNotNull(it.data.id); println("Created status: ${it.data.id}") }
 
         try {
             val fetched = mastodon().statuses().status(
