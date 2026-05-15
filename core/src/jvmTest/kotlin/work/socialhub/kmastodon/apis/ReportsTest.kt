@@ -9,6 +9,7 @@ import kotlin.test.Test
 class ReportsTest : AbstractTest() {
 
     @Test
+    @Ignore("/api/v1/reports returns 404 on mastodon.social")
     fun testReports() = runTest {
         val response = mastodon().reports()
             .reports()
@@ -16,7 +17,7 @@ class ReportsTest : AbstractTest() {
     }
 
     @Test
-    @Ignore
+    @Ignore("Requires a real account ID to report")
     fun testPostReport() = runTest {
         mastodon().reports().postReport(
             ReportsPostReportRequest().also {
