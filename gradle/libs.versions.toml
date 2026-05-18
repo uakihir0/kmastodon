@@ -9,7 +9,7 @@ dokka = "2.2.0"
 [libraries]
 khttpclient = "work.socialhub:khttpclient:0.0.9-SNAPSHOT"
 kmpcommon = "work.socialhub:kmpcommon:0.0.1-SNAPSHOT"
-ktor-core = "io.ktor:ktor-client-core:3.4.3"
+ktor-core = "io.ktor:ktor-client-core:3.5.0"
 datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.8.0-0.6.x-compat"
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
@@ -21,7 +21,7 @@ kotest-assertions = { module = "io.kotest:kotest-assertions-core-jvm", version.r
 nexus-publish = { module = "io.github.gradle-nexus.publish-plugin:io.github.gradle-nexus.publish-plugin.gradle.plugin", version.ref = "nexus-publish" }
 maven-publish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "maven-publish" }
 dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
-slf4j-simple = "org.slf4j:slf4j-simple:2.0.17"
+slf4j-simple = "org.slf4j:slf4j-simple:2.0.18"
 
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
