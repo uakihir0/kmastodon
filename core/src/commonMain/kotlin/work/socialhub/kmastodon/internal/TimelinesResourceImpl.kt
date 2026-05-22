@@ -69,8 +69,8 @@ class TimelinesResourceImpl(
                 .url("${uri}/api/v1/timelines/public")
                 .header(AUTHORIZATION, bearerToken())
                 .accept(MediaType.JSON)
-                .pwn("local", request.local)
-                .pwn("only_media", request.onlyMedia)
+                .qwn("local", request.local)
+                .qwn("only_media", request.onlyMedia)
                 .paging(request.range, service())
                 .get()
         }
@@ -92,8 +92,8 @@ class TimelinesResourceImpl(
                 .url("${uri}/api/v1/timelines/tag/${request.hashtag}")
                 .header(AUTHORIZATION, bearerToken())
                 .accept(MediaType.JSON)
-                .pwn("local", request.local)
-                .pwn("only_media", request.onlyMedia)
+                .qwn("local", request.local)
+                .qwn("only_media", request.onlyMedia)
                 .paging(request.range, service())
                 .get()
         }

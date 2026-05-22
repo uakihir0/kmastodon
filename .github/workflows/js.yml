@@ -18,19 +18,25 @@ jobs:
       - name: Pods Npm Package
         uses: gradle/actions/setup-gradle@v3
         with:
-          arguments: all:jsBrowserDevelopmentLibraryDistribution -x check --refresh-dependencies
+          arguments: all:jsBrowserProductionLibraryDistribution -x check
 
       - name: Set Project Version
         run: |
           project_version=$(./gradlew version --no-daemon --console=plain -q)
           echo "PROJECT_VERSION=$project_version" >> $GITHUB_ENV
 
+      - name: Copy Docs to Npm Package
+        run: |
+          cp ./LICENSE ./all/build/dist/js/productionLibrary/LICENSE
+          cp ./docs/js/README.md ./all/build/dist/js/productionLibrary/README.md
+          cp ./docs/js/README_ja.md ./all/build/dist/js/productionLibrary/README_ja.md
+
       - name: Commit Pods to GitHub
         if: github.ref == 'refs/heads/main'
         run: |
           git config --global user.email "a.urusihara@gmail.com"
           git config --global user.name "Akihiro Urushihara"
-          cd ./all/build/dist/js/developmentLibrary/
+          cd ./all/build/dist/js/productionLibrary/
           git init
           git add --all
           git commit -m "by GitHub Action CI (SHA ${GITHUB_SHA})"

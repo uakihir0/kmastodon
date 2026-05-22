@@ -110,17 +110,17 @@ abstract class AbstractResourceImpl(
                 if ((service === Service.PIXELFED) &&
                     (limit > AbstractAuthResourceImpl.PIXELFED_LIMIT_MAX)
                 ) limit = AbstractAuthResourceImpl.PIXELFED_LIMIT_MAX
-                param("limit", limit)
+                query("limit", limit)
             }
 
             // since_id
-            range.sinceId?.let { param("since_id", it) }
+            range.sinceId?.let { query("since_id", it) }
 
             // max_id
-            range.maxId?.let { param("max_id", it) }
+            range.maxId?.let { query("max_id", it) }
 
             // min_id
-            range.minId?.let { param("min_id", it) }
+            range.minId?.let { query("min_id", it) }
         }
 
         return this
