@@ -9,13 +9,13 @@ open class BaseStreamImpl(
 ) {
     var client: StreamClient? = null
 
-    fun createClient(): StreamClient {
+    suspend fun createClient(): StreamClient {
         val queryString = query
             .map { "${it.key}=${it.value}" }
             .joinToString("&")
 
         val streamUrl = MastodonFactory
-            .instance(uri).instances().instanceV1Blocking()
+            .instance(uri).instances().instanceV1()
             .data.urls.streamingApi +
                 "/api/v1/streaming?" +
                 queryString
