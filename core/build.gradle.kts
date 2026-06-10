@@ -13,7 +13,7 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    js(IR) {
+    js {
         nodejs()
         browser()
         binaries.library()
