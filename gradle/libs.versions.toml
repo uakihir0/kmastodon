@@ -8,7 +8,6 @@ dokka = "2.2.0"
 
 [libraries]
 khttpclient = "work.socialhub:khttpclient:0.0.9"
-kmpcommon = "work.socialhub:kmpcommon:0.0.1-SNAPSHOT"
 ktor-core = "io.ktor:ktor-client-core:3.5.0"
 datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.8.0"
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }

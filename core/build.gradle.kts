@@ -39,7 +39,6 @@ kotlin {
 
         commonMain.dependencies {
             implementation(libs.ktor.core)
-            implementation(libs.kmpcommon)
             implementation(libs.khttpclient)
             implementation(libs.datetime)
             implementation(libs.serialization.json)
