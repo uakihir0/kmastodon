@@ -2,9 +2,11 @@ package work.socialhub.kmastodon.internal
 
 import work.socialhub.khttpclient.HttpRequest
 import work.socialhub.kmastodon.api.BookmarksResource
+import work.socialhub.kmastodon.api.request.bookmarks.BookmarksBookmarkRequest
 import work.socialhub.kmastodon.api.request.bookmarks.BookmarksGetBookmarksRequest
 import work.socialhub.kmastodon.api.request.bookmarks.BookmarksUnbookmarkRequest
 import work.socialhub.kmastodon.api.response.Response
+import work.socialhub.kmastodon.api.response.bookmarks.BookmarksBookmarkResponse
 import work.socialhub.kmastodon.api.response.bookmarks.BookmarksGetBookmarksResponse
 import work.socialhub.kmastodon.api.response.bookmarks.BookmarksUnbookmarkResponse
 import work.socialhub.kmastodon.domain.Service
@@ -36,6 +38,26 @@ class BookmarksResourceImpl(
     ): Response<Array<BookmarksGetBookmarksResponse>> {
         return toBlocking {
             bookmarks(request)
+        }
+    }
+
+    override suspend fun bookmark(
+        request: BookmarksBookmarkRequest
+    ): Response<BookmarksBookmarkResponse> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/statuses/${request.id}/bookmark")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .post()
+        }
+    }
+
+    override fun bookmarkBlocking(
+        request: BookmarksBookmarkRequest
+    ): Response<BookmarksBookmarkResponse> {
+        return toBlocking {
+            bookmark(request)
         }
     }
 
