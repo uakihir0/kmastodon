@@ -16,4 +16,7 @@ class StatusesPostStatusRequest {
     var pollExpiresIn: Int? = null
     var pollMultiple: Boolean? = null
     var pollHideTotals: Boolean? = null
+
+    /** ISO-8601 datetime to schedule the status; must be at least 5 minutes in the future. */
+    var scheduledAt: String? = null
 }
