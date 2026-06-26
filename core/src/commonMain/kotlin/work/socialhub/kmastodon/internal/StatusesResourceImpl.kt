@@ -163,6 +163,8 @@ class StatusesResourceImpl(
                 .pwn("poll[expires_in]", request.pollExpiresIn)
                 .pwn("poll[multiple]", request.pollMultiple)
                 .pwn("poll[hide_totals]", request.pollHideTotals)
+
+                .pwn("scheduled_at", request.scheduledAt)
                 .post()
         }
     }
