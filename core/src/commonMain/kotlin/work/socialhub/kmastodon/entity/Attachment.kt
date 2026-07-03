@@ -36,4 +36,12 @@ class Attachment  {
 
     @SerialName("orientation")
     var orientation: String? = null
+
+    // Alternate text describing the media (for accessibility).
+    @SerialName("description")
+    var description: String? = null
+
+    // BlurHash for generating a colorful preview placeholder.
+    @SerialName("blurhash")
+    var blurhash: String? = null
 }
