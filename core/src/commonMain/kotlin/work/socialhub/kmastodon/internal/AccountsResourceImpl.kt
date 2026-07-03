@@ -70,16 +70,27 @@ class AccountsResourceImpl(
         request: AccountsUpdateCredentialsRequest
     ): Response<AccountsUpdateCredentialsResponse> {
         return proceed {
-            HttpRequest()
+            val http = HttpRequest()
                 .url("${uri}/api/v1/accounts/update_credentials")
                 .header(AUTHORIZATION, bearerToken())
                 .accept(MediaType.JSON)
 
                 .pwn("display_name", request.displayName)
                 .pwn("note", request.note)
-                .pwn("avatar", request.avatar)
-                .pwn("header", request.header)
-                .patch()
+
+            // Avatar / header are uploaded as multipart/form-data image files.
+            val avatar = request.avatar
+            if (avatar != null) {
+                http.file("avatar", request.avatarName ?: "avatar", avatar)
+            }
+            val header = request.header
+            if (header != null) {
+                http.file("header", request.headerName ?: "header", header)
+            }
+            if (avatar != null || header != null) {
+                http.forceMultipartFormData(true)
+            }
+            http.patch()
         }
     }
 
