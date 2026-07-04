@@ -4,7 +4,7 @@ import kotlin.js.JsExport
 
 @JsExport
 class StatusesEditStatusRequest {
-    var id: String? = null
+    var id: String = ""
     var status: String? = null
     var spoilerText: String? = null
     var sensitive: Boolean? = null
