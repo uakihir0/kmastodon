@@ -3,6 +3,7 @@ package work.socialhub.kmastodon.api
 import work.socialhub.kmastodon.api.request.statuses.StatusesCardRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesContextRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesDeleteStatusRequest
+import work.socialhub.kmastodon.api.request.statuses.StatusesEditStatusRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesFavouriteRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesFavouritedByRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesPostStatusRequest
@@ -17,6 +18,7 @@ import work.socialhub.kmastodon.api.response.Response
 import work.socialhub.kmastodon.api.response.ResponseUnit
 import work.socialhub.kmastodon.api.response.statuses.StatusesCardResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesContextResponse
+import work.socialhub.kmastodon.api.response.statuses.StatusesEditStatusResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesFavouriteResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesFavouritedByResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesPostStatusResponse
@@ -104,6 +106,18 @@ interface StatusesResource {
     fun postStatusBlocking(
         request: StatusesPostStatusRequest
     ): Response<StatusesPostStatusResponse>
+
+    /**
+     * Editing an existing status.
+     */
+    suspend fun editStatus(
+        request: StatusesEditStatusRequest
+    ): Response<StatusesEditStatusResponse>
+
+    @JsExport.Ignore
+    fun editStatusBlocking(
+        request: StatusesEditStatusRequest
+    ): Response<StatusesEditStatusResponse>
 
     /**
      * Deleting a status.

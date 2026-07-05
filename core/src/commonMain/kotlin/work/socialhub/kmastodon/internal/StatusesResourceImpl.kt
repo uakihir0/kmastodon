@@ -5,6 +5,7 @@ import work.socialhub.kmastodon.api.StatusesResource
 import work.socialhub.kmastodon.api.request.statuses.StatusesCardRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesContextRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesDeleteStatusRequest
+import work.socialhub.kmastodon.api.request.statuses.StatusesEditStatusRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesFavouriteRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesFavouritedByRequest
 import work.socialhub.kmastodon.api.request.statuses.StatusesPinRequest
@@ -19,6 +20,7 @@ import work.socialhub.kmastodon.api.response.Response
 import work.socialhub.kmastodon.api.response.ResponseUnit
 import work.socialhub.kmastodon.api.response.statuses.StatusesCardResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesContextResponse
+import work.socialhub.kmastodon.api.response.statuses.StatusesEditStatusResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesFavouriteResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesFavouritedByResponse
 import work.socialhub.kmastodon.api.response.statuses.StatusesPostStatusResponse
@@ -174,6 +176,37 @@ class StatusesResourceImpl(
     ): Response<StatusesPostStatusResponse> {
         return toBlocking {
             postStatus(request)
+        }
+    }
+
+    override suspend fun editStatus(
+        request: StatusesEditStatusRequest
+    ): Response<StatusesEditStatusResponse> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/statuses/${request.id}")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+
+                .pwn("status", request.status)
+                .pwn("spoiler_text", request.spoilerText)
+                .pwn("sensitive", request.sensitive)
+                .pwn("language", request.language)
+                .pwns("media_ids", request.mediaIds)
+
+                .pwns("poll[options]", request.pollOptions)
+                .pwn("poll[expires_in]", request.pollExpiresIn)
+                .pwn("poll[multiple]", request.pollMultiple)
+                .pwn("poll[hide_totals]", request.pollHideTotals)
+                .put()
+        }
+    }
+
+    override fun editStatusBlocking(
+        request: StatusesEditStatusRequest
+    ): Response<StatusesEditStatusResponse> {
+        return toBlocking {
+            editStatus(request)
         }
     }
 

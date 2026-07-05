@@ -6,6 +6,12 @@ import kotlin.js.JsExport
 class AccountsUpdateCredentialsRequest {
     var displayName: String? = null
     var note: String? = null
-    var avatar: String? = null
-    var header: String? = null
+
+    // Avatar image, encoded using multipart/form-data.
+    var avatar: ByteArray? = null
+    var avatarName: String? = null
+
+    // Header image, encoded using multipart/form-data.
+    var header: ByteArray? = null
+    var headerName: String? = null
 }
