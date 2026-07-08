@@ -8,7 +8,7 @@ import kotlin.test.Test
 class NodesTest : AbstractTest() {
 
     @Test
-    @Ignore("NodeInfo endpoint returns unresolved relative URLs on mastodon.social")
+    @Ignore("Requires live host credentials (relative NodeInfo URLs are now resolved automatically)")
     fun testNodeInfo() = runTest {
         val response = mastodon().nodes()
             .nodeInfo()

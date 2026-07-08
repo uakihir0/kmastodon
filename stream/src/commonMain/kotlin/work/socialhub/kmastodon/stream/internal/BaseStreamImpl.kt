@@ -14,9 +14,15 @@ open class BaseStreamImpl(
             .map { "${it.key}=${it.value}" }
             .joinToString("&")
 
-        val streamUrl = MastodonFactory
+        // Prefer the streaming base advertised by the instance, but fall back
+        // to the instance uri for forks that omit urls.streaming_api.
+        val streamingBase = MastodonFactory
             .instance(uri).instances().instanceV1()
-            .data.urls.streamingApi +
+            .data.urls?.streamingApi
+            ?.takeIf { it.isNotEmpty() }
+            ?: uri
+
+        val streamUrl = streamingBase +
                 "/api/v1/streaming?" +
                 queryString
 
