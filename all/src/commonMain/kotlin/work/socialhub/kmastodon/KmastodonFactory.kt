@@ -12,4 +12,18 @@ object KmastodonFactory {
         service: Service? = Service.MASTODON,
     ) = MastodonFactory
         .instance(uri, userAccessToken, service)
+
+    fun pleroma(
+        uri: String,
+        userAccessToken: String = "",
+        service: Service? = Service.PLEROMA,
+    ) = MastodonFactory
+        .pleroma(uri, userAccessToken, service)
+
+    fun pixelfed(
+        uri: String,
+        userAccessToken: String = "",
+        service: Service? = Service.PIXELFED,
+    ) = MastodonFactory
+        .pixelfed(uri, userAccessToken, service)
 }
