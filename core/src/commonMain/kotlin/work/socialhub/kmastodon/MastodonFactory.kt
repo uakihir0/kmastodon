@@ -9,11 +9,15 @@ object MastodonFactory {
 
     /**
      * get request instance
+     *
+     * Pass `service = null` to auto-detect the instance software
+     * (Mastodon, Pleroma, Akkoma, Pixelfed, GoToSocial, ...) via NodeInfo
+     * on the first request. Defaults to [Service.MASTODON] for compatibility.
      */
     fun instance(
         uri: String,
         accessToken: String = "",
-        service: Service = Service.MASTODON,
+        service: Service? = Service.MASTODON,
     ): Mastodon {
         return MastodonImpl(uri, accessToken, service)
     }

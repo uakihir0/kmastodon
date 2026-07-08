@@ -9,7 +9,7 @@ object KmastodonFactory {
     fun instance(
         uri: String,
         userAccessToken: String = "",
-        service: Service = Service.MASTODON,
+        service: Service? = Service.MASTODON,
     ) = MastodonFactory
         .instance(uri, userAccessToken, service)
 }
