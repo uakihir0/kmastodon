@@ -5,14 +5,16 @@ import work.socialhub.kmastodon.api.BlocksResource
 import work.socialhub.kmastodon.api.request.blocks.BlocksBlocksRequest
 import work.socialhub.kmastodon.api.response.Response
 import work.socialhub.kmastodon.api.response.blocks.BlocksBlocksResponse
+import work.socialhub.kmastodon.domain.Service
 import work.socialhub.kmastodon.util.Headers.AUTHORIZATION
 import work.socialhub.kmastodon.util.MediaType
 import work.socialhub.kmastodon.util.toBlocking
 
 class BlocksResourceImpl(
     uri: String,
-    accessToken: String
-) : AbstractAuthResourceImpl(uri, accessToken),
+    accessToken: String,
+    service: () -> Service,
+) : AbstractAuthResourceImpl(uri, accessToken, service),
     BlocksResource {
 
     override suspend fun blocks(

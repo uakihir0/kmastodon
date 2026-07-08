@@ -44,7 +44,7 @@ class MastodonImpl(
     private val lists: ListsResource = ListsResourceImpl(uri, accessToken)
     private val polls: PollsResource = PollsResourceImpl(uri, accessToken)
     private val mutes: MutesResource = MutesResourceImpl(uri, accessToken)
-    private val blocks: BlocksResource = BlocksResourceImpl(uri, accessToken)
+    private val blocks: BlocksResource = BlocksResourceImpl(uri, accessToken) { service() }
     private val reports: ReportsResource = ReportsResourceImpl(uri, accessToken)
     private val follows: FollowsResource = FollowsResourceImpl(uri, accessToken)
     private val followRequests: FollowRequestsResource = FollowRequestsResourceImpl(uri, accessToken)
