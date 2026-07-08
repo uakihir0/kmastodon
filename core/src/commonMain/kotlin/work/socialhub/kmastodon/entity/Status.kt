@@ -3,6 +3,7 @@ package work.socialhub.kmastodon.entity
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import work.socialhub.kmastodon.entity.filter.Filter
+import work.socialhub.kmastodon.entity.services.gotosocial.InteractionPolicy
 import work.socialhub.kmastodon.entity.services.pleroma.PleromaStatus
 import kotlin.js.JsExport
 
@@ -109,4 +110,28 @@ class Status {
     /** Pleroma */
     @SerialName("pleroma")
     var pleroma: PleromaStatus? = null
+
+    /** GoToSocial / glitch-soc / Hometown */
+    @SerialName("local_only")
+    var isLocalOnly: Boolean? = null
+
+    /** GoToSocial */
+    @SerialName("interaction_policy")
+    var interactionPolicy: InteractionPolicy? = null
+
+    /** glitch-soc (only present on source requests) */
+    @SerialName("content_type")
+    var contentType: String? = null
+
+    /** Friendica */
+    @SerialName("title")
+    var title: String? = null
+
+    /** Friendica */
+    @SerialName("dislikes_count")
+    var dislikesCount: Int? = null
+
+    /** Friendica */
+    @SerialName("disliked")
+    var isDisliked: Boolean? = null
 }

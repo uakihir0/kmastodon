@@ -2,6 +2,7 @@ package work.socialhub.kmastodon.entity
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import work.socialhub.kmastodon.entity.services.pleroma.PleromaNotification
 import kotlin.js.JsExport
 
 @JsExport
@@ -22,4 +23,8 @@ class Notification {
 
     @SerialName("status")
     var status: Status? = null
+
+    /** Pleroma / Akkoma */
+    @SerialName("pleroma")
+    var pleroma: PleromaNotification? = null
 }

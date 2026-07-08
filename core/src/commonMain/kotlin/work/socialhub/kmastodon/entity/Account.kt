@@ -2,6 +2,7 @@ package work.socialhub.kmastodon.entity
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import work.socialhub.kmastodon.entity.services.akkoma.AkkomaAccount
 import work.socialhub.kmastodon.entity.services.pleroma.PleromaAccount
 import kotlin.js.JsExport
 
@@ -98,4 +99,12 @@ class Account {
     /* Pleroma */
     @SerialName("pleroma")
     var pleroma: PleromaAccount? = null
+
+    /* Akkoma */
+    @SerialName("akkoma")
+    var akkoma: AkkomaAccount? = null
+
+    /* GoToSocial */
+    @SerialName("web_visibility")
+    var webVisibility: String? = null
 }
