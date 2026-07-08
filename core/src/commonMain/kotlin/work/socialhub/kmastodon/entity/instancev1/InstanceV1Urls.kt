@@ -9,5 +9,5 @@ import kotlin.js.JsExport
 class InstanceV1Urls {
 
     @SerialName("streaming_api")
-    lateinit var streamingApi: String
+    var streamingApi: String = ""
 }

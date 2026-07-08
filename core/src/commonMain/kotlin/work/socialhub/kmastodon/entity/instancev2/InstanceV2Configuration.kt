@@ -9,23 +9,23 @@ import kotlin.js.JsExport
 class InstanceV2Configuration {
 
     @SerialName("urls")
-    lateinit var urls: InstanceV2Urls
+    var urls: InstanceV2Urls? = null
 
     @SerialName("vapid")
     var vapid: InstanceV2Vapid? = null
 
     @SerialName("accounts")
-    lateinit var accounts: InstanceV2Accounts
+    var accounts: InstanceV2Accounts? = null
 
     @SerialName("statuses")
-    lateinit var statuses: InstanceV2Statuses
+    var statuses: InstanceV2Statuses? = null
 
     @SerialName("media_attachments")
-    lateinit var mediaAttachments: InstanceV2MediaAttachments
+    var mediaAttachments: InstanceV2MediaAttachments? = null
 
     @SerialName("polls")
-    lateinit var polls: InstanceV2Polls
+    var polls: InstanceV2Polls? = null
 
     @SerialName("translation")
-    lateinit var translation: InstanceV2Translation
+    var translation: InstanceV2Translation? = null
 }

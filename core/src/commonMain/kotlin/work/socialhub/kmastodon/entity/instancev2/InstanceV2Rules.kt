@@ -9,8 +9,8 @@ import kotlin.js.JsExport
 class InstanceV2Rules {
 
     @SerialName("id")
-    lateinit var id: String
+    var id: String = ""
 
     @SerialName("text")
-    lateinit var text: String
+    var text: String = ""
 }

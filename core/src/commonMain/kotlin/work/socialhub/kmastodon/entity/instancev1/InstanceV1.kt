@@ -10,28 +10,28 @@ import kotlin.js.JsExport
 class InstanceV1 {
 
     @SerialName("uri")
-    lateinit var uri: String
+    var uri: String = ""
 
     @SerialName("title")
-    lateinit var title: String
+    var title: String = ""
 
     @SerialName("short_description")
     var shortDescription: String? = null
 
     @SerialName("description")
-    lateinit var description: String
+    var description: String = ""
 
     @SerialName("email")
-    lateinit var email: String
+    var email: String = ""
 
     @SerialName("version")
-    lateinit var version: String
+    var version: String = ""
 
     @SerialName("urls")
-    lateinit var urls: InstanceV1Urls
+    var urls: InstanceV1Urls? = null
 
     @SerialName("stats")
-    lateinit var stats: InstanceV1Stats
+    var stats: InstanceV1Stats? = null
 
     @SerialName("thumbnail")
     var thumbnail: String? = null

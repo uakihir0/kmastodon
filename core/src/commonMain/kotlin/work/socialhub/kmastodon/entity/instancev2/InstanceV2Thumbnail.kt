@@ -9,7 +9,7 @@ import kotlin.js.JsExport
 class InstanceV2Thumbnail {
 
     @SerialName("url")
-    lateinit var url: String
+    var url: String = ""
 
     @SerialName("blurhash")
     var blurhash: String? = null

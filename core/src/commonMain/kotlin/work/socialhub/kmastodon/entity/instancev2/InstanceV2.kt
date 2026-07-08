@@ -9,38 +9,38 @@ import kotlin.js.JsExport
 class InstanceV2 {
 
     @SerialName("domain")
-    lateinit var domain: String
+    var domain: String = ""
 
     @SerialName("title")
-    lateinit var title: String
+    var title: String = ""
 
     @SerialName("version")
-    lateinit var version: String
+    var version: String = ""
 
     @SerialName("source_url")
-    lateinit var sourceUrl: String
+    var sourceUrl: String = ""
 
     @SerialName("description")
-    lateinit var description: String
+    var description: String = ""
 
     @SerialName("usage")
-    lateinit var usage: InstanceV2Usage
+    var usage: InstanceV2Usage? = null
 
     @SerialName("thumbnail")
-    lateinit var thumbnail: InstanceV2Thumbnail
+    var thumbnail: InstanceV2Thumbnail? = null
 
     @SerialName("languages")
-    lateinit var languages: Array<String>
+    var languages: Array<String> = arrayOf()
 
     @SerialName("configuration")
-    lateinit var configuration: InstanceV2Configuration
+    var configuration: InstanceV2Configuration? = null
 
     @SerialName("registrations")
-    lateinit var registrations: InstanceV2Registrations
+    var registrations: InstanceV2Registrations? = null
 
     @SerialName("contact")
-    lateinit var contact: InstanceV2Contact
+    var contact: InstanceV2Contact? = null
 
     @SerialName("rules")
-    lateinit var rules: Array<InstanceV2Rules>
+    var rules: Array<InstanceV2Rules> = arrayOf()
 }

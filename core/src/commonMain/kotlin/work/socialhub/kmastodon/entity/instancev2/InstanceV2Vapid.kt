@@ -9,5 +9,5 @@ import kotlin.js.JsExport
 class InstanceV2Vapid {
 
     @SerialName("public_key")
-    lateinit var publicKey: String
+    var publicKey: String = ""
 }

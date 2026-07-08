@@ -9,11 +9,11 @@ import kotlin.js.JsExport
 class InstanceV1Configuration {
 
     @SerialName("statuses")
-    lateinit var statuses: InstanceV1Statuses
+    var statuses: InstanceV1Statuses? = null
 
     @SerialName("media_attachments")
-    lateinit var mediaAttachments: InstanceV1MediaAttachments
+    var mediaAttachments: InstanceV1MediaAttachments? = null
 
     @SerialName("polls")
-    lateinit var polls: InstanceV1Polls
+    var polls: InstanceV1Polls? = null
 }

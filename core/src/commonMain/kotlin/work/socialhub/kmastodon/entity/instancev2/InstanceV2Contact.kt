@@ -10,7 +10,7 @@ import kotlin.js.JsExport
 class InstanceV2Contact {
 
     @SerialName("email")
-    lateinit var email: String
+    var email: String = ""
 
     @SerialName("account")
     var account: Account? = null

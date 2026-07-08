@@ -9,5 +9,5 @@ import kotlin.js.JsExport
 class InstanceV2Usage {
 
     @SerialName("users")
-    lateinit var users: InstanceV2Users
+    var users: InstanceV2Users? = null
 }
