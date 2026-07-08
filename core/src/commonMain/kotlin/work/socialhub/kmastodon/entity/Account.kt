@@ -13,31 +13,31 @@ import kotlin.js.JsExport
 class Account {
 
     @SerialName("id")
-    lateinit var id: String
+    var id: String = ""
 
     @SerialName("username")
-    lateinit var userName: String
+    var userName: String = ""
 
     @SerialName("acct")
-    lateinit var account: String
+    var account: String = ""
 
     @SerialName("url")
-    lateinit var url: String
+    var url: String = ""
 
     @SerialName("display_name")
-    lateinit var displayName: String
+    var displayName: String = ""
 
     @SerialName("note")
-    lateinit var note: String
+    var note: String = ""
 
     @SerialName("avatar")
-    lateinit var avatar: String
+    var avatar: String = ""
 
     @SerialName("avatar_static")
     var avatarStatic: String? = null
 
     @SerialName("header")
-    lateinit var header: String
+    var header: String = ""
 
     @SerialName("header_static")
     var headerStatic: String? = null
@@ -73,7 +73,7 @@ class Account {
     var isLimited: Boolean = false
 
     @SerialName("created_at")
-    lateinit var createdAt: String
+    var createdAt: String = ""
 
     @SerialName("last_status_at")
     var lastStatusAt: String? = null

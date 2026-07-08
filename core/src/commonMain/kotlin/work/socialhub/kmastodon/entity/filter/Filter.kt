@@ -8,9 +8,9 @@ import kotlin.js.JsExport
 @Serializable
 class Filter {
 
-    lateinit var id: String
-    lateinit var title: String
-    lateinit var context: String
+    var id: String = ""
+    var title: String = ""
+    var context: String = ""
 
     @SerialName("expires_at")
     var expiresAt: String? = null

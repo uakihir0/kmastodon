@@ -14,28 +14,28 @@ import kotlin.js.JsExport
 class Status {
 
     @SerialName("id")
-    lateinit var id: String
+    var id: String = ""
 
     @SerialName("uri")
-    lateinit var uri: String
+    var uri: String = ""
 
     @SerialName("created_at")
-    lateinit var createdAt: String
+    var createdAt: String = ""
 
     @SerialName("account")
     lateinit var account: Account
 
     @SerialName("content")
-    lateinit var content: String
+    var content: String = ""
 
     @SerialName("visibility")
-    lateinit var visibility: String
+    var visibility: String = ""
 
     @SerialName("sensitive")
     var isSensitive: Boolean = false
 
     @SerialName("spoiler_text")
-    lateinit var spoilerText: String
+    var spoilerText: String = ""
 
     @SerialName("media_attachments")
     var mediaAttachments: Array<Attachment> = arrayOf()

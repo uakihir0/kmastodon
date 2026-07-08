@@ -7,8 +7,8 @@ import kotlin.js.JsExport
 @JsExport
 @Serializable
 class FilterStatus {
-    lateinit var id: String
+    var id: String = ""
 
     @SerialName("status_id")
-    lateinit var statusId: String
+    var statusId: String = ""
 }

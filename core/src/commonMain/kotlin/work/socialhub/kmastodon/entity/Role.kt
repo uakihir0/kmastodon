@@ -8,8 +8,8 @@ import kotlin.js.JsExport
 @Serializable
 class Role {
     var id: Int = -1
-    lateinit var name: String
-    lateinit var color: String
+    var name: String = ""
+    var color: String = ""
     var permissions: Int = -1
 
     @SerialName("highlighted")

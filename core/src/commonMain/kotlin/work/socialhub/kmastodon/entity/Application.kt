@@ -6,6 +6,6 @@ import kotlin.js.JsExport
 @JsExport
 @Serializable
 class Application {
-    lateinit var name: String
+    var name: String = ""
     var website: String? = null
 }

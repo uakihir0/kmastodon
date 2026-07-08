@@ -12,10 +12,10 @@ import kotlin.js.JsExport
 class ScheduledStatus {
 
     @SerialName("id")
-    lateinit var id: String
+    var id: String = ""
 
     @SerialName("scheduled_at")
-    lateinit var scheduledAt: String
+    var scheduledAt: String = ""
 
     @SerialName("params")
     var params: ScheduledStatusParams? = null
