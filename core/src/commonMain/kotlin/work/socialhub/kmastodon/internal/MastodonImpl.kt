@@ -78,10 +78,44 @@ class MastodonImpl(
      */
 
     override fun service(): Service {
-        return serviceCache ?: run {
+        return serviceCache ?: detectService().also { serviceCache = it }
+    }
+
+    /**
+     * Detect the instance software without throwing.
+     *
+     * 1. NodeInfo "software.name" is authoritative.
+     * 2. Fall back to the "/api/v1/instance" version string, which forks
+     *    such as Pleroma/Akkoma tag as "... (compatible; Pleroma ...)".
+     * 3. Default to MASTODON so that unknown compatible instances still work.
+     */
+    private fun detectService(): Service {
+        try {
             val serviceName = nodes.nodeInfoBlocking().data.software?.name
-                ?: throw IllegalStateException("cannot get service name.")
-            Service.from(serviceName).also { serviceCache = it }
+            if (serviceName != null) return Service.from(serviceName)
+        } catch (_: Exception) {
+            // ignore and fall back to the instance version string.
+        }
+
+        try {
+            val version = instances.instanceV1Blocking().data.version
+            fromInstanceVersion(version)?.let { return it }
+        } catch (_: Exception) {
+            // ignore and fall back to the default.
+        }
+
+        return Service.MASTODON
+    }
+
+    private fun fromInstanceVersion(version: String?): Service? {
+        val marker = version
+            ?.substringAfter("(compatible;", "")
+            ?.trim()
+            ?.substringBefore(" ")
+            ?.lowercase()
+        return when (marker) {
+            null, "" -> null
+            else -> Service.from(marker).takeIf { it != Service.OTHER }
         }
     }
 
