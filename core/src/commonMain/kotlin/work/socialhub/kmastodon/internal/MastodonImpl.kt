@@ -26,7 +26,7 @@ import work.socialhub.kmastodon.api.TimelinesResource
 import work.socialhub.kmastodon.api.TrendsResource
 import work.socialhub.kmastodon.domain.Service
 
-class MastodonImpl(
+open class MastodonImpl(
     private val uri: String,
     private val accessToken: String,
     private val service: Service?,
