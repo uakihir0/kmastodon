@@ -1,0 +1,11 @@
+package work.socialhub.kmastodon.api.request.chats
+
+import work.socialhub.kmastodon.api.request.Range
+import kotlin.js.JsExport
+
+@JsExport
+class ChatsMessagesRequest {
+    /** chat id */
+    var id: String? = null
+    var range: Range? = null
+}
