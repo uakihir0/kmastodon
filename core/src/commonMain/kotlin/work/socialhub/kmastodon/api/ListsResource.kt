@@ -21,6 +21,14 @@ import kotlin.js.JsExport
 interface ListsResource {
 
     /**
+     * Fetching the authenticated user's lists.
+     */
+    suspend fun ownedLists(): Response<Array<ListsListsResponse>>
+
+    @JsExport.Ignore
+    fun ownedListsBlocking(): Response<Array<ListsListsResponse>>
+
+    /**
      * Fetching the user's lists that a given account is part of.
      */
     suspend fun lists(
