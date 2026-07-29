@@ -2,7 +2,7 @@ package work.socialhub.kmastodon.entity
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import work.socialhub.kmastodon.entity.filter.Filter
+import work.socialhub.kmastodon.entity.filter.FilterResult
 import work.socialhub.kmastodon.entity.services.pleroma.PleromaStatus
 import kotlin.js.JsExport
 
@@ -104,7 +104,7 @@ class Status {
     var isPinned: Boolean = false
 
     @SerialName("filtered")
-    var filtered: Array<Filter> = arrayOf()
+    var filtered: Array<FilterResult> = arrayOf()
 
     /** Pleroma */
     @SerialName("pleroma")
