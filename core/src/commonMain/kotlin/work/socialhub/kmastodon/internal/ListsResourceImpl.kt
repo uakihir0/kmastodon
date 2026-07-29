@@ -30,6 +30,25 @@ class ListsResourceImpl(
     /**
      * {@inheritDoc}
      */
+    override suspend fun ownedLists(): Response<Array<ListsListsResponse>> {
+        return proceed {
+            HttpRequest()
+                .url("${uri}/api/v1/lists")
+                .header(AUTHORIZATION, bearerToken())
+                .accept(MediaType.JSON)
+                .get()
+        }
+    }
+
+    override fun ownedListsBlocking(): Response<Array<ListsListsResponse>> {
+        return toBlocking {
+            ownedLists()
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     override suspend fun lists(
         request: ListsListsRequest
     ): Response<Array<ListsListsResponse>> {
