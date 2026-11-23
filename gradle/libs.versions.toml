@@ -1,6 +1,6 @@
 [versions]
 coroutines = "1.11.0"
-kotest = "6.2.5"
+kotest = "6.2.7"
 kotlin = "2.4.21"
 nexus-publish = "2.0.0"
 maven-publish = "0.37.0"
@@ -12,7 +12,7 @@ ktor-core = "io.ktor:ktor-client-core:3.6.1"
 datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.8.0"
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.12.0"
+serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.13.0"
 kotest-junit5 = { module = "io.kotest:kotest-runner-junit5-jvm", version.ref = "kotest" }
 kotest-assertions = { module = "io.kotest:kotest-assertions-core-jvm", version.ref = "kotest" }
 
